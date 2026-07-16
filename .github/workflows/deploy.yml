@@ -10,10 +10,6 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
 jobs:
   deploy:
     environment:
@@ -26,10 +22,13 @@ jobs:
         with:
           node-version: 24
           cache: npm
+          cache-dependency-path: research-cockpit/package-lock.json
       - run: npm ci
+        working-directory: research-cockpit
       - run: npm run build
+        working-directory: research-cockpit
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: research-cockpit/dist
       - id: deployment
         uses: actions/deploy-pages@v4
