@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import {
   Archive,
-  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   BookOpen,
@@ -108,6 +107,13 @@ const artifacts = [
   { type: '结论', title: '检索深度超过 5 后收益趋缓', meta: '证据：3 组数据集 / 5 个随机种子', icon: Sparkles, accent: 'orange' },
   { type: '代码', title: '可复现实验运行器 v0.3', meta: '12 个配置 · 最后更新于昨天', icon: GitBranch, accent: 'blue' },
   { type: '文档', title: '相关工作比较矩阵', meta: '28 篇论文 · 7 个比较维度', icon: FileText, accent: 'gray' },
+]
+
+const lumoraVideos = [
+  { label: 'Golden Hour', src: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260702_081127_0992a171-d3c6-4978-8213-0ec5df8b6d63.mp4' },
+  { label: 'Still Water', src: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260702_092026_dd05b805-ea0f-40b2-8c52-332b88502592.mp4' },
+  { label: 'Deep Woods', src: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260702_081042_df7202bf-bd80-4b2b-bbc6-1f09ba2870e9.mp4' },
+  { label: 'Quiet Dawn', src: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260702_080959_4cac5234-3573-464e-a5b7-76b94b8a7d61.mp4' },
 ]
 
 const navItems = [
@@ -257,10 +263,11 @@ function App() {
 
   return (
     <div className={`app-shell ${isPortalView ? 'portal-app' : ''} ${activeView === 'profile' ? 'profile-app' : ''} ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
-      {activeView === 'home' && <PortalHome changeView={changeView} />}
+      {activeView === 'home' && <PortalHome changeView={changeView} setToast={setToast} />}
       {activeView === 'profile' && <ProfilePage changeView={changeView} setToast={setToast} />}
 
       {!isPortalView && <>
+        <CinematicWorkspaceBackground />
         <Sidebar activeView={activeView} changeView={changeView} onSearch={() => setSearchOpen(true)} onHome={() => changeView('home')} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed((current) => !current)} />
 
         <header className="mobile-header">
@@ -295,106 +302,162 @@ function App() {
   )
 }
 
-function PortalHome({ changeView }) {
+function CinematicWorkspaceBackground() {
+  const videoRef = useRef(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return undefined
+
+    let animationFrame
+    let restartTimer
+
+    const monitorFade = () => {
+      const duration = video.duration
+      const currentTime = video.currentTime
+      let opacity = 1
+
+      if (currentTime < 0.5) opacity = currentTime / 0.5
+      if (Number.isFinite(duration) && duration - currentTime < 0.5) {
+        opacity = Math.max(0, (duration - currentTime) / 0.5)
+      }
+
+      video.style.opacity = String(Math.min(1, Math.max(0, opacity)))
+      animationFrame = window.requestAnimationFrame(monitorFade)
+    }
+
+    const restartVideo = () => {
+      video.style.opacity = '0'
+      restartTimer = window.setTimeout(() => {
+        video.currentTime = 0
+        video.play().catch(() => {})
+      }, 100)
+    }
+
+    video.addEventListener('ended', restartVideo)
+    video.play().catch(() => {})
+    animationFrame = window.requestAnimationFrame(monitorFade)
+
+    return () => {
+      video.removeEventListener('ended', restartVideo)
+      window.cancelAnimationFrame(animationFrame)
+      window.clearTimeout(restartTimer)
+    }
+  }, [])
+
   return (
-    <main className="portal-home">
-      <InkLandscape />
-      <header className="portal-topbar">
-        <button className="portal-wordmark" onClick={() => changeView('home')} aria-label="返回首页">
-          <span className="portal-mark">研</span>
-          <span><strong>Welcome to here</strong></span>
-        </button>
-        <span className="portal-date">2026 / 07 / 16</span>
-      </header>
-
-      <section className="portal-center" aria-labelledby="portal-title">
-        <p className="portal-kicker">PERSONAL RESEARCH PORTAL</p>
-        <h1 id="portal-title">光阴如箭，岁月如梭</h1>
-        <p className="portal-caption">珍惜时间，珍惜当下</p>
-        <div className="portal-actions" aria-label="入口选择">
-          <button className="portal-action portal-action-left" onClick={() => changeView('profile')}>
-            <ArrowLeft size={26} strokeWidth={1.5} />
-            <span><small>01 / ABOUT</small><strong>个人资料</strong></span>
-          </button>
-          <span className="portal-divider" aria-hidden="true" />
-          <button className="portal-action portal-action-right" onClick={() => changeView('dashboard')}>
-            <span><small>02 / LAB</small><strong>学习成果</strong></span>
-            <ArrowRight size={26} strokeWidth={1.5} />
-          </button>
-        </div>
-      </section>
-
-      <footer className="portal-footer"><span>RESEARCH · NOTES · EXPERIMENTS</span><span>SCROLL TO THINK SLOWLY</span></footer>
-    </main>
+    <div className="workspace-cinema" aria-hidden="true">
+      <video
+        ref={videoRef}
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
+        autoPlay
+        muted
+        playsInline
+        preload="auto"
+      />
+      <span />
+    </div>
   )
 }
 
-function InkLandscape() {
-  const canvasRef = useRef(null)
+function PortalHome({ changeView, setToast }) {
+  const [activeVideo, setActiveVideo] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [email, setEmail] = useState('')
+  const transitionTimer = useRef(null)
+  const isDarkScene = activeVideo === 2
+
+  useEffect(() => () => window.clearTimeout(transitionTimer.current), [])
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    const context = canvas.getContext('2d')
-    let width = 0
-    let height = 0
-
-    const paintMountain = (points, color) => {
-      context.beginPath()
-      context.moveTo(points[0][0] * width, height)
-      points.forEach(([x, y]) => context.lineTo(x * width, y * height))
-      context.lineTo(points[points.length - 1][0] * width, height)
-      context.closePath()
-      context.fillStyle = color
-      context.fill()
+    if (!menuOpen) return undefined
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setMenuOpen(false)
     }
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [menuOpen])
 
-    const draw = () => {
-      const scale = Math.min(window.devicePixelRatio || 1, 2)
-      width = window.innerWidth
-      height = window.innerHeight
-      canvas.width = Math.round(width * scale)
-      canvas.height = Math.round(height * scale)
-      context.setTransform(scale, 0, 0, scale, 0, 0)
+  const handleNavigate = (view) => {
+    setMenuOpen(false)
+    changeView(view)
+  }
 
-      const paper = context.createLinearGradient(0, 0, width, height)
-      paper.addColorStop(0, '#f5f3ec')
-      paper.addColorStop(0.55, '#f2f0e8')
-      paper.addColorStop(1, '#eceae1')
-      context.fillStyle = paper
-      context.fillRect(0, 0, width, height)
+  const selectVideo = (index) => {
+    if (index === activeVideo || isTransitioning) return
+    setActiveVideo(index)
+    setIsTransitioning(true)
+    transitionTimer.current = window.setTimeout(() => setIsTransitioning(false), 1000)
+  }
 
-      context.globalAlpha = 0.12
-      for (let index = 0; index < 280; index += 1) {
-        const x = (index * 73) % width
-        const y = (index * 41) % height
-        context.fillStyle = index % 3 === 0 ? '#5c5b56' : '#aaa79d'
-        context.fillRect(x, y, 1, 1)
-      }
-      context.globalAlpha = 1
+  const submitEmail = (event) => {
+    event.preventDefault()
+    if (!event.currentTarget.reportValidity()) return
+    setToast('You are on the early access list.')
+    setEmail('')
+  }
 
-      paintMountain([[0, 0.68], [0.05, 0.55], [0.1, 0.66], [0.16, 0.4], [0.22, 0.63], [0.29, 0.59], [0.36, 0.76]], 'rgba(23, 23, 21, 0.68)')
-      paintMountain([[0, 0.79], [0.07, 0.64], [0.14, 0.72], [0.2, 0.5], [0.28, 0.7], [0.39, 0.83]], 'rgba(23, 23, 21, 0.32)')
-      paintMountain([[0.63, 0.82], [0.72, 0.62], [0.78, 0.71], [0.86, 0.38], [0.92, 0.61], [1, 0.48], [1, 0.87]], 'rgba(23, 23, 21, 0.64)')
-      paintMountain([[0.59, 0.9], [0.69, 0.72], [0.77, 0.78], [0.85, 0.55], [0.94, 0.69], [1, 0.6], [1, 1]], 'rgba(23, 23, 21, 0.29)')
+  return (
+    <main className={`lumora-hero ${isDarkScene ? 'lumora-dark-scene' : ''}`}>
+      <div className="lumora-media" aria-hidden="true">
+        {lumoraVideos.map((video, index) => <video key={video.src} className={index === activeVideo ? 'is-active' : ''} src={video.src} autoPlay muted loop playsInline preload={index === 0 ? 'auto' : 'metadata'} />)}
+      </div>
+      <img className="lumora-train-overlay" src="https://soft-zoom-63098134.figma.site/_assets/v11/0b4a435b2df2747593c43d7a1c9b4578f7d8d90c.png" alt="" aria-hidden="true" />
+      <div className="lumora-scrim" aria-hidden="true" />
 
-      context.globalAlpha = 0.2
-      context.fillStyle = '#545550'
-      for (let index = 0; index < 18; index += 1) {
-        const x = index < 9 ? width * (0.03 + index * 0.033) : width * (0.69 + (index - 9) * 0.034)
-        const y = height * (0.31 + (index % 4) * 0.09)
-        context.beginPath()
-        context.ellipse(x, y, 10 + (index % 3) * 8, 1.5, -0.18, 0, Math.PI * 2)
-        context.fill()
-      }
-      context.globalAlpha = 1
-    }
+      <div className="lumora-content">
+        <header className="lumora-nav">
+          <button className="lumora-logo" onClick={() => handleNavigate('home')} aria-label="Welcome~ 首页">Welcome~</button>
+          <nav className="lumora-desktop-nav liquid-glass" aria-label="主导航">
+            <button onClick={() => handleNavigate('dashboard')}>总览</button>
+            <button onClick={() => handleNavigate('learning')}>学习规划</button>
+            <button onClick={() => handleNavigate('papers')}>论文阅读</button>
+            <button onClick={() => handleNavigate('experiments')}>实验管理</button>
+            <button onClick={() => handleNavigate('archive')}>成果归档</button>
+            <button className="lumora-nav-cta" onClick={() => handleNavigate('dashboard')}>Get Started</button>
+          </nav>
+        </header>
 
-    draw()
-    window.addEventListener('resize', draw)
-    return () => window.removeEventListener('resize', draw)
-  }, [])
+        <section className="lumora-center" aria-labelledby="lumora-title">
+          <div className="lumora-hero-copy">
+            <h1 id="lumora-title">光阴如梭 珍惜眼下</h1>
+            <p>Turn inward, and let life flourish.</p>
+            <form className="lumora-access liquid-glass" onSubmit={submitEmail}>
+              <label className="sr-only" htmlFor="lumora-email">Your Best Email</label>
+              <input id="lumora-email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Your Best Email" required />
+              <button type="submit">Get Early Access</button>
+            </form>
+          </div>
+          <div className="lumora-video-switcher" aria-label="Choose an atmosphere">
+            {lumoraVideos.map((video, index) => <button key={video.label} className={index === activeVideo ? 'active' : ''} onClick={() => selectVideo(index)} aria-pressed={index === activeVideo} disabled={isTransitioning && index !== activeVideo}>{video.label}</button>)}
+          </div>
+        </section>
 
-  return <div className="ink-stage" aria-hidden="true"><canvas ref={canvasRef} className="ink-canvas" /><span className="ink-mist ink-mist-one" /><span className="ink-mist ink-mist-two" /></div>
+        <footer className="lumora-stats" aria-label="Lumora statistics">
+          <span>60+ Deep Sessions</span><i aria-hidden="true">|</i><span>12,000+ Creators</span><i aria-hidden="true">|</i><span>4.8 User Satisfaction</span><i aria-hidden="true">|</i><span>Intentional-First Design</span>
+        </footer>
+      </div>
+
+      <button className={`lumora-menu-toggle liquid-glass ${menuOpen ? 'is-open' : ''}`} onClick={() => setMenuOpen((current) => !current)} aria-label={menuOpen ? '关闭菜单' : '打开菜单'} aria-expanded={menuOpen}>
+        <span className="lumora-menu-icon"><Menu size={21} /><X size={21} /></span>
+      </button>
+
+      {menuOpen && <div className="lumora-mobile-menu" onMouseDown={() => setMenuOpen(false)}>
+        <div className="lumora-mobile-panel" onMouseDown={(event) => event.stopPropagation()}>
+          <span className="lumora-mobile-wordmark">Welcome~</span>
+          <nav aria-label="移动端主导航">
+            <button onClick={() => handleNavigate('dashboard')}>总览</button>
+            <button onClick={() => handleNavigate('learning')}>学习规划</button>
+            <button onClick={() => handleNavigate('papers')}>论文阅读</button>
+            <button onClick={() => handleNavigate('experiments')}>实验管理</button>
+            <button onClick={() => handleNavigate('archive')}>成果归档</button>
+          </nav>
+          <button className="lumora-mobile-cta" onClick={() => handleNavigate('dashboard')}>Get Started <ArrowRight size={18} /></button>
+        </div>
+      </div>}
+    </main>
+  )
 }
 
 function ProfilePage({ changeView, setToast }) {

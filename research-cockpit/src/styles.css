@@ -1,3 +1,5 @@
+@import './fonts.css';
+@import './theme.css';
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600;700&display=swap');
 
 :root {
@@ -963,163 +965,94 @@ kbd {
 
 .empty-state { padding: 40px 20px; color: var(--steel); font-size: 12px; text-align: center; }
 
-/* The portal replaces dashboard density with one calm, directional starting point. */
-.portal-home {
+/* Fullscreen focus hero: moving landscape framed by the supplied transparent train window. */
+.lumora-hero {
   position: relative;
-  display: grid;
-  min-height: 100svh;
-  overflow: hidden;
-  grid-template-rows: auto 1fr auto;
-  color: #171715;
-  isolation: isolate;
-}
-
-.ink-stage {
-  position: absolute;
-  z-index: -2;
-  inset: 0;
-  overflow: hidden;
-  background: #f2f0e8;
-}
-
-.ink-stage::after {
-  position: absolute;
-  inset: 0;
-  background: rgba(242, 240, 232, 0.12);
-  content: '';
-}
-
-.ink-canvas {
-  display: block;
+  display: flex;
   width: 100%;
-  height: 100%;
-  animation: ink-drift 30s ease-in-out infinite alternate;
+  height: 100svh;
+  min-height: 0;
+  overflow: hidden;
+  color: #fff;
+  background: #07090b;
+  isolation: isolate;
+  font-family: system-ui, sans-serif;
 }
 
-.ink-mist {
-  position: absolute;
-  z-index: 1;
-  display: block;
-  height: 9px;
-  background: rgba(255, 255, 255, 0.36);
-  filter: blur(12px);
-  opacity: 0.82;
-  transform: skewX(-16deg);
+.lumora-media,
+.lumora-media video,
+.lumora-train-overlay,
+.lumora-scrim { position: absolute; inset: 0; width: 100%; height: 100%; }
+.lumora-media { z-index: -4; background: #07090b; }
+.lumora-media video { object-fit: cover; opacity: 0; transform: scale(1.02); transition: opacity 1000ms ease-in-out; }
+.lumora-media video.is-active { opacity: 1; }
+.lumora-train-overlay { z-index: -3; object-fit: cover; pointer-events: none; animation: lumora-train-bob 3s ease-in-out infinite; transform: scale(1.03); }
+.lumora-scrim { z-index: -2; pointer-events: none; background: linear-gradient(180deg, rgba(0, 0, 0, 0.38), transparent 32%, rgba(0, 0, 0, 0.26)); }
+
+@keyframes lumora-train-bob {
+  0%, 100% { transform: translateY(0) scale(1.03); }
+  50% { transform: translateY(-6px) scale(1.03); }
 }
 
-.ink-mist-one { top: 35%; left: 12%; width: 28%; animation: mist-pass 19s ease-in-out infinite alternate; }
-.ink-mist-two { right: 9%; bottom: 27%; width: 23%; animation: mist-pass 24s ease-in-out -8s infinite alternate-reverse; }
+.lumora-content { position: relative; z-index: 2; display: flex; width: min(1280px, calc(100% - 64px)); min-height: 100%; margin: 0 auto; flex-direction: column; }
+.lumora-nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 27px 0; }
+.lumora-logo { padding: 0; color: #fff; background: transparent; border: 0; cursor: pointer; font-family: 'Instrument Serif', serif; font-size: 29px; font-style: italic; line-height: 1; }
+.lumora-desktop-nav { display: flex; align-items: center; gap: 3px; padding: 5px; border-radius: 999px; }
+.lumora-desktop-nav button { padding: 9px 13px; color: rgba(255, 255, 255, 0.86); background: transparent; border: 0; border-radius: 999px; cursor: pointer; font-size: 12px; transition: color 180ms ease, background 180ms ease; }
+.lumora-desktop-nav button:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
+.lumora-desktop-nav .lumora-nav-cta { margin-left: 4px; padding-right: 16px; padding-left: 16px; color: #10151a; background: #fff; }
+.lumora-desktop-nav .lumora-nav-cta:hover { color: #10151a; background: #f1f3f2; }
 
-@keyframes ink-drift {
-  from { transform: scale(1.02) translate3d(-0.4%, 0, 0); }
-  to { transform: scale(1.05) translate3d(0.45%, -0.3%, 0); }
-}
+.liquid-glass { position: relative; overflow: hidden; background: rgba(255, 255, 255, 0.01); background-blend-mode: luminosity; border: 0; box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.liquid-glass::before { position: absolute; inset: 0; padding: 1.4px; border-radius: inherit; background: linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.15) 20%, transparent 40%, transparent 60%, rgba(255, 255, 255, 0.15) 80%, rgba(255, 255, 255, 0.45)); content: ''; pointer-events: none; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
 
-@keyframes mist-pass {
-  from { opacity: 0.16; transform: translateX(-8%) skewX(-16deg); }
-  to { opacity: 0.68; transform: translateX(13%) skewX(-16deg); }
-}
+.lumora-center { display: flex; width: 100%; flex: 1; align-items: center; justify-content: center; flex-direction: column; padding: 22px 0 24px; text-align: center; transform: none; transition: color 700ms ease; }
+.lumora-hero-copy { display: flex; align-items: center; flex-direction: column; }
+.lumora-center h1 { max-width: 1000px; margin: 0 0 16px; color: inherit; font-family: 'Noto Serif SC', 'Instrument Serif', serif; font-size: 4.65rem; font-weight: 500; letter-spacing: 0; line-height: 1.08; white-space: nowrap; transition: color 700ms ease; }
+.lumora-center p { max-width: 540px; margin: 0; color: rgba(255, 255, 255, 0.82); font-size: 14px; line-height: 1.7; transition: color 700ms ease; }
+.lumora-access { display: flex; width: min(100%, 390px); align-items: center; gap: 6px; margin-top: 28px; padding: 5px; border-radius: 999px; }
+.lumora-access input { min-width: 0; flex: 1; padding: 0 12px; color: #fff; background: transparent; border: 0; outline: 0; font: 12px system-ui, sans-serif; }
+.lumora-access input::placeholder { color: rgba(255, 255, 255, 0.7); }
+.lumora-access button { flex-shrink: 0; padding: 11px 16px; color: #10151a; background: #fff; border: 0; border-radius: 999px; cursor: pointer; font: 600 11px system-ui, sans-serif; transition: background 180ms ease, transform 180ms ease; }
+.lumora-access button:hover { background: #eef1ef; transform: translateY(-1px); }
+.lumora-video-switcher { display: flex; align-items: center; gap: 10px; margin-top: 65px; }
+.lumora-video-switcher button { padding: 8px 10px 7px; color: rgba(255, 255, 255, 0.5); background: transparent; border: 0; border-bottom: 1px solid transparent; cursor: pointer; font: 11px system-ui, sans-serif; transition: color 180ms ease, border-color 180ms ease; }
+.lumora-video-switcher button:hover { color: rgba(255, 255, 255, 0.8); }
+.lumora-video-switcher button.active { color: #fff; border-bottom-color: #fff; }
+.lumora-video-switcher button:disabled { cursor: wait; opacity: 0.62; }
 
-.portal-topbar,
-.portal-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 25px clamp(22px, 4.5vw, 76px);
-  color: #545550;
-  font-family: var(--mono);
-  font-size: 11px;
-}
+.lumora-stats { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 24px 0 27px; color: rgba(255, 255, 255, 0.72); font-size: 11px; }
+.lumora-stats i { color: rgba(255, 255, 255, 0.35); font-style: normal; }
+.lumora-dark-scene .lumora-center { color: #182c41; }
+.lumora-dark-scene .lumora-center p { color: rgba(24, 44, 65, 0.8); }
+.lumora-dark-scene .lumora-access input { color: #182c41; }
+.lumora-dark-scene .lumora-access input::placeholder { color: rgba(24, 44, 65, 0.66); }
+.lumora-dark-scene .lumora-video-switcher button { color: rgba(24, 44, 65, 0.52); }
+.lumora-dark-scene .lumora-video-switcher button:hover { color: rgba(24, 44, 65, 0.82); }
+.lumora-dark-scene .lumora-video-switcher button.active { color: #182c41; border-bottom-color: #182c41; }
 
-.portal-wordmark {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0;
-  color: #171715;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  text-align: left;
-}
-
-.portal-mark {
-  display: grid;
-  width: 29px;
-  height: 29px;
-  place-items: center;
-  color: #f2f0e8;
-  background: #171715;
-  border-radius: 2px;
-  font-family: 'Noto Serif SC', serif;
-  font-size: 15px;
-}
-
-.portal-wordmark strong { display: block; font-family: 'Noto Serif SC', serif; font-size: 14px; font-weight: 600; }
-.portal-wordmark small { display: block; margin-top: 3px; color: #7a7a73; font-family: var(--mono); font-size: 9px; }
-.portal-date { color: #7a7a73; }
-
-.portal-center {
-  display: flex;
-  width: min(680px, calc(100% - 48px));
-  align-self: center;
-  justify-self: center;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transform: translateY(-2.5vh);
-}
-
-.portal-kicker {
-  margin: 0;
-  color: #74746d;
-  font-family: var(--mono);
-  font-size: 11px;
-}
-
-.portal-center h1 {
-  margin: 13px 0 9px;
-  font-family: 'Noto Serif SC', serif;
-  font-size: clamp(42px, 5.4vw, 78px);
-  font-weight: 600;
-  line-height: 1.08;
-}
-
-.portal-caption { margin: 0; color: #696a64; font-size: 14px; }
-
-.portal-actions {
-  display: grid;
-  width: min(100%, 610px);
-  grid-template-columns: 1fr 1px 1fr;
-  align-items: center;
-  gap: 24px;
-  margin-top: 54px;
-}
-
-.portal-divider { display: block; height: 44px; background: rgba(23, 23, 21, 0.27); }
-
-.portal-action {
-  display: flex;
-  min-height: 62px;
-  align-items: center;
-  gap: 13px;
-  padding: 0;
-  color: #171715;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  text-align: left;
-}
-
-.portal-action-right { justify-content: flex-end; text-align: right; }
-.portal-action span { display: flex; flex-direction: column; }
-.portal-action small { color: #777770; font-family: var(--mono); font-size: 10px; }
-.portal-action strong { margin-top: 5px; font-family: 'Noto Serif SC', serif; font-size: 18px; font-weight: 600; }
-.portal-action svg { flex-shrink: 0; transition: transform 180ms ease; }
-.portal-action-left:hover svg { transform: translateX(-7px); }
-.portal-action-right:hover svg { transform: translateX(7px); }
-
-.portal-footer { color: #85857d; font-size: 10px; }
+.lumora-menu-toggle { position: fixed; z-index: 60; top: 20px; right: 18px; display: none; width: 43px; height: 39px; align-items: center; justify-content: center; color: #fff; border-radius: 999px; cursor: pointer; }
+.lumora-menu-icon { position: relative; display: grid; width: 21px; height: 21px; place-items: center; }
+.lumora-menu-icon svg { position: absolute; transition: opacity 300ms ease, transform 300ms ease; }
+.lumora-menu-icon svg:first-child { opacity: 1; transform: rotate(0) scale(1); }
+.lumora-menu-icon svg:last-child { opacity: 0; transform: rotate(-90deg) scale(0.75); }
+.lumora-menu-toggle.is-open .lumora-menu-icon svg:first-child { opacity: 0; transform: rotate(90deg) scale(0.75); }
+.lumora-menu-toggle.is-open .lumora-menu-icon svg:last-child { opacity: 1; transform: rotate(0) scale(1); }
+.lumora-mobile-menu { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 30px; background: rgba(0, 0, 0, 0.62); backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px); animation: lumora-menu-in 350ms ease both; }
+.lumora-mobile-panel { display: flex; width: min(520px, 100%); height: min(720px, 100%); flex-direction: column; padding: 26px; color: #fff; }
+.lumora-mobile-wordmark { font-family: 'Instrument Serif', serif; font-size: 29px; font-style: italic; }
+.lumora-mobile-panel nav { display: grid; gap: 5px; margin: auto 0; }
+.lumora-mobile-panel nav button { width: fit-content; padding: 0; color: #fff; background: transparent; border: 0; cursor: pointer; font-family: 'Instrument Serif', serif; font-size: 2.7rem; line-height: 1.15; opacity: 0; transform: translateY(16px); animation: lumora-menu-item-in 500ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.lumora-mobile-panel nav button:nth-child(1) { animation-delay: 100ms; }
+.lumora-mobile-panel nav button:nth-child(2) { animation-delay: 150ms; }
+.lumora-mobile-panel nav button:nth-child(3) { animation-delay: 200ms; }
+.lumora-mobile-panel nav button:nth-child(4) { animation-delay: 250ms; }
+.lumora-mobile-panel nav button:nth-child(5) { animation-delay: 300ms; }
+.lumora-mobile-cta { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 14px 18px; color: #10151a; background: #fff; border: 0; border-radius: 999px; cursor: pointer; font: 600 12px system-ui, sans-serif; opacity: 0; animation: lumora-cta-in 500ms cubic-bezier(0.4, 0, 0.2, 1) 350ms forwards; }
+@keyframes lumora-menu-in { from { opacity: 0; } }
+@keyframes lumora-menu-item-in { to { opacity: 1; transform: translateY(0); } }
+@keyframes lumora-cta-in { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 .profile-page {
   width: min(1120px, calc(100% - 48px));
@@ -1251,18 +1184,19 @@ kbd {
 
 @media (max-width: 720px) {
   .main-content { padding-right: 12px; padding-left: 12px; }
-  .portal-topbar, .portal-footer { padding-right: 18px; padding-left: 18px; }
-  .portal-date { display: none; }
-  .portal-center { width: min(100% - 32px, 540px); transform: translateY(-1.5vh); }
-  .portal-center h1 { font-size: clamp(38px, 12vw, 52px); }
-  .portal-caption { font-size: 12px; }
-  .portal-actions { gap: 12px; margin-top: 40px; }
-  .portal-divider { height: 35px; }
-  .portal-action { min-height: 54px; gap: 7px; }
-  .portal-action strong { font-size: 14px; }
-  .portal-action small { font-size: 9px; }
-  .portal-action svg { width: 21px; }
-  .portal-footer span:last-child { display: none; }
+  .lumora-nav { padding-right: 18px; padding-left: 18px; flex-wrap: wrap; gap: 14px; }
+  .lumora-menu { display: none; }
+  .lumora-footer { padding-right: 18px; padding-left: 18px; }
+  .lumora-center { width: min(100% - 32px, 540px); transform: translateY(-1.5vh); }
+  .lumora-title { font-size: clamp(38px, 12vw, 52px); }
+  .lumora-caption { font-size: 12px; }
+  .lumora-actions { gap: 12px; margin-top: 40px; }
+  .lumora-divider { height: 35px; }
+  .lumora-action { min-height: 54px; gap: 7px; }
+  .lumora-action strong { font-size: 14px; }
+  .lumora-action small { font-size: 9px; }
+  .lumora-action svg { width: 21px; }
+  .lumora-footer span:last-child { display: none; }
   .profile-page { width: min(100% - 32px, 680px); padding-top: 19px; }
   .profile-intro { padding: 70px 0 58px; }
   .profile-intro h1 { font-size: 54px; }
@@ -1553,3 +1487,275 @@ kbd {
 .profile-app .profile-github a { color: #2d7588; }
 .profile-app .github-placeholder { color: #527568; }
 .profile-app .profile-footer { color: #527568; }
+
+@media (max-width: 900px) {
+  .lumora-content { width: min(100% - 32px, 680px); }
+  .lumora-nav { padding: 21px 0; flex-wrap: nowrap; }
+  .lumora-desktop-nav { display: none; }
+  .lumora-menu-toggle { display: inline-flex; }
+  .lumora-center { width: 100%; padding-top: 14px; transform: none; }
+  .lumora-center h1 { font-size: 3.45rem; }
+}
+
+@media (max-width: 560px) {
+  .lumora-content { width: min(100% - 28px, 420px); }
+  .lumora-nav { padding-top: 20px; }
+  .lumora-logo { font-size: 27px; }
+  .lumora-center h1 { margin-bottom: 13px; font-size: 2.05rem; line-height: 1.08; }
+  .lumora-center p { max-width: 335px; font-size: 12px; line-height: 1.6; }
+  .lumora-access { width: min(100%, 320px); margin-top: 22px; }
+  .lumora-access input { font-size: 11px; }
+  .lumora-access button { padding: 10px 12px; font-size: 10px; }
+  .lumora-video-switcher { gap: 2px; margin-top: 38px; }
+  .lumora-video-switcher button { padding-right: 6px; padding-left: 6px; font-size: 10px; }
+  .lumora-stats { flex-wrap: wrap; gap: 5px 12px; padding-bottom: 18px; font-size: 10px; }
+  .lumora-stats i { display: none; }
+  .lumora-mobile-menu { padding: 15px; }
+  .lumora-mobile-panel { height: 100%; padding: 15px 12px; }
+  .lumora-mobile-panel nav button { font-size: 2.4rem; }
+}
+
+@media (max-height: 680px) {
+  .lumora-nav { padding-top: 16px; padding-bottom: 12px; }
+  .lumora-center { padding-top: 8px; padding-bottom: 8px; }
+  .lumora-center h1 { font-size: 3rem; }
+  .lumora-access { margin-top: 16px; }
+  .lumora-video-switcher { margin-top: 24px; }
+  .lumora-stats { padding-top: 12px; padding-bottom: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lumora-media video { transition-duration: 1ms; }
+  .lumora-train-overlay { animation: none; }
+  .lumora-mobile-menu,
+  .lumora-mobile-panel nav button,
+  .lumora-mobile-cta { animation: none; opacity: 1; transform: none; }
+}
+
+/* Aethera workspace theme: cinematic atmosphere with a quiet, high-contrast work surface. */
+.app-shell:not(.portal-app) {
+  --paper: #ffffff;
+  --surface: rgba(255, 255, 255, 0.64);
+  --surface-muted: rgba(243, 243, 241, 0.58);
+  --ink: #000000;
+  --steel: #6f6f6f;
+  --line: #deded9;
+  --line-strong: #c8c8c3;
+  --green: #000000;
+  --green-soft: #ececea;
+  --orange: #656565;
+  --orange-soft: #ededeb;
+  --blue: #393939;
+  --blue-soft: #e9e9e6;
+  --sidebar: #ffffff;
+  --sidebar-muted: #6f6f6f;
+  --display: 'Instrument Serif', 'Noto Serif SC', serif;
+  color: #000000;
+  background: #ffffff;
+  font-family: 'Inter', 'Noto Sans SC', sans-serif;
+}
+
+.workspace-cinema {
+  position: fixed;
+  z-index: 0;
+  inset: 300px 0 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.workspace-cinema video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  filter: saturate(0.86) contrast(0.96);
+}
+
+.workspace-cinema span {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.14) 24%, rgba(255, 255, 255, 0.2) 72%, rgba(255, 255, 255, 0.72) 100%);
+}
+
+.app-shell:not(.portal-app) .main-content { position: relative; z-index: 1; background: transparent; }
+.app-shell:not(.portal-app) .view { animation: aethera-fade-rise 800ms ease-out both; }
+
+.app-shell:not(.portal-app) .sidebar {
+  color: #000000;
+  background: rgba(255, 255, 255, 0.42);
+  border-right-color: rgba(111, 111, 111, 0.28);
+  box-shadow: 12px 0 40px rgba(0, 0, 0, 0.025);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.app-shell:not(.portal-app) .brand-mark { color: #ffffff; background: #000000; }
+.app-shell:not(.portal-app) .brand strong { font-family: 'Instrument Serif', 'Noto Serif SC', serif; font-size: 24px; font-weight: 400; }
+.app-shell:not(.portal-app) .brand small { color: #8a8a84; }
+.app-shell:not(.portal-app) .side-nav button { color: #6f6f6f; border-color: transparent; }
+.app-shell:not(.portal-app) .side-nav button:hover { color: #000000; background: rgba(255, 255, 255, 0.34); border-color: rgba(111, 111, 111, 0.28); }
+.app-shell:not(.portal-app) .side-nav button.active { color: #000000; background: rgba(255, 255, 255, 0.48); border-color: rgba(111, 111, 111, 0.38); }
+.app-shell:not(.portal-app) .side-nav button.active::before { background: #000000; }
+.app-shell:not(.portal-app) .side-nav button i { color: #ffffff; background: #000000; }
+.app-shell:not(.portal-app) .sidebar-search { color: #4f4f4f; background: rgba(255, 255, 255, 0.32); border-color: rgba(111, 111, 111, 0.3); }
+.app-shell:not(.portal-app) .sidebar-search:hover { color: #000000; background: rgba(255, 255, 255, 0.56); border-color: #8f8f89; }
+.app-shell:not(.portal-app) .focus-streak { color: #000000; border-color: #d8d8d4; }
+.app-shell:not(.portal-app) .streak-ring { color: #000000; border-color: #000000; border-right-color: #b8b8b3; }
+.app-shell:not(.portal-app) .profile-row { border-top-color: #deded9; }
+.app-shell:not(.portal-app) .avatar { color: #ffffff; background: #000000; }
+.app-shell:not(.portal-app) .sidebar .icon-button.subtle:hover,
+.app-shell:not(.portal-app) .sidebar-collapse-button:hover { color: #000000; background: rgba(255, 255, 255, 0.44); border-color: rgba(111, 111, 111, 0.3); }
+
+.app-shell:not(.portal-app) .topbar {
+  position: relative;
+  background: rgba(255, 255, 255, 0.42);
+  border-bottom-color: #deded9;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.app-shell:not(.portal-app) .date-lockup strong { font-family: 'Instrument Serif', serif; font-size: 22px; font-weight: 400; }
+.app-shell:not(.portal-app) .search-trigger { color: #6f6f6f; background: rgba(255, 255, 255, 0.5); border-color: #d8d8d4; border-radius: 999px; }
+.app-shell:not(.portal-app) .search-trigger:hover { color: #000000; border-color: #a5a5a0; }
+.app-shell:not(.portal-app) .primary-button { color: #ffffff; background: rgba(0, 0, 0, 0.86); border-color: rgba(0, 0, 0, 0.9); border-radius: 999px; transition: transform 180ms ease, background 180ms ease; }
+.app-shell:not(.portal-app) .primary-button:hover { background: rgba(0, 0, 0, 0.96); transform: scale(1.03); }
+.app-shell:not(.portal-app) .secondary-button,
+.app-shell:not(.portal-app) .icon-text-button { color: #000000; background: rgba(255, 255, 255, 0.56); border-color: #c8c8c3; }
+.app-shell:not(.portal-app) .secondary-button:hover,
+.app-shell:not(.portal-app) .icon-text-button:hover { background: rgba(255, 255, 255, 0.78); border-color: #8f8f89; }
+
+.app-shell:not(.portal-app) .page-heading { min-height: 150px; padding-top: 38px; border-bottom: 1px solid rgba(111, 111, 111, 0.18); }
+.app-shell:not(.portal-app) .page-heading h1 { margin-top: 7px; font-family: 'Instrument Serif', 'Noto Serif SC', serif; font-size: 48px; font-weight: 400; line-height: 0.98; }
+.app-shell:not(.portal-app) .page-heading p { margin-top: 10px; color: #6f6f6f; font-size: 13px; }
+.app-shell:not(.portal-app) .eyebrow { color: #6f6f6f; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500; }
+.app-shell:not(.portal-app) .heading-status { color: #6f6f6f; }
+.app-shell:not(.portal-app) .live-dot { background: #000000; box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.09); }
+
+.app-shell:not(.portal-app) .pipeline {
+  margin-top: 18px;
+  color: #000000;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid #d8d8d4;
+  box-shadow: none;
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+}
+.app-shell:not(.portal-app) .pipeline-label { color: #000000; border-right-color: #deded9; }
+.app-shell:not(.portal-app) .pipeline-steps button { color: #6f6f6f; border-right-color: #deded9; }
+.app-shell:not(.portal-app) .pipeline-steps button:hover { color: #000000; background: rgba(255, 255, 255, 0.48); }
+.app-shell:not(.portal-app) .pipeline-steps button.current { color: #000000; background: rgba(238, 238, 235, 0.58); }
+.app-shell:not(.portal-app) .pipeline-steps button.pending { color: #9a9a94; }
+.app-shell:not(.portal-app) .step-node { color: #ffffff; background: #000000; }
+.app-shell:not(.portal-app) .current .step-node { color: #ffffff; background: #000000; box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.08); }
+.app-shell:not(.portal-app) .pending .step-node { color: #7a7a75; background: transparent; border-color: #a8a8a2; }
+.app-shell:not(.portal-app) .step-copy small { color: #969690; }
+
+.app-shell:not(.portal-app) .panel,
+.app-shell:not(.portal-app) .paper-library,
+.app-shell:not(.portal-app) .paper-detail,
+.app-shell:not(.portal-app) .experiment-table,
+.app-shell:not(.portal-app) .run-detail,
+.app-shell:not(.portal-app) .artifact-card {
+  background: rgba(255, 255, 255, 0.62);
+  border-color: rgba(111, 111, 111, 0.22);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.035);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.app-shell:not(.portal-app) .section-header { border-bottom-color: #deded9; }
+.app-shell:not(.portal-app) .section-header svg { color: #000000; }
+.app-shell:not(.portal-app) .section-header h2,
+.app-shell:not(.portal-app) .paper-detail h2,
+.app-shell:not(.portal-app) .run-detail h2,
+.app-shell:not(.portal-app) .artifact-card h2 { font-family: 'Instrument Serif', 'Noto Serif SC', serif; font-size: 19px; font-weight: 400; }
+.app-shell:not(.portal-app) .text-button { color: #000000; }
+.app-shell:not(.portal-app) .text-button:hover { color: #6f6f6f; }
+.app-shell:not(.portal-app) .custom-check { border-color: #9d9d97; }
+.app-shell:not(.portal-app) .done .custom-check { background: #000000; border-color: #000000; }
+.app-shell:not(.portal-app) .progress-track,
+.app-shell:not(.portal-app) .table-progress > span { background: #deded9; }
+.app-shell:not(.portal-app) .progress-track > span,
+.app-shell:not(.portal-app) .progress-track > i,
+.app-shell:not(.portal-app) .table-progress i { background: #000000; }
+.app-shell:not(.portal-app) .active-run { background: rgba(255, 255, 255, 0.46); border-color: #d8d8d4; border-left-color: #000000; }
+.app-shell:not(.portal-app) .run-id,
+.app-shell:not(.portal-app) .experiment-name > i { color: #000000; }
+.app-shell:not(.portal-app) .metric-pair strong,
+.app-shell:not(.portal-app) .chart-value strong,
+.app-shell:not(.portal-app) .run-chart-label strong,
+.app-shell:not(.portal-app) .experiment-summary strong { font-family: 'Instrument Serif', serif; font-weight: 400; }
+.app-shell:not(.portal-app) .positive { color: #000000 !important; }
+.app-shell:not(.portal-app) .run-list button:hover,
+.app-shell:not(.portal-app) .paper-row:hover .paper-copy strong { color: #000000; }
+.app-shell:not(.portal-app) .week-day.done .bar-space span,
+.app-shell:not(.portal-app) .week-day.today .bar-space span { background: #000000; }
+.app-shell:not(.portal-app) .week-day.today strong,
+.app-shell:not(.portal-app) .week-day.today small,
+.app-shell:not(.portal-app) .week-note svg { color: #000000; }
+.app-shell:not(.portal-app) .paper-progress { background: conic-gradient(#000000 var(--progress), #deded9 0); }
+.app-shell:not(.portal-app) .chart-line,
+.app-shell:not(.portal-app) .plot-main { stroke: #000000; }
+.app-shell:not(.portal-app) .chart-area { fill: rgba(0, 0, 0, 0.06); }
+.app-shell:not(.portal-app) .guide-line { stroke: #6f6f6f; }
+
+.app-shell:not(.portal-app) .metric-strip,
+.app-shell:not(.portal-app) .archive-banner {
+  color: #000000;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid #d8d8d4;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.app-shell:not(.portal-app) .metric-strip > div { border-color: #deded9; }
+.app-shell:not(.portal-app) .metric-strip small,
+.app-shell:not(.portal-app) .metric-strip span,
+.app-shell:not(.portal-app) .archive-banner p { color: #6f6f6f; }
+.app-shell:not(.portal-app) .metric-strip strong,
+.app-shell:not(.portal-app) .archive-banner h2 { color: #000000; font-family: 'Instrument Serif', 'Noto Serif SC', serif; font-weight: 400; }
+.app-shell:not(.portal-app) .roadmap-line i,
+.app-shell:not(.portal-app) .roadmap-row.active .roadmap-line i { background: #000000; }
+.app-shell:not(.portal-app) .roadmap-status.active { color: #000000; background: #ececea; }
+.app-shell:not(.portal-app) .reflection-panel blockquote { color: #3f3f3f; border-left-color: #000000; font-family: 'Instrument Serif', 'Noto Serif SC', serif; }
+.app-shell:not(.portal-app) .segmented-control { background: rgba(237, 237, 235, 0.56); }
+.app-shell:not(.portal-app) .segmented-control button.active { color: #000000; background: rgba(255, 255, 255, 0.72); }
+.app-shell:not(.portal-app) .library-header,
+.app-shell:not(.portal-app) .experiment-table-head { background: rgba(243, 243, 241, 0.56); }
+.app-shell:not(.portal-app) .library-row.selected,
+.app-shell:not(.portal-app) .experiment-table-row.selected { background: rgba(237, 237, 235, 0.5); }
+.app-shell:not(.portal-app) .document-icon,
+.app-shell:not(.portal-app) .detail-tags span,
+.app-shell:not(.portal-app) .summary-icon { color: #000000; background: #ececea; }
+.app-shell:not(.portal-app) .note-section,
+.app-shell:not(.portal-app) .run-chart,
+.app-shell:not(.portal-app) .result-visual { background: rgba(243, 243, 241, 0.5); }
+.app-shell:not(.portal-app) .milestone-visual span { color: #6f6f6f; border-color: #b8b8b3; }
+.app-shell:not(.portal-app) .milestone-visual span.active { color: #ffffff; background: #000000; border-color: #000000; }
+.app-shell:not(.portal-app) .milestone-visual i { background: #b8b8b3; }
+
+.app-shell:not(.portal-app) .mobile-header,
+.app-shell:not(.portal-app) .mobile-nav { color: #000000; background: rgba(255, 255, 255, 0.72); border-color: #deded9; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.app-shell:not(.portal-app) .mobile-nav button { color: #8a8a84; }
+.app-shell:not(.portal-app) .mobile-nav button.active { color: #000000; }
+.app-shell:not(.portal-app) .mobile-add-button { color: #ffffff; background: #000000; border-color: #000000; }
+.app-shell:not(.portal-app) .mobile-menu { color: #000000; background: rgba(255, 255, 255, 0.96); }
+.app-shell:not(.portal-app) .mobile-menu .icon-button { color: #000000; border-color: #d8d8d4; }
+.app-shell:not(.portal-app) .mobile-menu nav button { color: #6f6f6f; }
+.app-shell:not(.portal-app) .mobile-menu nav button.active { color: #000000; background: #f3f3f1; border-color: #d8d8d4; }
+
+@media (max-width: 900px) {
+  .workspace-cinema { inset: 280px 0 66px; }
+  .app-shell:not(.portal-app) .page-heading h1 { font-size: 40px; }
+}
+
+@media (max-width: 720px) {
+  .workspace-cinema { top: 240px; opacity: 0.92; }
+  .app-shell:not(.portal-app) .page-heading { padding-top: 28px; }
+  .app-shell:not(.portal-app) .page-heading h1 { font-size: 34px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell:not(.portal-app) .view { animation: none; }
+  .workspace-cinema video { opacity: 0.78 !important; }
+}
