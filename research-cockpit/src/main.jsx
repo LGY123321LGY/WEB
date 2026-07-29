@@ -415,6 +415,7 @@ function PortalHome({ changeView, setToast }) {
             <button onClick={() => handleNavigate('papers')}>论文阅读</button>
             <button onClick={() => handleNavigate('experiments')}>实验管理</button>
             <button onClick={() => handleNavigate('archive')}>成果归档</button>
+            <button onClick={() => handleNavigate('profile')}>个人资料</button>
             <button className="lumora-nav-cta" onClick={() => handleNavigate('dashboard')}>Get Started</button>
           </nav>
         </header>
@@ -452,6 +453,7 @@ function PortalHome({ changeView, setToast }) {
             <button onClick={() => handleNavigate('papers')}>论文阅读</button>
             <button onClick={() => handleNavigate('experiments')}>实验管理</button>
             <button onClick={() => handleNavigate('archive')}>成果归档</button>
+            <button onClick={() => handleNavigate('profile')}>个人资料</button>
           </nav>
           <button className="lumora-mobile-cta" onClick={() => handleNavigate('dashboard')}>Get Started <ArrowRight size={18} /></button>
         </div>

@@ -1048,7 +1048,8 @@ kbd {
 .lumora-mobile-panel nav button:nth-child(3) { animation-delay: 200ms; }
 .lumora-mobile-panel nav button:nth-child(4) { animation-delay: 250ms; }
 .lumora-mobile-panel nav button:nth-child(5) { animation-delay: 300ms; }
-.lumora-mobile-cta { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 14px 18px; color: #10151a; background: #fff; border: 0; border-radius: 999px; cursor: pointer; font: 600 12px system-ui, sans-serif; opacity: 0; animation: lumora-cta-in 500ms cubic-bezier(0.4, 0, 0.2, 1) 350ms forwards; }
+.lumora-mobile-panel nav button:nth-child(6) { animation-delay: 350ms; }
+.lumora-mobile-cta { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 14px 18px; color: #10151a; background: #fff; border: 0; border-radius: 999px; cursor: pointer; font: 600 12px system-ui, sans-serif; opacity: 0; animation: lumora-cta-in 500ms cubic-bezier(0.4, 0, 0.2, 1) 400ms forwards; }
 @keyframes lumora-menu-in { from { opacity: 0; } }
 @keyframes lumora-menu-item-in { to { opacity: 1; transform: translateY(0); } }
 @keyframes lumora-cta-in { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
