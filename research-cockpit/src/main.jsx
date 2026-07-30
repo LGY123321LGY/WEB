@@ -29,17 +29,35 @@ import {
   Map,
   Menu,
   MoreHorizontal,
+  Music2,
   Pause,
   PanelLeftClose,
   PanelLeftOpen,
   Play,
   Plus,
   Search,
+  SkipBack,
+  SkipForward,
   Sparkles,
   Target,
   X,
 } from 'lucide-react'
+import { isSupabaseConfigured, supabase } from './lib/supabase'
+import {
+  importLocalWorkspaceData,
+  insertWorkspaceItem,
+  loadAdminData,
+  loadWorkspaceData,
+  reviewAccessRequest,
+  updateMemberStatus,
+  updateWorkspaceItem,
+} from './lib/workspaceData'
 import './styles.css'
+
+const ADMIN_SEED = {
+  githubUsername: 'LGY123321LGY',
+  email: 'lyin01864@gmail.com',
+}
 
 const initialTasks = [
   { id: 1, title: '复现 R-CFFA 的特征聚合模块', meta: '深度工作 · 90 分钟', tag: '代码', done: false },
@@ -116,6 +134,8 @@ const lumoraVideos = [
   { label: 'Quiet Dawn', src: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260702_080959_4cac5234-3573-464e-a5b7-76b94b8a7d61.mp4' },
 ]
 
+const BACKGROUND_MUSIC_SRC = '/audio/background-music.mp3'
+
 const navItems = [
   { id: 'dashboard', label: '总览', icon: LayoutDashboard },
   { id: 'learning', label: '学习规划', icon: Map },
@@ -167,6 +187,7 @@ const viewToHash = {
   papers: '#/papers',
   experiments: '#/experiments',
   archive: '#/archive',
+  admin: '#/admin',
 }
 
 const hashToView = Object.fromEntries(Object.entries(viewToHash).map(([view, hash]) => [hash, view]))
@@ -195,6 +216,120 @@ function App() {
   const [quickAddOpen, setQuickAddOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [toast, setToast] = useState('')
+  const [session, setSession] = useState(null)
+  const [authLoading, setAuthLoading] = useState(isSupabaseConfigured)
+  const [memberProfile, setMemberProfile] = useState(null)
+  const [workspaceLoading, setWorkspaceLoading] = useState(false)
+  const [workspaceError, setWorkspaceError] = useState('')
+  const [localImportAvailable, setLocalImportAvailable] = useState(false)
+
+  useEffect(() => {
+    if (!supabase) {
+      setAuthLoading(false)
+      return undefined
+    }
+
+    let disposed = false
+
+    supabase.auth.getSession().then(({ data }) => {
+      if (disposed) return
+      setSession(data.session)
+      setAuthLoading(false)
+    })
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession)
+      setAuthLoading(false)
+    })
+
+    return () => {
+      disposed = true
+      listener.subscription.unsubscribe()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!supabase || !session?.user) {
+      setMemberProfile(null)
+      return undefined
+    }
+
+    let disposed = false
+
+    async function syncProfile() {
+      const githubUsername =
+        session.user.user_metadata?.user_name ||
+        session.user.user_metadata?.preferred_username ||
+        session.user.user_metadata?.name ||
+        ''
+      const email = session.user.email || ''
+      const role = githubUsername.toLowerCase() === ADMIN_SEED.githubUsername.toLowerCase() && email.toLowerCase() === ADMIN_SEED.email.toLowerCase()
+        ? 'admin'
+        : 'member'
+      const status = role === 'admin' ? 'approved' : 'pending'
+
+      const { data, error } = await supabase
+        .from('profiles')
+        .upsert({
+          id: session.user.id,
+          email,
+          github_username: githubUsername,
+          display_name: session.user.user_metadata?.full_name || githubUsername || email,
+          role,
+          status,
+          approved_at: status === 'approved' ? new Date().toISOString() : null,
+        }, { onConflict: 'id' })
+        .select()
+        .single()
+
+      if (disposed) return
+      setMemberProfile(error ? { email, github_username: githubUsername, role, status: 'pending' } : data)
+    }
+
+    syncProfile()
+
+    return () => {
+      disposed = true
+    }
+  }, [session])
+
+  const isApprovedMember = !isSupabaseConfigured || memberProfile?.status === 'approved'
+  const isAdmin = memberProfile?.role === 'admin' && memberProfile?.status === 'approved'
+
+  useEffect(() => {
+    if (!supabase || !session?.user || !isApprovedMember) return undefined
+
+    let disposed = false
+
+    async function loadCloudWorkspace() {
+      setWorkspaceLoading(true)
+      setWorkspaceError('')
+      try {
+        const data = await loadWorkspaceData(supabase)
+        if (disposed) return
+
+        if (data.tasks.length) setTasks(data.tasks)
+        if (data.papers.length) setPapers(data.papers)
+        if (data.experiments.length) setExperiments(data.experiments)
+
+        const hasLocalData = tasks.length > 0 || papers.length > 0 || experiments.length > 0
+        const hasCloudData = data.tasks.length > 0 || data.papers.length > 0 || data.experiments.length > 0
+        setLocalImportAvailable(hasLocalData && !hasCloudData)
+      } catch (error) {
+        if (!disposed) {
+          setWorkspaceError(error.message || 'Failed to load cloud workspace.')
+        }
+      } finally {
+        if (!disposed) setWorkspaceLoading(false)
+      }
+    }
+
+    loadCloudWorkspace()
+
+    return () => {
+      disposed = true
+    }
+  }, [session, isApprovedMember])
 
   useEffect(() => {
     if (!window.location.hash || !hashToView[window.location.hash]) {
@@ -239,11 +374,39 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const toggleTask = (taskId) => {
-    setTasks((current) => current.map((task) => (task.id === taskId ? { ...task, done: !task.done } : task)))
+  const importLocalDataToCloud = async () => {
+    if (!supabase || !session?.user || !isApprovedMember) return
+    setWorkspaceLoading(true)
+    setWorkspaceError('')
+    try {
+      const imported = await importLocalWorkspaceData(supabase, session.user.id, { tasks, papers, experiments })
+      if (imported.tasks.length) setTasks(imported.tasks)
+      if (imported.papers.length) setPapers(imported.papers)
+      if (imported.experiments.length) setExperiments(imported.experiments)
+      setLocalImportAvailable(false)
+      setToast('Local workspace imported to Supabase.')
+    } catch (error) {
+      setWorkspaceError(error.message || 'Import failed.')
+      setToast('Import failed. Check Supabase policies.')
+    } finally {
+      setWorkspaceLoading(false)
+    }
   }
 
-  const addItem = ({ type, title, detail }) => {
+  const toggleTask = async (taskId) => {
+    const task = tasks.find((item) => item.id === taskId)
+    setTasks((current) => current.map((task) => (task.id === taskId ? { ...task, done: !task.done } : task)))
+    if (supabase && session?.user && isApprovedMember && task?.id) {
+      try {
+        await updateWorkspaceItem(supabase, 'tasks', task.id, { done: !task.done })
+      } catch (error) {
+        setTasks((current) => current.map((item) => (item.id === taskId ? { ...item, done: task.done } : item)))
+        setToast(error.message || 'Cloud sync failed.')
+      }
+    }
+  }
+
+  const addLocalItem = ({ type, title, detail }) => {
     const id = Date.now()
     if (type === 'task') {
       setTasks((current) => [...current, { id, title, meta: detail || '新任务 · 待安排', tag: '计划', done: false }])
@@ -258,8 +421,36 @@ function App() {
     setToast('已加入研究工作台')
   }
 
+  const addItem = async ({ type, title, detail }) => {
+    if (!supabase || !session?.user || !isApprovedMember) {
+      addLocalItem({ type, title, detail })
+      return
+    }
+
+    const id = Date.now()
+    const key = type === 'task' ? 'tasks' : type === 'paper' ? 'papers' : 'experiments'
+    const nextItem = type === 'task'
+      ? { id, title, meta: detail || 'New task · Pending', tag: 'Plan', done: false }
+      : type === 'paper'
+        ? { id, title, venue: detail || 'Source pending', status: 'to_read', progress: 0, tags: ['New'], note: 'No reading notes yet.' }
+        : { id: `R-${String(experiments.length + 15).padStart(3, '0')}`, name: title, status: 'queued', metric: 'No result yet', change: '—', progress: 0, eta: detail || 'Waiting', seed: '0 / 5' }
+
+    try {
+      const saved = await insertWorkspaceItem(supabase, session.user.id, key, nextItem)
+      if (type === 'task') setTasks((current) => [...current, saved])
+      if (type === 'paper') setPapers((current) => [...current, saved])
+      if (type === 'experiment') setExperiments((current) => [...current, saved])
+      setQuickAddOpen(false)
+      setToast('Saved to Supabase.')
+    } catch (error) {
+      setToast(error.message || 'Cloud save failed.')
+    }
+  }
+
   const viewProps = { tasks, papers, experiments, toggleTask, setToast, changeView }
   const isPortalView = activeView === 'home' || activeView === 'profile'
+  const needsAuth = !isPortalView && isSupabaseConfigured && !authLoading && !session
+  const needsApproval = !isPortalView && isSupabaseConfigured && !authLoading && session && memberProfile && !isApprovedMember
 
   return (
     <div className={`app-shell ${isPortalView ? 'portal-app' : ''} ${activeView === 'profile' ? 'profile-app' : ''} ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
@@ -268,7 +459,7 @@ function App() {
 
       {!isPortalView && <>
         <CinematicWorkspaceBackground />
-        <Sidebar activeView={activeView} changeView={changeView} onSearch={() => setSearchOpen(true)} onHome={() => changeView('home')} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed((current) => !current)} />
+        <Sidebar activeView={activeView} changeView={changeView} onSearch={() => setSearchOpen(true)} onHome={() => changeView('home')} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed((current) => !current)} isAdmin={isAdmin} />
 
         <header className="mobile-header">
           <button className="icon-button" onClick={() => setMobileMenuOpen(true)} aria-label="打开导航" title="打开导航">
@@ -281,15 +472,24 @@ function App() {
         </header>
 
         <main className="main-content">
-          <TopBar onSearch={() => setSearchOpen(true)} onAdd={() => setQuickAddOpen(true)} />
-          {activeView === 'dashboard' && <Dashboard {...viewProps} />}
-          {activeView === 'learning' && <LearningView {...viewProps} />}
-          {activeView === 'papers' && <PapersView {...viewProps} />}
-          {activeView === 'experiments' && <ExperimentsView {...viewProps} />}
-          {activeView === 'archive' && <ArchiveView {...viewProps} />}
+          <TopBar onSearch={() => setSearchOpen(true)} onAdd={() => setQuickAddOpen(true)} session={session} memberProfile={memberProfile} setToast={setToast} />
+          {authLoading && <AuthPanel mode="loading" />}
+          {needsAuth && <AuthPanel mode="signin" setToast={setToast} />}
+          {needsApproval && <AuthPanel mode="pending" memberProfile={memberProfile} />}
+          {!authLoading && !needsAuth && !needsApproval && <>
+            {workspaceError && <WorkspaceNotice tone="danger" title="Cloud sync needs attention" description={workspaceError} />}
+            {workspaceLoading && <WorkspaceNotice title="Syncing workspace" description="Loading your private Supabase workspace..." />}
+            {localImportAvailable && <WorkspaceNotice title="Local data found" description="Your browser has local workspace data and Supabase is empty. Import it once to make it available after login." action={<button className="primary-button" onClick={importLocalDataToCloud}>Import to Supabase</button>} />}
+            {activeView === 'dashboard' && <Dashboard {...viewProps} />}
+            {activeView === 'learning' && <LearningView {...viewProps} />}
+            {activeView === 'papers' && <PapersView {...viewProps} />}
+            {activeView === 'experiments' && <ExperimentsView {...viewProps} />}
+            {activeView === 'archive' && <ArchiveView {...viewProps} />}
+            {activeView === 'admin' && isAdmin && <AdminView session={session} setToast={setToast} />}
+          </>}
         </main>
 
-        <MobileNav activeView={activeView} changeView={changeView} />
+        <MobileNav activeView={activeView} changeView={changeView} isAdmin={isAdmin} />
         <button className="mobile-add-button" onClick={() => setQuickAddOpen(true)} aria-label="快速记录" title="快速记录">
           <Plus size={21} />
         </button>
@@ -303,60 +503,156 @@ function App() {
 }
 
 function CinematicWorkspaceBackground() {
-  const videoRef = useRef(null)
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return undefined
-
-    let animationFrame
-    let restartTimer
-
-    const monitorFade = () => {
-      const duration = video.duration
-      const currentTime = video.currentTime
-      let opacity = 1
-
-      if (currentTime < 0.5) opacity = currentTime / 0.5
-      if (Number.isFinite(duration) && duration - currentTime < 0.5) {
-        opacity = Math.max(0, (duration - currentTime) / 0.5)
-      }
-
-      video.style.opacity = String(Math.min(1, Math.max(0, opacity)))
-      animationFrame = window.requestAnimationFrame(monitorFade)
-    }
-
-    const restartVideo = () => {
-      video.style.opacity = '0'
-      restartTimer = window.setTimeout(() => {
-        video.currentTime = 0
-        video.play().catch(() => {})
-      }, 100)
-    }
-
-    video.addEventListener('ended', restartVideo)
-    video.play().catch(() => {})
-    animationFrame = window.requestAnimationFrame(monitorFade)
-
-    return () => {
-      video.removeEventListener('ended', restartVideo)
-      window.cancelAnimationFrame(animationFrame)
-      window.clearTimeout(restartTimer)
-    }
-  }, [])
-
   return (
     <div className="workspace-cinema" aria-hidden="true">
       <video
-        ref={videoRef}
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
         autoPlay
+        loop
         muted
         playsInline
         preload="auto"
-      />
-      <span />
+        poster="/images/hero_bg.png"
+      >
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260306_115329_5e00c9c5-4d69-49b7-94c3-9c31c60bb644.mp4" type="video/mp4" />
+      </video>
+      <span className="workspace-cinema-overlay" />
+      <span className="workspace-cinema-vignette" />
     </div>
+  )
+}
+
+function MusicControl() {
+  const audioRef = useRef(null)
+  const playRequestRef = useRef(0)
+  const [status, setStatus] = useState('loading')
+
+  useEffect(() => {
+    const audio = new Audio(BACKGROUND_MUSIC_SRC)
+    let disposed = false
+
+    audio.loop = true
+    audio.volume = 0.35
+    audio.preload = 'auto'
+    audioRef.current = audio
+
+    const onPlay = () => {
+      if (!disposed) setStatus('playing')
+    }
+    const onPlaying = () => {
+      if (!disposed) setStatus('playing')
+    }
+    const onPause = () => {
+      if (!disposed && !audio.error) setStatus('paused')
+    }
+    const onEnded = () => {
+      if (!disposed) setStatus('paused')
+    }
+    const onWaiting = () => {
+      if (!disposed && !audio.paused) setStatus('loading')
+    }
+    const onError = () => {
+      if (!disposed) setStatus('error')
+    }
+
+    audio.addEventListener('play', onPlay)
+    audio.addEventListener('playing', onPlaying)
+    audio.addEventListener('pause', onPause)
+    audio.addEventListener('ended', onEnded)
+    audio.addEventListener('waiting', onWaiting)
+    audio.addEventListener('error', onError)
+
+    const requestId = ++playRequestRef.current
+    audio.play().catch((error) => {
+      if (disposed || requestId !== playRequestRef.current) return
+      setStatus(error?.name === 'NotAllowedError' || error?.name === 'AbortError' ? 'paused' : 'error')
+    })
+
+    return () => {
+      disposed = true
+      playRequestRef.current += 1
+      audio.removeEventListener('play', onPlay)
+      audio.removeEventListener('playing', onPlaying)
+      audio.removeEventListener('pause', onPause)
+      audio.removeEventListener('ended', onEnded)
+      audio.removeEventListener('waiting', onWaiting)
+      audio.removeEventListener('error', onError)
+      audio.pause()
+      audio.removeAttribute('src')
+      audio.load()
+      audioRef.current = null
+    }
+  }, [])
+
+  const togglePlayback = () => {
+    const audio = audioRef.current
+    if (!audio || status === 'loading') return
+
+    if (!audio.paused) {
+      playRequestRef.current += 1
+      audio.pause()
+      return
+    }
+
+    const requestId = ++playRequestRef.current
+    setStatus('loading')
+    if (status === 'error') audio.load()
+    audio.play().catch((error) => {
+      if (requestId !== playRequestRef.current) return
+      setStatus(error?.name === 'NotAllowedError' || error?.name === 'AbortError' ? 'paused' : 'error')
+    })
+  }
+
+  const restartTrack = () => {
+    const audio = audioRef.current
+    if (!audio || status === 'loading') return
+
+    audio.currentTime = 0
+    if (!audio.paused) return
+
+    const requestId = ++playRequestRef.current
+    setStatus('loading')
+    if (status === 'error') audio.load()
+    audio.play().catch((error) => {
+      if (requestId !== playRequestRef.current) return
+      setStatus(error?.name === 'NotAllowedError' || error?.name === 'AbortError' ? 'paused' : 'error')
+    })
+  }
+
+  const isPlaying = status === 'playing'
+  const label = isPlaying ? '暂停背景音乐' : '播放背景音乐'
+  const errorMessage = status === 'error' ? '背景音乐加载失败，请检查音频文件。' : ''
+
+  return (
+    <>
+      <div className="music-control-dock">
+        <button type="button" className="music-control__skip music-control__skip--previous" onClick={restartTrack} aria-label="上一曲" title="上一曲" disabled={status === 'loading'}>
+          <SkipBack size={15} fill="currentColor" aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          className="music-control"
+          data-state={status}
+          onClick={togglePlayback}
+          aria-label={label}
+          aria-pressed={isPlaying}
+          aria-busy={status === 'loading'}
+          aria-describedby={status === 'error' ? 'background-music-error' : undefined}
+          title={label}
+          disabled={status === 'loading'}
+        >
+          <span className="music-control__particles" aria-hidden="true"><i /><i /><i /><i /></span>
+          <span className="music-control__stage" aria-hidden="true">
+            <span className="music-control__icon music-control__icon--music"><Music2 className="music-control__spinner" size={18} /></span>
+            <span className="music-control__icon music-control__icon--pause"><Pause size={18} /></span>
+            <span className="music-control__icon music-control__icon--play"><Play size={18} fill="currentColor" /></span>
+          </span>
+        </button>
+        <button type="button" className="music-control__skip music-control__skip--next" onClick={restartTrack} aria-label="下一曲" title="下一曲" disabled={status === 'loading'}>
+          <SkipForward size={15} fill="currentColor" aria-hidden="true" />
+        </button>
+      </div>
+      <span id="background-music-error" className="music-control__sr-only" role="status" aria-live="polite">{errorMessage}</span>
+    </>
   )
 }
 
@@ -391,10 +687,17 @@ function PortalHome({ changeView, setToast }) {
     transitionTimer.current = window.setTimeout(() => setIsTransitioning(false), 1000)
   }
 
-  const submitEmail = (event) => {
+  const submitEmail = async (event) => {
     event.preventDefault()
     if (!event.currentTarget.reportValidity()) return
-    setToast('You are on the early access list.')
+    if (supabase) {
+      const { error } = await supabase
+        .from('access_requests')
+        .insert({ email, status: 'pending', source: 'homepage' })
+      setToast(error ? 'Request saved locally until access table is ready.' : 'Access request received.')
+    } else {
+      setToast('You are on the early access list.')
+    }
     setEmail('')
   }
 
@@ -409,15 +712,17 @@ function PortalHome({ changeView, setToast }) {
       <div className="lumora-content">
         <header className="lumora-nav">
           <button className="lumora-logo" onClick={() => handleNavigate('home')} aria-label="Welcome~ 首页">Welcome~</button>
-          <nav className="lumora-desktop-nav liquid-glass" aria-label="主导航">
-            <button onClick={() => handleNavigate('dashboard')}>总览</button>
-            <button onClick={() => handleNavigate('learning')}>学习规划</button>
-            <button onClick={() => handleNavigate('papers')}>论文阅读</button>
-            <button onClick={() => handleNavigate('experiments')}>实验管理</button>
-            <button onClick={() => handleNavigate('archive')}>成果归档</button>
-            <button onClick={() => handleNavigate('profile')}>个人资料</button>
-            <button className="lumora-nav-cta" onClick={() => handleNavigate('dashboard')}>Get Started</button>
-          </nav>
+          <div className="lumora-nav-actions liquid-glass">
+            <nav className="lumora-desktop-nav" aria-label="主导航">
+              <button onClick={() => handleNavigate('dashboard')}>总览</button>
+              <button onClick={() => handleNavigate('learning')}>学习规划</button>
+              <button onClick={() => handleNavigate('papers')}>论文阅读</button>
+              <button onClick={() => handleNavigate('experiments')}>实验管理</button>
+              <button onClick={() => handleNavigate('archive')}>成果归档</button>
+              <button onClick={() => handleNavigate('profile')}>个人资料</button>
+            </nav>
+            <MusicControl />
+          </div>
         </header>
 
         <section className="lumora-center" aria-labelledby="lumora-title">
@@ -529,7 +834,119 @@ function Brand({ compact = false, onHome }) {
   )
 }
 
-function Sidebar({ activeView, changeView, onSearch, onHome, collapsed, onToggleCollapse }) {
+function WorkspaceNotice({ title, description, action, tone = 'info' }) {
+  return (
+    <section className={`workspace-notice workspace-notice-${tone}`}>
+      <div>
+        <strong>{title}</strong>
+        <p>{description}</p>
+      </div>
+      {action}
+    </section>
+  )
+}
+
+function AdminView({ session, setToast }) {
+  const [loading, setLoading] = useState(true)
+  const [requests, setRequests] = useState([])
+  const [profiles, setProfiles] = useState([])
+  const [error, setError] = useState('')
+
+  const refresh = async () => {
+    if (!supabase) return
+    setLoading(true)
+    setError('')
+    try {
+      const data = await loadAdminData(supabase)
+      setRequests(data.requests)
+      setProfiles(data.profiles)
+    } catch (nextError) {
+      setError(nextError.message || 'Failed to load admin data.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    refresh()
+  }, [])
+
+  const reviewRequest = async (requestId, status) => {
+    try {
+      await reviewAccessRequest(supabase, requestId, status, session.user.id)
+      await refresh()
+      setToast(`Request ${status}.`)
+    } catch (nextError) {
+      setToast(nextError.message || 'Request update failed.')
+    }
+  }
+
+  const changeMemberStatus = async (profileId, status) => {
+    try {
+      await updateMemberStatus(supabase, profileId, status, session.user.id)
+      await refresh()
+      setToast(`Member ${status}.`)
+    } catch (nextError) {
+      setToast(nextError.message || 'Member update failed.')
+    }
+  }
+
+  return (
+    <div className="view admin-view">
+      <PageHeading
+        eyebrow="ADMIN / SUPABASE"
+        title="Workspace access control"
+        description="Approve access requests, manage member status, and keep every action protected by Supabase RLS."
+        action={<button className="secondary-button" onClick={refresh} disabled={loading}>Refresh</button>}
+      />
+      {error && <WorkspaceNotice tone="danger" title="Admin data failed to load" description={error} />}
+      <div className="admin-grid">
+        <section className="panel admin-panel">
+          <SectionHeader title="Access requests" meta={`${requests.length} total`} icon={Mail} />
+          <div className="admin-list">
+            {requests.map((request) => (
+              <article className="admin-row" key={request.id}>
+                <div>
+                  <strong>{request.github_username || 'GitHub pending'}</strong>
+                  <small>{request.email} · {request.status}</small>
+                </div>
+                <div className="admin-actions">
+                  <button className="secondary-button" onClick={() => reviewRequest(request.id, 'rejected')} disabled={request.status === 'rejected'}>Reject</button>
+                  <button className="primary-button" onClick={() => reviewRequest(request.id, 'approved')} disabled={request.status === 'approved'}>Approve</button>
+                </div>
+              </article>
+            ))}
+            {!loading && !requests.length && <div className="empty-state">No access requests yet.</div>}
+            {loading && <div className="empty-state">Loading requests...</div>}
+          </div>
+        </section>
+
+        <section className="panel admin-panel">
+          <SectionHeader title="Members" meta={`${profiles.length} profiles`} icon={Github} />
+          <div className="admin-list">
+            {profiles.map((profileRow) => (
+              <article className="admin-row" key={profileRow.id}>
+                <div>
+                  <strong>{profileRow.github_username || profileRow.display_name || profileRow.email}</strong>
+                  <small>{profileRow.email} · {profileRow.role} · {profileRow.status}</small>
+                </div>
+                <div className="admin-actions">
+                  <button className="secondary-button" onClick={() => changeMemberStatus(profileRow.id, 'suspended')} disabled={profileRow.status === 'suspended'}>Suspend</button>
+                  <button className="primary-button" onClick={() => changeMemberStatus(profileRow.id, 'approved')} disabled={profileRow.status === 'approved'}>Approve</button>
+                </div>
+              </article>
+            ))}
+            {!loading && !profiles.length && <div className="empty-state">No profiles yet.</div>}
+            {loading && <div className="empty-state">Loading members...</div>}
+          </div>
+        </section>
+      </div>
+    </div>
+  )
+}
+
+function Sidebar({ activeView, changeView, onSearch, onHome, collapsed, onToggleCollapse, isAdmin = false }) {
+  const visibleNavItems = isAdmin ? [...navItems, { id: 'admin', label: 'Admin', icon: Github }] : navItems
   return (
     <aside className="sidebar">
       <div className="sidebar-brand-row">
@@ -539,7 +956,7 @@ function Sidebar({ activeView, changeView, onSearch, onHome, collapsed, onToggle
         </button>
       </div>
       <nav className="side-nav" aria-label="主导航">
-        {navItems.map((item) => {
+        {visibleNavItems.map((item) => {
           const Icon = item.icon
           return (
             <button key={item.id} className={activeView === item.id ? 'active' : ''} onClick={() => changeView(item.id)} title={item.label}>
@@ -569,7 +986,43 @@ function Sidebar({ activeView, changeView, onSearch, onHome, collapsed, onToggle
   )
 }
 
-function TopBar({ onSearch, onAdd }) {
+function AuthPanel({ mode, setToast, memberProfile }) {
+  const signInWithGitHub = async () => {
+    if (!supabase) {
+      setToast('Supabase is not configured yet.')
+      return
+    }
+
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'github',
+      options: {
+        redirectTo: window.location.origin + window.location.pathname,
+        scopes: 'read:user user:email',
+      },
+    })
+
+    if (error) setToast(error.message)
+  }
+
+  return (
+    <section className="auth-panel">
+      <div>
+        <span className="eyebrow">{mode === 'loading' ? 'AUTH / LOADING' : mode === 'pending' ? 'AUTH / WAITING APPROVAL' : 'AUTH / PRIVATE WORKSPACE'}</span>
+        <h1>{mode === 'loading' ? 'Checking your workspace access' : mode === 'pending' ? 'Your account is waiting for approval' : 'Sign in to enter your research cockpit'}</h1>
+        <p>{mode === 'loading' ? 'Supabase is preparing your session.' : mode === 'pending' ? `Signed in as ${memberProfile?.github_username || memberProfile?.email || 'this GitHub account'}. An admin needs to approve this profile before workspace data can be opened.` : 'Use the approved GitHub account to keep research tasks, papers, and experiments tied to your private cloud workspace.'}</p>
+      </div>
+      {mode !== 'loading' && <button className="primary-button" onClick={signInWithGitHub}><Github size={17} /> Continue with GitHub</button>}
+    </section>
+  )
+}
+
+function TopBar({ onSearch, onAdd, session, memberProfile, setToast }) {
+  const signOut = async () => {
+    if (!supabase) return
+    await supabase.auth.signOut()
+    setToast('Signed out.')
+  }
+
   return (
     <div className="topbar">
       <div className="date-lockup">
@@ -580,6 +1033,7 @@ function TopBar({ onSearch, onAdd }) {
       <div className="topbar-actions">
         <button className="search-trigger" onClick={onSearch}><Search size={17} />搜索论文、实验或笔记<kbd>Ctrl K</kbd></button>
         <button className="primary-button" onClick={onAdd}><Plus size={17} />快速记录</button>
+        {session && <button className="secondary-button auth-chip" onClick={signOut} title="Sign out"><Github size={16} />{memberProfile?.role || 'member'}</button>}
       </div>
     </div>
   )
@@ -981,10 +1435,11 @@ function QuickAddDialog({ onClose, onAdd }) {
   )
 }
 
-function MobileNav({ activeView, changeView }) {
+function MobileNav({ activeView, changeView, isAdmin = false }) {
+  const visibleNavItems = isAdmin ? [...navItems, { id: 'admin', label: 'Admin', icon: Github }] : navItems
   return (
     <nav className="mobile-nav" aria-label="移动端主导航">
-      {navItems.map((item) => {
+      {visibleNavItems.map((item) => {
         const Icon = item.icon
         return <button key={item.id} className={activeView === item.id ? 'active' : ''} onClick={() => changeView(item.id)}><Icon size={19} /><span>{item.label.replace('管理', '').replace('规划', '')}</span></button>
       })}

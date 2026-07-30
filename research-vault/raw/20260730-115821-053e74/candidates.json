@@ -1,0 +1,1579 @@
+{
+  "batch_id": "20260730-115821-053e74",
+  "created_at": "2026-07-30T03:58:21+00:00",
+  "query": "world model reinforcement learning",
+  "from_year": 2018,
+  "to_year": null,
+  "venues": [
+    "AAAI",
+    "NeurIPS",
+    "ACL",
+    "CVPR",
+    "ICCV",
+    "ICML",
+    "ICLR"
+  ],
+  "sources": [
+    {
+      "source": "OpenAlex",
+      "records": [
+        {
+          "title": "Deep learning, reinforcement learning, and world models",
+          "authors": [],
+          "year": 2022,
+          "venue": "Neural Networks",
+          "doi": "10.1016/j.neunet.2022.03.037",
+          "arxiv_id": "",
+          "openalex_id": "W4224220194",
+          "url": "https://doi.org/10.1016/j.neunet.2022.03.037",
+          "pdf_url": "",
+          "abstract": "Deep learning (DL) and reinforcement learning (RL) methods seem to be a part of indispensable factors to achieve human-level or super-human AI systems. On the other hand, both DL and RL have strong connections with our brain functions and with neuroscientific findings. In this review, we summarize talks and discussions in the \"Deep Learning and Reinforcement Learning\" session of the symposium, International Symposium on Artificial Intelligence and Brain Science. In this session, we discussed whether we can achieve comprehensive understanding of human intelligence based on the recent advances of deep learning and reinforcement learning algorithms. Speakers contributed to provide talks about their recent studies that can be key technologies to achieve human-level intelligence.",
+          "citation_count": 501,
+          "source": "OpenAlex"
+        },
+        {
+          "title": "Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor",
+          "authors": [],
+          "year": 2018,
+          "venue": "arXiv (Cornell University)",
+          "doi": "10.48550/arxiv.1801.01290",
+          "arxiv_id": "",
+          "openalex_id": "W2781726626",
+          "url": "http://arxiv.org/abs/1801.01290",
+          "pdf_url": "https://arxiv.org/pdf/1801.01290",
+          "abstract": "Model-free deep reinforcement learning (RL) algorithms have been demonstrated on a range of challenging decision making and control tasks. However, these methods typically suffer from two major challenges: very high sample complexity and brittle convergence properties, which necessitate meticulous hyperparameter tuning. Both of these challenges severely limit the applicability of such methods to complex, real-world domains. In this paper, we propose soft actor-critic, an off-policy actor-critic deep RL algorithm based on the maximum entropy reinforcement learning framework. In this framework, the actor aims to maximize expected reward while also maximizing entropy. That is, to succeed at the task while acting as randomly as possible. Prior deep RL methods based on this framework have been formulated as Q-learning methods. By combining off-policy updates with a stable stochastic actor-critic formulation, our method achieves state-of-the-art performance on a range of continuous control benchmark tasks, outperforming prior on-policy and off-policy methods. Furthermore, we demonstrate that, in contrast to other off-policy algorithms, our approach is very stable, achieving very similar performance across different random seeds.",
+          "citation_count": 3504,
+          "source": "OpenAlex"
+        },
+        {
+          "title": "A survey on Image Data Augmentation for Deep Learning",
+          "authors": [],
+          "year": 2019,
+          "venue": "Journal Of Big Data",
+          "doi": "10.1186/s40537-019-0197-0",
+          "arxiv_id": "",
+          "openalex_id": "W2954996726",
+          "url": "https://doi.org/10.1186/s40537-019-0197-0",
+          "pdf_url": "https://journalofbigdata.springeropen.com/track/pdf/10.1186/s40537-019-0197-0",
+          "abstract": "Deep convolutional neural networks have performed remarkably well on many Computer Vision tasks. However, these networks are heavily reliant on big data to avoid overfitting. Overfitting refers to the phenomenon when a network learns a function with very high variance such as to perfectly model the training data. Unfortunately, many application domains do not have access to big data, such as medical image analysis. This survey focuses on Data Augmentation, a data-space solution to the problem of limited data. Data Augmentation encompasses a suite of techniques that enhance the size and quality of training datasets such that better Deep Learning models can be built using them. The image augmentation algorithms discussed in this survey include geometric transformations, color space augmentations, kernel filters, mixing images, random erasing, feature space augmentation, adversarial training, generative adversarial networks, neural style transfer, and meta-learning. The application of augmentation methods based on GANs are heavily covered in this survey. In addition to augmentation techniques, this paper will briefly discuss other characteristics of Data Augmentation such as test-time augmentation, resolution impact, final dataset size, and curriculum learning. This survey will present existing methods for Data Augmentation, promising developments, and meta-level decisions for implementing Data Augmentation. Readers will understand how Data Augmentation can improve the performance of their models and expand limited datasets to take advantage of the capabilities of big data.",
+          "citation_count": 12656,
+          "source": "OpenAlex"
+        },
+        {
+          "title": "Machine Learning: Algorithms, Real-World Applications and Research Directions",
+          "authors": [],
+          "year": 2021,
+          "venue": "SN Computer Science",
+          "doi": "10.1007/s42979-021-00592-x",
+          "arxiv_id": "",
+          "openalex_id": "W3135028703",
+          "url": "https://doi.org/10.1007/s42979-021-00592-x",
+          "pdf_url": "https://link.springer.com/content/pdf/10.1007/s42979-021-00592-x.pdf",
+          "abstract": "",
+          "citation_count": 5224,
+          "source": "OpenAlex"
+        },
+        {
+          "title": "Maximum Entropy Inverse Reinforcement Learning",
+          "authors": [],
+          "year": 2018,
+          "venue": "KiltHub Repository",
+          "doi": "10.1184/r1/6555512",
+          "arxiv_id": "",
+          "openalex_id": "W2098774185",
+          "url": "http://repository.cmu.edu/cgi/viewcontent.cgi?article=1045&context=robotics",
+          "pdf_url": "",
+          "abstract": "Recent research has shown the beneﬁt of framing problems of imitation learning as solutions to Markov Decision Problems. This approach reduces learning to the problem of re- covering a utility function that makes the behavior induced by a near-optimal policy closely mimic demonstrated behavior. In this work, we develop a probabilistic approach based on the principle of maximum entropy. Our approach provides a well-deﬁned, globally normalized distribution over decision sequences, while providing the same performance guarantees as existing methods. We develop our technique in the context of modeling real world navigation and driving behaviors where collected data is inherently noisy and imperfect. Our probabilistic approach enables modeling of route preferences as well as a powerful new approach to inferring destinations and routes based on partial trajectories.",
+          "citation_count": 2062,
+          "source": "OpenAlex"
+        },
+        {
+          "title": "A Survey on Multi-Task Learning",
+          "authors": [],
+          "year": 2021,
+          "venue": "IEEE Transactions on Knowledge and Data Engineering",
+          "doi": "10.1109/tkde.2021.3070203",
+          "arxiv_id": "",
+          "openalex_id": "W3141797743",
+          "url": "https://doi.org/10.1109/tkde.2021.3070203",
+          "pdf_url": "",
+          "abstract": "Multi-Task Learning (MTL) is a learning paradigm in machine learning and its aim is to leverage useful information contained in multiple related tasks to help improve the generalization performance of all the tasks. In this paper, we give a survey for MTL from the perspective of algorithmic modeling, applications and theoretical analyses. For algorithmic modeling, we give a definition of MTL and then classify different MTL algorithms into five categories, including feature learning approach, low-rank approach, task clustering approach, task relation learning approach and decomposition approach as well as discussing the characteristics of each approach. In order to improve the performance of learning tasks further, MTL can be combined with other learning paradigms including semi-supervised learning, active learning, unsupervised learning, reinforcement learning, multi-view learning and graphical models. When the number of tasks is large or the data dimensionality is high, we review online, parallel and distributed MTL models as well as dimensionality reduction and feature hashing to reveal their computational and storage advantages. Many real-world applications use MTL to boost their performance and we review representative works in this paper. Finally, we present theoretical analyses and discuss several future directions for MTL.",
+          "citation_count": 2232,
+          "source": "OpenAlex"
+        },
+        {
+          "title": "Deep Reinforcement Learning That Matters",
+          "authors": [],
+          "year": 2018,
+          "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+          "doi": "10.1609/aaai.v32i1.11694",
+          "arxiv_id": "",
+          "openalex_id": "W2754517384",
+          "url": "https://doi.org/10.1609/aaai.v32i1.11694",
+          "pdf_url": "https://ojs.aaai.org/index.php/AAAI/article/download/11694/11553",
+          "abstract": "In recent years, significant progress has been made in solving challenging problems across various domains using deep reinforcement learning (RL). Reproducing existing work and accurately judging the improvements offered by novel methods is vital to sustaining this progress. Unfortunately, reproducing results for state-of-the-art deep RL methods is seldom straightforward. In particular, non-determinism in standard benchmark environments, combined with variance intrinsic to the methods, can make reported results tough to interpret. Without significance metrics and tighter standardization of experimental reporting, it is difficult to determine whether improvements over the prior state-of-the-art are meaningful. In this paper, we investigate challenges posed by reproducibility, proper experimental techniques, and reporting procedures. We illustrate the variability in reported metrics and results when comparing against common baselines and suggest guidelines to make future results in deep RL more reproducible. We aim to spur discussion about how to ensure continued progress in the field by minimizing wasted effort stemming from results that are non-reproducible and easily misinterpreted.",
+          "citation_count": 1535,
+          "source": "OpenAlex"
+        },
+        {
+          "title": "An Introduction to Deep Reinforcement Learning",
+          "authors": [],
+          "year": 2018,
+          "venue": "Foundations and Trends® in Machine Learning",
+          "doi": "10.1561/2200000071",
+          "arxiv_id": "",
+          "openalex_id": "W3100366369",
+          "url": "https://doi.org/10.1561/2200000071",
+          "pdf_url": "",
+          "abstract": "Deep reinforcement learning is the combination of reinforcement learning (RL) and deep learning. This field of research has been able to solve a wide range of complex decision making tasks that were previously out of reach for a machine. Thus, deep RL opens up many new applications in domains such as healthcare, robotics, smart grids, finance, and many more. This manuscript provides an introduction to deep reinforcement learning models, algorithms and techniques. Particular focus is on the aspects related to generalization and how deep RL can be used for practical applications. We assume the reader is familiar with basic machine learning concepts.",
+          "citation_count": 1269,
+          "source": "OpenAlex"
+        },
+        {
+          "title": "Dynamic Graph CNN for Learning on Point Clouds",
+          "authors": [],
+          "year": 2019,
+          "venue": "ACM Transactions on Graphics",
+          "doi": "10.1145/3326362",
+          "arxiv_id": "",
+          "openalex_id": "W2979750740",
+          "url": "https://doi.org/10.1145/3326362",
+          "pdf_url": "https://dl.acm.org/doi/pdf/10.1145/3326362",
+          "abstract": "Point clouds provide a flexible geometric representation suitable for countless applications in computer graphics; they also comprise the raw output of most 3D data acquisition devices. While hand-designed features on point clouds have long been proposed in graphics and vision, however, the recent overwhelming success of convolutional neural networks (CNNs) for image analysis suggests the value of adapting insight from CNN to the point cloud world. Point clouds inherently lack topological information, so designing a model to recover topology can enrich the representation power of point clouds. To this end, we propose a new neural network module dubbed EdgeConv suitable for CNN-based high-level tasks on point clouds, including classification and segmentation. EdgeConv acts on graphs dynamically computed in each layer of the network. It is differentiable and can be plugged into existing architectures. Compared to existing modules operating in extrinsic space or treating each point independently, EdgeConv has several appealing properties: It incorporates local neighborhood information; it can be stacked applied to learn global shape properties; and in multi-layer systems affinity in feature space captures semantic characteristics over potentially long distances in the original embedding. We show the performance of our model on standard benchmarks, including ModelNet40, ShapeNetPart, and S3DIS.",
+          "citation_count": 6831,
+          "source": "OpenAlex"
+        },
+        {
+          "title": "Sim-to-Real Transfer in Deep Reinforcement Learning for Robotics: a Survey",
+          "authors": [],
+          "year": 2020,
+          "venue": "",
+          "doi": "10.1109/ssci47803.2020.9308468",
+          "arxiv_id": "",
+          "openalex_id": "W3088310808",
+          "url": "https://doi.org/10.1109/ssci47803.2020.9308468",
+          "pdf_url": "",
+          "abstract": "Deep reinforcement learning has recently seen huge success across multiple areas in the robotics domain. Owing to the limitations of gathering real-world data, i.e., sample inefficiency and the cost of collecting it, simulation environments are utilized for training the different agents. This not only aids in providing a potentially infinite data source, but also alleviates safety concerns with real robots. Nonetheless, the gap between the simulated and real worlds degrades the performance of the policies once the models are transferred into real robots. Multiple research efforts are therefore now being directed towards closing this sim-toreal gap and accomplish more efficient policy transfer. Recent years have seen the emergence of multiple methods applicable to different domains, but there is a lack, to the best of our knowledge, of a comprehensive review summarizing and putting into context the different methods. In this survey paper, we cover the fundamental background behind sim-to-real transfer in deep reinforcement learning and overview the main methods being utilized at the moment: domain randomization, domain adaptation, imitation learning, meta-learning and knowledge distillation. We categorize some of the most relevant recent works, and outline the main application scenarios. Finally, we discuss the main opportunities and challenges of the different approaches and point to the most promising directions.",
+          "citation_count": 705,
+          "source": "OpenAlex"
+        }
+      ],
+      "error": null
+    },
+    {
+      "source": "Crossref",
+      "records": [
+        {
+          "title": "A Unified ISR World Model: Vossels, Voxels, Mipvols, and Reinforcement Learning",
+          "authors": [
+            "",
+            "Greg Passmore"
+          ],
+          "year": 2025,
+          "venue": "Advances in Machine Learning &amp; Artificial Intelligence",
+          "doi": "10.33140/amlai.06.04.02",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.33140/amlai.06.04.02",
+          "pdf_url": "",
+          "abstract": "ISR enterprises must integrate measurements from many sensing modalities, radar, EO/IR, LiDAR, SIGINT, acoustics, cyber,\nweather, and jamming, each with its own resolution, structure, and format. Traditional systems often discard richness by reducing\ninputs to tracks, maps, or occasional images, leaving little for machine learning to exploit. This paper introduces Vossels (Volumetric\nSingular Spectral Elements), which were designed to address sensor discordance by storing raw sensor data in a unified atomic\nstructure, ensuring that the full information content is preserved for artificial intelligence and reinforcement learning.\nA Vossel encodes (x, y, z, t, λi , aj\n) as a singular volumetric spectral element, capturing space, time, spectral channels, and auxiliary\nattributes. Integrated into voxel grids and mipvol hierarchies, Vossels support multiresolution storage, retrieval, and time-series\nsegmentation. Mipvols accelerate access by adapting resolution to projected target size, increasing speed without discarding data\nrelevant to the task. This provides consistent, resolution-preserving storage that eliminates modality-specific silos, simplifies the\nmental model, and creates a centralized repository optimized for AI exploitation.\nBecause raw data is retained rather than simplified, reinforcement learning agents can operate directly on the richness of ISR\nstreams, identifying correlations across modalities and scales. The memory manager and frustum extractor keep massive datasets\ntractable by keeping local neighborhoods in GPU VRAM or AI context windows while paging global volumes efficiently. This\nallows adaptive policies to evolve—learning when to refine, when to approximate, and how to balance fidelity with performance.\nThis paper defines the Vossel structure, the supporting voxel/mipvol hierarchy, and the mathematics of extraction and fusion.\nKriging interpolation is presented for high-fidelity value estimation, view frustum extraction for adaptive retrieval, and multimodal fusion strategies for co-registration. By design, Vossels enable AI and reinforcement learning to exploit ISR data in its full\nrichness, transforming integration from siloed processes into a coherent, self-optimizing system.",
+          "citation_count": 0,
+          "source": "Crossref"
+        },
+        {
+          "title": "Safe Driving in Uncertainty: A Transformer-Based World Model for Caution-Constrained Reinforcement Learning",
+          "authors": [
+            "DongMing Chen"
+          ],
+          "year": 2025,
+          "venue": "",
+          "doi": "10.2139/ssrn.5361834",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.2139/ssrn.5361834",
+          "pdf_url": "",
+          "abstract": "",
+          "citation_count": 0,
+          "source": "Crossref"
+        },
+        {
+          "title": "Q-Learning: Model Free Reinforcement Learning and Temporal Difference Learning",
+          "authors": [
+            "Steven L. Brunton"
+          ],
+          "year": 2022,
+          "venue": "",
+          "doi": "10.52843/cassyni.ss11hp",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.52843/cassyni.ss11hp",
+          "pdf_url": "",
+          "abstract": "Here we describe Q-learning, which is one of the most popular methods in reinforcement learning. Q-learning is a type of temporal difference learning.  We discuss other TD algorithms, such as SARSA, and connections to biological learning through dopamine. Q-learning is also one of the most common frameworks for deep reinforcement learning.",
+          "citation_count": 0,
+          "source": "Crossref"
+        },
+        {
+          "title": "World of Reinforcement Learning",
+          "authors": [
+            "Harini Anand"
+          ],
+          "year": 2022,
+          "venue": "",
+          "doi": "10.31224/2755",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.31224/2755",
+          "pdf_url": "",
+          "abstract": "",
+          "citation_count": 0,
+          "source": "Crossref"
+        },
+        {
+          "title": "Model-Based Reinforcement Learning",
+          "authors": [
+            "Aske Plaat"
+          ],
+          "year": 2022,
+          "venue": "Deep Reinforcement Learning",
+          "doi": "10.1007/978-981-19-0638-1_5",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.1007/978-981-19-0638-1_5",
+          "pdf_url": "",
+          "abstract": "",
+          "citation_count": 2,
+          "source": "Crossref"
+        },
+        {
+          "title": "LDQN: A Lightweight Deep Reinforcement Learning Model",
+          "authors": [
+            "Wenjin Liu",
+            "Yuheng Li",
+            "Hao Tang"
+          ],
+          "year": 2024,
+          "venue": "2024 IEEE Smart World Congress (SWC)",
+          "doi": "10.1109/swc62898.2024.00261",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.1109/swc62898.2024.00261",
+          "pdf_url": "",
+          "abstract": "",
+          "citation_count": 3,
+          "source": "Crossref"
+        },
+        {
+          "title": "Model Based Reinforcement Learning: Policy Iteration, Value Iteration, and Dynamic Programming",
+          "authors": [
+            "Steven L. Brunton"
+          ],
+          "year": 2022,
+          "venue": "",
+          "doi": "10.52843/cassyni.6fs4s9",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.52843/cassyni.6fs4s9",
+          "pdf_url": "",
+          "abstract": "Here we introduce dynamic programming, which is a cornerstone of model-based reinforcement learning. We demonstrate dynamic programming for policy iteration and value iteration, leading to the quality function and Q-learning.",
+          "citation_count": 0,
+          "source": "Crossref"
+        },
+        {
+          "title": "Mamba World Model for RL: Enhancing Long-term Memory in Model-based Reinforcement Learning",
+          "authors": [
+            "Mingcong Cao",
+            "Yucheng Huang",
+            "Suat Gumussoy",
+            "Umit Y. Ogras"
+          ],
+          "year": 2025,
+          "venue": "2025 International Conference on Machine Learning and Applications (ICMLA)",
+          "doi": "10.1109/icmla66185.2025.00094",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.1109/icmla66185.2025.00094",
+          "pdf_url": "",
+          "abstract": "",
+          "citation_count": 0,
+          "source": "Crossref"
+        },
+        {
+          "title": "Proposal model for e-learning based on Case Based Reasoning and Reinforcement Learning",
+          "authors": [
+            "Anibal Flores",
+            "Luis Alfaro",
+            "Jose Herrera"
+          ],
+          "year": 2019,
+          "venue": "2019 IEEE World Conference on Engineering Education (EDUNINE)",
+          "doi": "10.1109/edunine.2019.8875800",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.1109/edunine.2019.8875800",
+          "pdf_url": "",
+          "abstract": "",
+          "citation_count": 3,
+          "source": "Crossref"
+        },
+        {
+          "title": "Model-Based Reinforcement Learning",
+          "authors": [
+            "Chong Li"
+          ],
+          "year": 2019,
+          "venue": "Reinforcement Learning for Cyber-Physical Systems",
+          "doi": "10.1201/9781351006620-4",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.1201/9781351006620-4",
+          "pdf_url": "",
+          "abstract": "",
+          "citation_count": 0,
+          "source": "Crossref"
+        }
+      ],
+      "error": null
+    },
+    {
+      "source": "arXiv",
+      "records": [
+        {
+          "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+          "authors": [
+            "Elena Sorina Lupu",
+            "Patrick Spieler",
+            "Khurram Javed",
+            "Kris De Asis",
+            "John D. Martin",
+            "Martha Steenstrup",
+            "Joseph Modayil"
+          ],
+          "year": 2026,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "2607.18488",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/2607.18488v1",
+          "pdf_url": "https://arxiv.org/pdf/2607.18488v1",
+          "abstract": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We propose a physical platform that is designed to simplify the transition. In this paper, we present the Open Ant: a physical variant of the commonly used Gymnasium Ant environment, along with a simulation. We demonstrate that competent walking policies can be learned from scratch in approximately one hour directly from the physical robot's experience for two substantially different RL algorithms: SARSA($λ$) and Soft Actor-Critic (SAC). Separately, we show policies that were learned in simulation transfer to reality. We also examine how well the platform supports a nimble experimental ecosystem. Specifically, we observe the speed with which new users from diverse backgrounds achieve their first success with the platform, and how easily the platform can be repaired and updated when hardware issues arise. Both the hardware design and software are available as open-source on GitHub for ease of customization. In summary, we advocate for the use of the Open Ant for RL researchers who frequently use simulated environments, so they can more easily include robot experiments in their evaluations.",
+          "citation_count": null,
+          "source": "arXiv"
+        },
+        {
+          "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+          "authors": [
+            "Abdul Wahab",
+            "Raksha Kumaraswamy",
+            "Martha White"
+          ],
+          "year": 2026,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "2602.12375",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/2602.12375v1",
+          "pdf_url": "https://arxiv.org/pdf/2602.12375v1",
+          "abstract": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propagating local uncertainties around rewards. However, this approach only increases the value bonus for an action retroactively, after seeing a higher reward bonus from that state and action. Such an approach does not encourage the agent to visit a state and action for the first time. In this work, we introduce an algorithm for exploration called Value Bonuses with Ensemble errors (VBE), that maintains an ensemble of random action-value functions (RQFs). VBE uses the errors in the estimation of these RQFs to design value bonuses that provide first-visit optimism and deep exploration. The key idea is to design the rewards for these RQFs in such a way that the value bonus can decrease to zero. We show that VBE outperforms Bootstrap DQN and two reward bonus approaches (RND and ACB) on several classic environments used to test exploration and provide demonstrative experiments that it can scale easily to more complex environments like Atari.",
+          "citation_count": null,
+          "source": "arXiv"
+        },
+        {
+          "title": "One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay",
+          "authors": [
+            "Jake Bruce",
+            "Niko Suenderhauf",
+            "Piotr Mirowski",
+            "Raia Hadsell",
+            "Michael Milford"
+          ],
+          "year": 2017,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "1711.10137",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/1711.10137v2",
+          "pdf_url": "https://arxiv.org/pdf/1711.10137v2",
+          "abstract": "Recently, model-free reinforcement learning algorithms have been shown to solve challenging problems by learning from extensive interaction with the environment. A significant issue with transferring this success to the robotics domain is that interaction with the real world is costly, but training on limited experience is prone to overfitting. We present a method for learning to navigate, to a fixed goal and in a known environment, on a mobile robot. The robot leverages an interactive world model built from a single traversal of the environment, a pre-trained visual feature encoder, and stochastic environmental augmentation, to demonstrate successful zero-shot transfer under real-world environmental variations without fine-tuning.",
+          "citation_count": null,
+          "source": "arXiv"
+        },
+        {
+          "title": "Causal-Paced Deep Reinforcement Learning",
+          "authors": [
+            "Geonwoo Cho",
+            "Jaegyun Im",
+            "Doyoon Kim",
+            "Sundong Kim"
+          ],
+          "year": 2025,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "2507.02910",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/2507.02910v1",
+          "pdf_url": "https://arxiv.org/pdf/2507.02910v1",
+          "abstract": "Designing effective task sequences is crucial for curriculum reinforcement learning (CRL), where agents must gradually acquire skills by training on intermediate tasks. A key challenge in CRL is to identify tasks that promote exploration, yet are similar enough to support effective transfer. While recent approach suggests comparing tasks via their Structural Causal Models (SCMs), the method requires access to ground-truth causal structures, an unrealistic assumption in most RL settings. In this work, we propose Causal-Paced Deep Reinforcement Learning (CP-DRL), a curriculum learning framework aware of SCM differences between tasks based on interaction data approximation. This signal captures task novelty, which we combine with the agent's learnability, measured by reward gain, to form a unified objective. Empirically, CP-DRL outperforms existing curriculum methods on the Point Mass benchmark, achieving faster convergence and higher returns. CP-DRL demonstrates reduced variance with comparable final returns in the Bipedal Walker-Trivial setting, and achieves the highest average performance in the Infeasible variant. These results indicate that leveraging causal relationships between tasks can improve the structure-awareness and sample efficiency of curriculum reinforcement learning. We provide the full implementation of CP-DRL to facilitate the reproduction of our main results at https://github.com/Cho-Geonwoo/CP-DRL.",
+          "citation_count": null,
+          "source": "arXiv"
+        },
+        {
+          "title": "Exploring Hierarchy-Aware Inverse Reinforcement Learning",
+          "authors": [
+            "Chris Cundy",
+            "Daniel Filan"
+          ],
+          "year": 2018,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "1807.05037",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/1807.05037v1",
+          "pdf_url": "https://arxiv.org/pdf/1807.05037v1",
+          "abstract": "We introduce a new generative model for human planning under the Bayesian Inverse Reinforcement Learning (BIRL) framework which takes into account the fact that humans often plan using hierarchical strategies. We describe the Bayesian Inverse Hierarchical RL (BIHRL) algorithm for inferring the values of hierarchical planners, and use an illustrative toy model to show that BIHRL retains accuracy where standard BIRL fails. Furthermore, BIHRL is able to accurately predict the goals of `Wikispeedia' game players, with inclusion of hierarchical structure in the model resulting in a large boost in accuracy. We show that BIHRL is able to significantly outperform BIRL even when we only have a weak prior on the hierarchical structure of the plans available to the agent, and discuss the significant challenges that remain for scaling up this framework to more realistic settings.",
+          "citation_count": null,
+          "source": "arXiv"
+        },
+        {
+          "title": "A Tutorial on Meta-Reinforcement Learning",
+          "authors": [
+            "Jacob Beck",
+            "Risto Vuorio",
+            "Evan Zheran Liu",
+            "Zheng Xiong",
+            "Luisa Zintgraf",
+            "Chelsea Finn",
+            "Shimon Whiteson"
+          ],
+          "year": 2023,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "2301.08028",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/2301.08028v4",
+          "pdf_url": "https://arxiv.org/pdf/2301.08028v4",
+          "abstract": "While deep reinforcement learning (RL) has fueled multiple high-profile successes in machine learning, it is held back from more widespread adoption by its often poor data efficiency and the limited generality of the policies it produces. A promising approach for alleviating these limitations is to cast the development of better RL algorithms as a machine learning problem itself in a process called meta-RL. Meta-RL is most commonly studied in a problem setting where, given a distribution of tasks, the goal is to learn a policy that is capable of adapting to any new task from the task distribution with as little data as possible. In this survey, we describe the meta-RL problem setting in detail as well as its major variations. We discuss how, at a high level, meta-RL research can be clustered based on the presence of a task distribution and the learning budget available for each individual task. Using these clusters, we then survey meta-RL algorithms and applications. We conclude by presenting the open problems on the path to making meta-RL part of the standard toolbox for a deep RL practitioner.",
+          "citation_count": null,
+          "source": "arXiv"
+        },
+        {
+          "title": "Stabilizing Extreme Q-learning by Maclaurin Expansion",
+          "authors": [
+            "Motoki Omura",
+            "Takayuki Osa",
+            "Yusuke Mukuta",
+            "Tatsuya Harada"
+          ],
+          "year": 2024,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "2406.04896",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/2406.04896v2",
+          "pdf_url": "https://arxiv.org/pdf/2406.04896v2",
+          "abstract": "In offline reinforcement learning, in-sample learning methods have been widely used to prevent performance degradation caused by evaluating out-of-distribution actions from the dataset. Extreme Q-learning (XQL) employs a loss function based on the assumption that Bellman error follows a Gumbel distribution, enabling it to model the soft optimal value function in an in-sample manner. It has demonstrated strong performance in both offline and online reinforcement learning settings. However, issues remain, such as the instability caused by the exponential term in the loss function and the risk of the error distribution deviating from the Gumbel distribution. Therefore, we propose Maclaurin Expanded Extreme Q-learning to enhance stability. In this method, applying Maclaurin expansion to the loss function in XQL enhances stability against large errors. This approach involves adjusting the modeled value function between the value function under the behavior policy and the soft optimal value function, thus achieving a trade-off between stability and optimality depending on the order of expansion. It also enables adjustment of the error distribution assumption from a normal distribution to a Gumbel distribution. Our method significantly stabilizes learning in online RL tasks from DM Control, where XQL was previously unstable. Additionally, it improves performance in several offline RL tasks from D4RL.",
+          "citation_count": null,
+          "source": "arXiv"
+        },
+        {
+          "title": "Anderson Acceleration for Reinforcement Learning",
+          "authors": [
+            "Matthieu Geist",
+            "Bruno Scherrer"
+          ],
+          "year": 2018,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "1809.09501",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/1809.09501v1",
+          "pdf_url": "https://arxiv.org/pdf/1809.09501v1",
+          "abstract": "Anderson acceleration is an old and simple method for accelerating the computation of a fixed point. However, as far as we know and quite surprisingly, it has never been applied to dynamic programming or reinforcement learning. In this paper, we explain briefly what Anderson acceleration is and how it can be applied to value iteration, this being supported by preliminary experiments showing a significant speed up of convergence, that we critically discuss. We also discuss how this idea could be applied more generally to (deep) reinforcement learning.",
+          "citation_count": null,
+          "source": "arXiv"
+        },
+        {
+          "title": "Learning Multimodal Transition Dynamics for Model-Based Reinforcement Learning",
+          "authors": [
+            "Thomas M. Moerland",
+            "Joost Broekens",
+            "Catholijn M. Jonker"
+          ],
+          "year": 2017,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "1705.00470",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/1705.00470v2",
+          "pdf_url": "https://arxiv.org/pdf/1705.00470v2",
+          "abstract": "In this paper we study how to learn stochastic, multimodal transition dynamics in reinforcement learning (RL) tasks. We focus on evaluating transition function estimation, while we defer planning over this model to future work. Stochasticity is a fundamental property of many task environments. However, discriminative function approximators have difficulty estimating multimodal stochasticity. In contrast, deep generative models do capture complex high-dimensional outcome distributions. First we discuss why, amongst such models, conditional variational inference (VI) is theoretically most appealing for model-based RL. Subsequently, we compare different VI models on their ability to learn complex stochasticity on simulated functions, as well as on a typical RL gridworld with multimodal dynamics. Results show VI successfully predicts multimodal outcomes, but also robustly ignores these for deterministic parts of the transition dynamics. In summary, we show a robust method to learn multimodal transitions using function approximation, which is a key preliminary for model-based RL in stochastic domains.",
+          "citation_count": null,
+          "source": "arXiv"
+        },
+        {
+          "title": "Compression and Localization in Reinforcement Learning for ATARI Games",
+          "authors": [
+            "Joel Ruben Antony Moniz",
+            "Barun Patra",
+            "Sarthak Garg"
+          ],
+          "year": 2019,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "1904.09489",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/1904.09489v1",
+          "pdf_url": "https://arxiv.org/pdf/1904.09489v1",
+          "abstract": "Deep neural networks have become commonplace in the domain of reinforcement learning, but are often expensive in terms of the number of parameters needed. While compressing deep neural networks has of late assumed great importance to overcome this drawback, little work has been done to address this problem in the context of reinforcement learning agents. This work aims at making first steps towards model compression in an RL agent. In particular, we compress networks to drastically reduce the number of parameters in them (to sizes less than 3% of their original size), further facilitated by applying a global max pool after the final convolution layer, and propose using Actor-Mimic in the context of compression. Finally, we show that this global max-pool allows for weakly supervised object localization, improving the ability to identify the agent's points of focus.",
+          "citation_count": null,
+          "source": "arXiv"
+        }
+      ],
+      "error": null
+    },
+    {
+      "source": "Semantic Scholar",
+      "records": [],
+      "error": "unconfigured: SEMANTIC_SCHOLAR_API_KEY is not set"
+    },
+    {
+      "source": "DBLP",
+      "records": [],
+      "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1082)>"
+    }
+  ],
+  "candidates": [
+    {
+      "title": "Deep Reinforcement Learning That Matters",
+      "authors": [],
+      "year": 2018,
+      "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+      "doi": "10.1609/aaai.v32i1.11694",
+      "arxiv_id": "",
+      "openalex_id": "W2754517384",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1609/aaai.v32i1.11694",
+      "pdf_url": "https://ojs.aaai.org/index.php/AAAI/article/download/11694/11553",
+      "abstract": "In recent years, significant progress has been made in solving challenging problems across various domains using deep reinforcement learning (RL). Reproducing existing work and accurately judging the improvements offered by novel methods is vital to sustaining this progress. Unfortunately, reproducing results for state-of-the-art deep RL methods is seldom straightforward. In particular, non-determinism in standard benchmark environments, combined with variance intrinsic to the methods, can make reported results tough to interpret. Without significance metrics and tighter standardization of experimental reporting, it is difficult to determine whether improvements over the prior state-of-the-art are meaningful. In this paper, we investigate challenges posed by reproducibility, proper experimental techniques, and reporting procedures. We illustrate the variability in reported metrics and results when comparing against common baselines and suggest guidelines to make future results in deep RL more reproducible. We aim to spur discussion about how to ensure continued progress in the field by minimizing wasted effort stemming from results that are non-reproducible and easily misinterpreted.",
+      "citation_count": 1535,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_f1c21f5d50e2",
+      "venue_match": "AAAI",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Deep+Reinforcement+Learning+That+Matters",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Deep+Reinforcement+Learning+That+Matters",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "AAAI",
+          "label": "AAAI Proceedings",
+          "url": "https://ojs.aaai.org/index.php/AAAI",
+          "search_title": "Deep Reinforcement Learning That Matters"
+        }
+      }
+    },
+    {
+      "title": "Mamba World Model for RL: Enhancing Long-term Memory in Model-based Reinforcement Learning",
+      "authors": [
+        "Mingcong Cao",
+        "Yucheng Huang",
+        "Suat Gumussoy",
+        "Umit Y. Ogras"
+      ],
+      "year": 2025,
+      "venue": "2025 International Conference on Machine Learning and Applications (ICMLA)",
+      "doi": "10.1109/icmla66185.2025.00094",
+      "arxiv_id": "",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1109/icmla66185.2025.00094",
+      "pdf_url": "",
+      "abstract": "",
+      "citation_count": 0,
+      "sources": [
+        "Crossref"
+      ],
+      "paper_id": "p_40c791db0298",
+      "venue_match": "ICML",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Mamba+World+Model+for+RL%3A+Enhancing+Long-term+Memory+in+Model-based+Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Mamba+World+Model+for+RL%3A+Enhancing+Long-term+Memory+in+Model-based+Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "ICML",
+          "label": "Proceedings of Machine Learning Research",
+          "url": "https://proceedings.mlr.press/",
+          "search_title": "Mamba World Model for RL: Enhancing Long-term Memory in Model-based Reinforcement Learning"
+        }
+      }
+    },
+    {
+      "title": "A survey on Image Data Augmentation for Deep Learning",
+      "authors": [],
+      "year": 2019,
+      "venue": "Journal Of Big Data",
+      "doi": "10.1186/s40537-019-0197-0",
+      "arxiv_id": "",
+      "openalex_id": "W2954996726",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1186/s40537-019-0197-0",
+      "pdf_url": "https://journalofbigdata.springeropen.com/track/pdf/10.1186/s40537-019-0197-0",
+      "abstract": "Deep convolutional neural networks have performed remarkably well on many Computer Vision tasks. However, these networks are heavily reliant on big data to avoid overfitting. Overfitting refers to the phenomenon when a network learns a function with very high variance such as to perfectly model the training data. Unfortunately, many application domains do not have access to big data, such as medical image analysis. This survey focuses on Data Augmentation, a data-space solution to the problem of limited data. Data Augmentation encompasses a suite of techniques that enhance the size and quality of training datasets such that better Deep Learning models can be built using them. The image augmentation algorithms discussed in this survey include geometric transformations, color space augmentations, kernel filters, mixing images, random erasing, feature space augmentation, adversarial training, generative adversarial networks, neural style transfer, and meta-learning. The application of augmentation methods based on GANs are heavily covered in this survey. In addition to augmentation techniques, this paper will briefly discuss other characteristics of Data Augmentation such as test-time augmentation, resolution impact, final dataset size, and curriculum learning. This survey will present existing methods for Data Augmentation, promising developments, and meta-level decisions for implementing Data Augmentation. Readers will understand how Data Augmentation can improve the performance of their models and expand limited datasets to take advantage of the capabilities of big data.",
+      "citation_count": 12656,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_0c06c7905c22",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=A+survey+on+Image+Data+Augmentation+for+Deep+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=A+survey+on+Image+Data+Augmentation+for+Deep+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "A survey on Image Data Augmentation for Deep Learning"
+        }
+      }
+    },
+    {
+      "title": "Dynamic Graph CNN for Learning on Point Clouds",
+      "authors": [],
+      "year": 2019,
+      "venue": "ACM Transactions on Graphics",
+      "doi": "10.1145/3326362",
+      "arxiv_id": "",
+      "openalex_id": "W2979750740",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1145/3326362",
+      "pdf_url": "https://dl.acm.org/doi/pdf/10.1145/3326362",
+      "abstract": "Point clouds provide a flexible geometric representation suitable for countless applications in computer graphics; they also comprise the raw output of most 3D data acquisition devices. While hand-designed features on point clouds have long been proposed in graphics and vision, however, the recent overwhelming success of convolutional neural networks (CNNs) for image analysis suggests the value of adapting insight from CNN to the point cloud world. Point clouds inherently lack topological information, so designing a model to recover topology can enrich the representation power of point clouds. To this end, we propose a new neural network module dubbed EdgeConv suitable for CNN-based high-level tasks on point clouds, including classification and segmentation. EdgeConv acts on graphs dynamically computed in each layer of the network. It is differentiable and can be plugged into existing architectures. Compared to existing modules operating in extrinsic space or treating each point independently, EdgeConv has several appealing properties: It incorporates local neighborhood information; it can be stacked applied to learn global shape properties; and in multi-layer systems affinity in feature space captures semantic characteristics over potentially long distances in the original embedding. We show the performance of our model on standard benchmarks, including ModelNet40, ShapeNetPart, and S3DIS.",
+      "citation_count": 6831,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_a71f105f32e1",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Dynamic+Graph+CNN+for+Learning+on+Point+Clouds",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Dynamic+Graph+CNN+for+Learning+on+Point+Clouds",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Dynamic Graph CNN for Learning on Point Clouds"
+        }
+      }
+    },
+    {
+      "title": "Machine Learning: Algorithms, Real-World Applications and Research Directions",
+      "authors": [],
+      "year": 2021,
+      "venue": "SN Computer Science",
+      "doi": "10.1007/s42979-021-00592-x",
+      "arxiv_id": "",
+      "openalex_id": "W3135028703",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1007/s42979-021-00592-x",
+      "pdf_url": "https://link.springer.com/content/pdf/10.1007/s42979-021-00592-x.pdf",
+      "abstract": "",
+      "citation_count": 5224,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_675fde8e4760",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Machine+Learning%3A+Algorithms%2C+Real-World+Applications+and+Research+Directions",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Machine+Learning%3A+Algorithms%2C+Real-World+Applications+and+Research+Directions",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Machine Learning: Algorithms, Real-World Applications and Research Directions"
+        }
+      }
+    },
+    {
+      "title": "Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor",
+      "authors": [],
+      "year": 2018,
+      "venue": "arXiv (Cornell University)",
+      "doi": "10.48550/arxiv.1801.01290",
+      "arxiv_id": "",
+      "openalex_id": "W2781726626",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/1801.01290",
+      "pdf_url": "https://arxiv.org/pdf/1801.01290",
+      "abstract": "Model-free deep reinforcement learning (RL) algorithms have been demonstrated on a range of challenging decision making and control tasks. However, these methods typically suffer from two major challenges: very high sample complexity and brittle convergence properties, which necessitate meticulous hyperparameter tuning. Both of these challenges severely limit the applicability of such methods to complex, real-world domains. In this paper, we propose soft actor-critic, an off-policy actor-critic deep RL algorithm based on the maximum entropy reinforcement learning framework. In this framework, the actor aims to maximize expected reward while also maximizing entropy. That is, to succeed at the task while acting as randomly as possible. Prior deep RL methods based on this framework have been formulated as Q-learning methods. By combining off-policy updates with a stable stochastic actor-critic formulation, our method achieves state-of-the-art performance on a range of continuous control benchmark tasks, outperforming prior on-policy and off-policy methods. Furthermore, we demonstrate that, in contrast to other off-policy algorithms, our approach is very stable, achieving very similar performance across different random seeds.",
+      "citation_count": 3504,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_7b40e3329249",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Soft+Actor-Critic%3A+Off-Policy+Maximum+Entropy+Deep+Reinforcement+Learning+with+a+Stochastic+Actor",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Soft+Actor-Critic%3A+Off-Policy+Maximum+Entropy+Deep+Reinforcement+Learning+with+a+Stochastic+Actor",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor"
+        }
+      }
+    },
+    {
+      "title": "A Survey on Multi-Task Learning",
+      "authors": [],
+      "year": 2021,
+      "venue": "IEEE Transactions on Knowledge and Data Engineering",
+      "doi": "10.1109/tkde.2021.3070203",
+      "arxiv_id": "",
+      "openalex_id": "W3141797743",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1109/tkde.2021.3070203",
+      "pdf_url": "",
+      "abstract": "Multi-Task Learning (MTL) is a learning paradigm in machine learning and its aim is to leverage useful information contained in multiple related tasks to help improve the generalization performance of all the tasks. In this paper, we give a survey for MTL from the perspective of algorithmic modeling, applications and theoretical analyses. For algorithmic modeling, we give a definition of MTL and then classify different MTL algorithms into five categories, including feature learning approach, low-rank approach, task clustering approach, task relation learning approach and decomposition approach as well as discussing the characteristics of each approach. In order to improve the performance of learning tasks further, MTL can be combined with other learning paradigms including semi-supervised learning, active learning, unsupervised learning, reinforcement learning, multi-view learning and graphical models. When the number of tasks is large or the data dimensionality is high, we review online, parallel and distributed MTL models as well as dimensionality reduction and feature hashing to reveal their computational and storage advantages. Many real-world applications use MTL to boost their performance and we review representative works in this paper. Finally, we present theoretical analyses and discuss several future directions for MTL.",
+      "citation_count": 2232,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_76d1043bd782",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=A+Survey+on+Multi-Task+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=A+Survey+on+Multi-Task+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "A Survey on Multi-Task Learning"
+        }
+      }
+    },
+    {
+      "title": "Maximum Entropy Inverse Reinforcement Learning",
+      "authors": [],
+      "year": 2018,
+      "venue": "KiltHub Repository",
+      "doi": "10.1184/r1/6555512",
+      "arxiv_id": "",
+      "openalex_id": "W2098774185",
+      "semantic_id": "",
+      "url": "http://repository.cmu.edu/cgi/viewcontent.cgi?article=1045&context=robotics",
+      "pdf_url": "",
+      "abstract": "Recent research has shown the beneﬁt of framing problems of imitation learning as solutions to Markov Decision Problems. This approach reduces learning to the problem of re- covering a utility function that makes the behavior induced by a near-optimal policy closely mimic demonstrated behavior. In this work, we develop a probabilistic approach based on the principle of maximum entropy. Our approach provides a well-deﬁned, globally normalized distribution over decision sequences, while providing the same performance guarantees as existing methods. We develop our technique in the context of modeling real world navigation and driving behaviors where collected data is inherently noisy and imperfect. Our probabilistic approach enables modeling of route preferences as well as a powerful new approach to inferring destinations and routes based on partial trajectories.",
+      "citation_count": 2062,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_9eb679244ac3",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Maximum+Entropy+Inverse+Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Maximum+Entropy+Inverse+Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Maximum Entropy Inverse Reinforcement Learning"
+        }
+      }
+    },
+    {
+      "title": "An Introduction to Deep Reinforcement Learning",
+      "authors": [],
+      "year": 2018,
+      "venue": "Foundations and Trends® in Machine Learning",
+      "doi": "10.1561/2200000071",
+      "arxiv_id": "",
+      "openalex_id": "W3100366369",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1561/2200000071",
+      "pdf_url": "",
+      "abstract": "Deep reinforcement learning is the combination of reinforcement learning (RL) and deep learning. This field of research has been able to solve a wide range of complex decision making tasks that were previously out of reach for a machine. Thus, deep RL opens up many new applications in domains such as healthcare, robotics, smart grids, finance, and many more. This manuscript provides an introduction to deep reinforcement learning models, algorithms and techniques. Particular focus is on the aspects related to generalization and how deep RL can be used for practical applications. We assume the reader is familiar with basic machine learning concepts.",
+      "citation_count": 1269,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_2393c791a05a",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=An+Introduction+to+Deep+Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=An+Introduction+to+Deep+Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "An Introduction to Deep Reinforcement Learning"
+        }
+      }
+    },
+    {
+      "title": "Sim-to-Real Transfer in Deep Reinforcement Learning for Robotics: a Survey",
+      "authors": [],
+      "year": 2020,
+      "venue": "",
+      "doi": "10.1109/ssci47803.2020.9308468",
+      "arxiv_id": "",
+      "openalex_id": "W3088310808",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1109/ssci47803.2020.9308468",
+      "pdf_url": "",
+      "abstract": "Deep reinforcement learning has recently seen huge success across multiple areas in the robotics domain. Owing to the limitations of gathering real-world data, i.e., sample inefficiency and the cost of collecting it, simulation environments are utilized for training the different agents. This not only aids in providing a potentially infinite data source, but also alleviates safety concerns with real robots. Nonetheless, the gap between the simulated and real worlds degrades the performance of the policies once the models are transferred into real robots. Multiple research efforts are therefore now being directed towards closing this sim-toreal gap and accomplish more efficient policy transfer. Recent years have seen the emergence of multiple methods applicable to different domains, but there is a lack, to the best of our knowledge, of a comprehensive review summarizing and putting into context the different methods. In this survey paper, we cover the fundamental background behind sim-to-real transfer in deep reinforcement learning and overview the main methods being utilized at the moment: domain randomization, domain adaptation, imitation learning, meta-learning and knowledge distillation. We categorize some of the most relevant recent works, and outline the main application scenarios. Finally, we discuss the main opportunities and challenges of the different approaches and point to the most promising directions.",
+      "citation_count": 705,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_fa3b899c98c4",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Sim-to-Real+Transfer+in+Deep+Reinforcement+Learning+for+Robotics%3A+a+Survey",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Sim-to-Real+Transfer+in+Deep+Reinforcement+Learning+for+Robotics%3A+a+Survey",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Sim-to-Real Transfer in Deep Reinforcement Learning for Robotics: a Survey"
+        }
+      }
+    },
+    {
+      "title": "Deep learning, reinforcement learning, and world models",
+      "authors": [],
+      "year": 2022,
+      "venue": "Neural Networks",
+      "doi": "10.1016/j.neunet.2022.03.037",
+      "arxiv_id": "",
+      "openalex_id": "W4224220194",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1016/j.neunet.2022.03.037",
+      "pdf_url": "",
+      "abstract": "Deep learning (DL) and reinforcement learning (RL) methods seem to be a part of indispensable factors to achieve human-level or super-human AI systems. On the other hand, both DL and RL have strong connections with our brain functions and with neuroscientific findings. In this review, we summarize talks and discussions in the \"Deep Learning and Reinforcement Learning\" session of the symposium, International Symposium on Artificial Intelligence and Brain Science. In this session, we discussed whether we can achieve comprehensive understanding of human intelligence based on the recent advances of deep learning and reinforcement learning algorithms. Speakers contributed to provide talks about their recent studies that can be key technologies to achieve human-level intelligence.",
+      "citation_count": 501,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_ca4c1bf611c8",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Deep+learning%2C+reinforcement+learning%2C+and+world+models",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Deep+learning%2C+reinforcement+learning%2C+and+world+models",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Deep learning, reinforcement learning, and world models"
+        }
+      }
+    },
+    {
+      "title": "LDQN: A Lightweight Deep Reinforcement Learning Model",
+      "authors": [
+        "Wenjin Liu",
+        "Yuheng Li",
+        "Hao Tang"
+      ],
+      "year": 2024,
+      "venue": "2024 IEEE Smart World Congress (SWC)",
+      "doi": "10.1109/swc62898.2024.00261",
+      "arxiv_id": "",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1109/swc62898.2024.00261",
+      "pdf_url": "",
+      "abstract": "",
+      "citation_count": 3,
+      "sources": [
+        "Crossref"
+      ],
+      "paper_id": "p_8524e260427e",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=LDQN%3A+A+Lightweight+Deep+Reinforcement+Learning+Model",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=LDQN%3A+A+Lightweight+Deep+Reinforcement+Learning+Model",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "LDQN: A Lightweight Deep Reinforcement Learning Model"
+        }
+      }
+    },
+    {
+      "title": "Proposal model for e-learning based on Case Based Reasoning and Reinforcement Learning",
+      "authors": [
+        "Anibal Flores",
+        "Luis Alfaro",
+        "Jose Herrera"
+      ],
+      "year": 2019,
+      "venue": "2019 IEEE World Conference on Engineering Education (EDUNINE)",
+      "doi": "10.1109/edunine.2019.8875800",
+      "arxiv_id": "",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1109/edunine.2019.8875800",
+      "pdf_url": "",
+      "abstract": "",
+      "citation_count": 3,
+      "sources": [
+        "Crossref"
+      ],
+      "paper_id": "p_242bd0e80a02",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Proposal+model+for+e-learning+based+on+Case+Based+Reasoning+and+Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Proposal+model+for+e-learning+based+on+Case+Based+Reasoning+and+Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Proposal model for e-learning based on Case Based Reasoning and Reinforcement Learning"
+        }
+      }
+    },
+    {
+      "title": "Model-Based Reinforcement Learning",
+      "authors": [
+        "Aske Plaat"
+      ],
+      "year": 2022,
+      "venue": "Deep Reinforcement Learning",
+      "doi": "10.1007/978-981-19-0638-1_5",
+      "arxiv_id": "",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1007/978-981-19-0638-1_5",
+      "pdf_url": "",
+      "abstract": "",
+      "citation_count": 2,
+      "sources": [
+        "Crossref"
+      ],
+      "paper_id": "p_30ccd75559cd",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Model-Based+Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Model-Based+Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Model-Based Reinforcement Learning"
+        }
+      }
+    },
+    {
+      "title": "A Tutorial on Meta-Reinforcement Learning",
+      "authors": [
+        "Jacob Beck",
+        "Risto Vuorio",
+        "Evan Zheran Liu",
+        "Zheng Xiong",
+        "Luisa Zintgraf",
+        "Chelsea Finn",
+        "Shimon Whiteson"
+      ],
+      "year": 2023,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "2301.08028",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/2301.08028v4",
+      "pdf_url": "https://arxiv.org/pdf/2301.08028v4",
+      "abstract": "While deep reinforcement learning (RL) has fueled multiple high-profile successes in machine learning, it is held back from more widespread adoption by its often poor data efficiency and the limited generality of the policies it produces. A promising approach for alleviating these limitations is to cast the development of better RL algorithms as a machine learning problem itself in a process called meta-RL. Meta-RL is most commonly studied in a problem setting where, given a distribution of tasks, the goal is to learn a policy that is capable of adapting to any new task from the task distribution with as little data as possible. In this survey, we describe the meta-RL problem setting in detail as well as its major variations. We discuss how, at a high level, meta-RL research can be clustered based on the presence of a task distribution and the learning budget available for each individual task. Using these clusters, we then survey meta-RL algorithms and applications. We conclude by presenting the open problems on the path to making meta-RL part of the standard toolbox for a deep RL practitioner.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_bad17977b598",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=A+Tutorial+on+Meta-Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=A+Tutorial+on+Meta-Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "A Tutorial on Meta-Reinforcement Learning"
+        }
+      }
+    },
+    {
+      "title": "A Unified ISR World Model: Vossels, Voxels, Mipvols, and Reinforcement Learning",
+      "authors": [
+        "",
+        "Greg Passmore"
+      ],
+      "year": 2025,
+      "venue": "Advances in Machine Learning &amp; Artificial Intelligence",
+      "doi": "10.33140/amlai.06.04.02",
+      "arxiv_id": "",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "https://doi.org/10.33140/amlai.06.04.02",
+      "pdf_url": "",
+      "abstract": "ISR enterprises must integrate measurements from many sensing modalities, radar, EO/IR, LiDAR, SIGINT, acoustics, cyber,\nweather, and jamming, each with its own resolution, structure, and format. Traditional systems often discard richness by reducing\ninputs to tracks, maps, or occasional images, leaving little for machine learning to exploit. This paper introduces Vossels (Volumetric\nSingular Spectral Elements), which were designed to address sensor discordance by storing raw sensor data in a unified atomic\nstructure, ensuring that the full information content is preserved for artificial intelligence and reinforcement learning.\nA Vossel encodes (x, y, z, t, λi , aj\n) as a singular volumetric spectral element, capturing space, time, spectral channels, and auxiliary\nattributes. Integrated into voxel grids and mipvol hierarchies, Vossels support multiresolution storage, retrieval, and time-series\nsegmentation. Mipvols accelerate access by adapting resolution to projected target size, increasing speed without discarding data\nrelevant to the task. This provides consistent, resolution-preserving storage that eliminates modality-specific silos, simplifies the\nmental model, and creates a centralized repository optimized for AI exploitation.\nBecause raw data is retained rather than simplified, reinforcement learning agents can operate directly on the richness of ISR\nstreams, identifying correlations across modalities and scales. The memory manager and frustum extractor keep massive datasets\ntractable by keeping local neighborhoods in GPU VRAM or AI context windows while paging global volumes efficiently. This\nallows adaptive policies to evolve—learning when to refine, when to approximate, and how to balance fidelity with performance.\nThis paper defines the Vossel structure, the supporting voxel/mipvol hierarchy, and the mathematics of extraction and fusion.\nKriging interpolation is presented for high-fidelity value estimation, view frustum extraction for adaptive retrieval, and multimodal fusion strategies for co-registration. By design, Vossels enable AI and reinforcement learning to exploit ISR data in its full\nrichness, transforming integration from siloed processes into a coherent, self-optimizing system.",
+      "citation_count": 0,
+      "sources": [
+        "Crossref"
+      ],
+      "paper_id": "p_df4bab8f3b31",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=A+Unified+ISR+World+Model%3A+Vossels%2C+Voxels%2C+Mipvols%2C+and+Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=A+Unified+ISR+World+Model%3A+Vossels%2C+Voxels%2C+Mipvols%2C+and+Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "A Unified ISR World Model: Vossels, Voxels, Mipvols, and Reinforcement Learning"
+        }
+      }
+    },
+    {
+      "title": "Anderson Acceleration for Reinforcement Learning",
+      "authors": [
+        "Matthieu Geist",
+        "Bruno Scherrer"
+      ],
+      "year": 2018,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "1809.09501",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/1809.09501v1",
+      "pdf_url": "https://arxiv.org/pdf/1809.09501v1",
+      "abstract": "Anderson acceleration is an old and simple method for accelerating the computation of a fixed point. However, as far as we know and quite surprisingly, it has never been applied to dynamic programming or reinforcement learning. In this paper, we explain briefly what Anderson acceleration is and how it can be applied to value iteration, this being supported by preliminary experiments showing a significant speed up of convergence, that we critically discuss. We also discuss how this idea could be applied more generally to (deep) reinforcement learning.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_23a593e81ce4",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Anderson+Acceleration+for+Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Anderson+Acceleration+for+Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Anderson Acceleration for Reinforcement Learning"
+        }
+      }
+    },
+    {
+      "title": "Causal-Paced Deep Reinforcement Learning",
+      "authors": [
+        "Geonwoo Cho",
+        "Jaegyun Im",
+        "Doyoon Kim",
+        "Sundong Kim"
+      ],
+      "year": 2025,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "2507.02910",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/2507.02910v1",
+      "pdf_url": "https://arxiv.org/pdf/2507.02910v1",
+      "abstract": "Designing effective task sequences is crucial for curriculum reinforcement learning (CRL), where agents must gradually acquire skills by training on intermediate tasks. A key challenge in CRL is to identify tasks that promote exploration, yet are similar enough to support effective transfer. While recent approach suggests comparing tasks via their Structural Causal Models (SCMs), the method requires access to ground-truth causal structures, an unrealistic assumption in most RL settings. In this work, we propose Causal-Paced Deep Reinforcement Learning (CP-DRL), a curriculum learning framework aware of SCM differences between tasks based on interaction data approximation. This signal captures task novelty, which we combine with the agent's learnability, measured by reward gain, to form a unified objective. Empirically, CP-DRL outperforms existing curriculum methods on the Point Mass benchmark, achieving faster convergence and higher returns. CP-DRL demonstrates reduced variance with comparable final returns in the Bipedal Walker-Trivial setting, and achieves the highest average performance in the Infeasible variant. These results indicate that leveraging causal relationships between tasks can improve the structure-awareness and sample efficiency of curriculum reinforcement learning. We provide the full implementation of CP-DRL to facilitate the reproduction of our main results at https://github.com/Cho-Geonwoo/CP-DRL.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_8046e9d4b2a1",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Causal-Paced+Deep+Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Causal-Paced+Deep+Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Causal-Paced Deep Reinforcement Learning"
+        }
+      }
+    },
+    {
+      "title": "Compression and Localization in Reinforcement Learning for ATARI Games",
+      "authors": [
+        "Joel Ruben Antony Moniz",
+        "Barun Patra",
+        "Sarthak Garg"
+      ],
+      "year": 2019,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "1904.09489",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/1904.09489v1",
+      "pdf_url": "https://arxiv.org/pdf/1904.09489v1",
+      "abstract": "Deep neural networks have become commonplace in the domain of reinforcement learning, but are often expensive in terms of the number of parameters needed. While compressing deep neural networks has of late assumed great importance to overcome this drawback, little work has been done to address this problem in the context of reinforcement learning agents. This work aims at making first steps towards model compression in an RL agent. In particular, we compress networks to drastically reduce the number of parameters in them (to sizes less than 3% of their original size), further facilitated by applying a global max pool after the final convolution layer, and propose using Actor-Mimic in the context of compression. Finally, we show that this global max-pool allows for weakly supervised object localization, improving the ability to identify the agent's points of focus.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_434bc4b59f99",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Compression+and+Localization+in+Reinforcement+Learning+for+ATARI+Games",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Compression+and+Localization+in+Reinforcement+Learning+for+ATARI+Games",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Compression and Localization in Reinforcement Learning for ATARI Games"
+        }
+      }
+    },
+    {
+      "title": "Exploring Hierarchy-Aware Inverse Reinforcement Learning",
+      "authors": [
+        "Chris Cundy",
+        "Daniel Filan"
+      ],
+      "year": 2018,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "1807.05037",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/1807.05037v1",
+      "pdf_url": "https://arxiv.org/pdf/1807.05037v1",
+      "abstract": "We introduce a new generative model for human planning under the Bayesian Inverse Reinforcement Learning (BIRL) framework which takes into account the fact that humans often plan using hierarchical strategies. We describe the Bayesian Inverse Hierarchical RL (BIHRL) algorithm for inferring the values of hierarchical planners, and use an illustrative toy model to show that BIHRL retains accuracy where standard BIRL fails. Furthermore, BIHRL is able to accurately predict the goals of `Wikispeedia' game players, with inclusion of hierarchical structure in the model resulting in a large boost in accuracy. We show that BIHRL is able to significantly outperform BIRL even when we only have a weak prior on the hierarchical structure of the plans available to the agent, and discuss the significant challenges that remain for scaling up this framework to more realistic settings.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_e7cfd3f2b267",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Exploring+Hierarchy-Aware+Inverse+Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Exploring+Hierarchy-Aware+Inverse+Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Exploring Hierarchy-Aware Inverse Reinforcement Learning"
+        }
+      }
+    },
+    {
+      "title": "Learning Multimodal Transition Dynamics for Model-Based Reinforcement Learning",
+      "authors": [
+        "Thomas M. Moerland",
+        "Joost Broekens",
+        "Catholijn M. Jonker"
+      ],
+      "year": 2017,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "1705.00470",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/1705.00470v2",
+      "pdf_url": "https://arxiv.org/pdf/1705.00470v2",
+      "abstract": "In this paper we study how to learn stochastic, multimodal transition dynamics in reinforcement learning (RL) tasks. We focus on evaluating transition function estimation, while we defer planning over this model to future work. Stochasticity is a fundamental property of many task environments. However, discriminative function approximators have difficulty estimating multimodal stochasticity. In contrast, deep generative models do capture complex high-dimensional outcome distributions. First we discuss why, amongst such models, conditional variational inference (VI) is theoretically most appealing for model-based RL. Subsequently, we compare different VI models on their ability to learn complex stochasticity on simulated functions, as well as on a typical RL gridworld with multimodal dynamics. Results show VI successfully predicts multimodal outcomes, but also robustly ignores these for deterministic parts of the transition dynamics. In summary, we show a robust method to learn multimodal transitions using function approximation, which is a key preliminary for model-based RL in stochastic domains.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_464104469652",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Learning+Multimodal+Transition+Dynamics+for+Model-Based+Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Learning+Multimodal+Transition+Dynamics+for+Model-Based+Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Learning Multimodal Transition Dynamics for Model-Based Reinforcement Learning"
+        }
+      }
+    },
+    {
+      "title": "Model Based Reinforcement Learning: Policy Iteration, Value Iteration, and Dynamic Programming",
+      "authors": [
+        "Steven L. Brunton"
+      ],
+      "year": 2022,
+      "venue": "",
+      "doi": "10.52843/cassyni.6fs4s9",
+      "arxiv_id": "",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "https://doi.org/10.52843/cassyni.6fs4s9",
+      "pdf_url": "",
+      "abstract": "Here we introduce dynamic programming, which is a cornerstone of model-based reinforcement learning. We demonstrate dynamic programming for policy iteration and value iteration, leading to the quality function and Q-learning.",
+      "citation_count": 0,
+      "sources": [
+        "Crossref"
+      ],
+      "paper_id": "p_7588cc46b175",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Model+Based+Reinforcement+Learning%3A+Policy+Iteration%2C+Value+Iteration%2C+and+Dynamic+Programming",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Model+Based+Reinforcement+Learning%3A+Policy+Iteration%2C+Value+Iteration%2C+and+Dynamic+Programming",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Model Based Reinforcement Learning: Policy Iteration, Value Iteration, and Dynamic Programming"
+        }
+      }
+    },
+    {
+      "title": "One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay",
+      "authors": [
+        "Jake Bruce",
+        "Niko Suenderhauf",
+        "Piotr Mirowski",
+        "Raia Hadsell",
+        "Michael Milford"
+      ],
+      "year": 2017,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "1711.10137",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/1711.10137v2",
+      "pdf_url": "https://arxiv.org/pdf/1711.10137v2",
+      "abstract": "Recently, model-free reinforcement learning algorithms have been shown to solve challenging problems by learning from extensive interaction with the environment. A significant issue with transferring this success to the robotics domain is that interaction with the real world is costly, but training on limited experience is prone to overfitting. We present a method for learning to navigate, to a fixed goal and in a known environment, on a mobile robot. The robot leverages an interactive world model built from a single traversal of the environment, a pre-trained visual feature encoder, and stochastic environmental augmentation, to demonstrate successful zero-shot transfer under real-world environmental variations without fine-tuning.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_3438bca7b430",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=One-Shot+Reinforcement+Learning+for+Robot+Navigation+with+Interactive+Replay",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=One-Shot+Reinforcement+Learning+for+Robot+Navigation+with+Interactive+Replay",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay"
+        }
+      }
+    },
+    {
+      "title": "Q-Learning: Model Free Reinforcement Learning and Temporal Difference Learning",
+      "authors": [
+        "Steven L. Brunton"
+      ],
+      "year": 2022,
+      "venue": "",
+      "doi": "10.52843/cassyni.ss11hp",
+      "arxiv_id": "",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "https://doi.org/10.52843/cassyni.ss11hp",
+      "pdf_url": "",
+      "abstract": "Here we describe Q-learning, which is one of the most popular methods in reinforcement learning. Q-learning is a type of temporal difference learning.  We discuss other TD algorithms, such as SARSA, and connections to biological learning through dopamine. Q-learning is also one of the most common frameworks for deep reinforcement learning.",
+      "citation_count": 0,
+      "sources": [
+        "Crossref"
+      ],
+      "paper_id": "p_9a1d79be0c02",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Q-Learning%3A+Model+Free+Reinforcement+Learning+and+Temporal+Difference+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Q-Learning%3A+Model+Free+Reinforcement+Learning+and+Temporal+Difference+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Q-Learning: Model Free Reinforcement Learning and Temporal Difference Learning"
+        }
+      }
+    },
+    {
+      "title": "Safe Driving in Uncertainty: A Transformer-Based World Model for Caution-Constrained Reinforcement Learning",
+      "authors": [
+        "DongMing Chen"
+      ],
+      "year": 2025,
+      "venue": "",
+      "doi": "10.2139/ssrn.5361834",
+      "arxiv_id": "",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "https://doi.org/10.2139/ssrn.5361834",
+      "pdf_url": "",
+      "abstract": "",
+      "citation_count": 0,
+      "sources": [
+        "Crossref"
+      ],
+      "paper_id": "p_58825831027b",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Safe+Driving+in+Uncertainty%3A+A+Transformer-Based+World+Model+for+Caution-Constrained+Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Safe+Driving+in+Uncertainty%3A+A+Transformer-Based+World+Model+for+Caution-Constrained+Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Safe Driving in Uncertainty: A Transformer-Based World Model for Caution-Constrained Reinforcement Learning"
+        }
+      }
+    },
+    {
+      "title": "Stabilizing Extreme Q-learning by Maclaurin Expansion",
+      "authors": [
+        "Motoki Omura",
+        "Takayuki Osa",
+        "Yusuke Mukuta",
+        "Tatsuya Harada"
+      ],
+      "year": 2024,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "2406.04896",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/2406.04896v2",
+      "pdf_url": "https://arxiv.org/pdf/2406.04896v2",
+      "abstract": "In offline reinforcement learning, in-sample learning methods have been widely used to prevent performance degradation caused by evaluating out-of-distribution actions from the dataset. Extreme Q-learning (XQL) employs a loss function based on the assumption that Bellman error follows a Gumbel distribution, enabling it to model the soft optimal value function in an in-sample manner. It has demonstrated strong performance in both offline and online reinforcement learning settings. However, issues remain, such as the instability caused by the exponential term in the loss function and the risk of the error distribution deviating from the Gumbel distribution. Therefore, we propose Maclaurin Expanded Extreme Q-learning to enhance stability. In this method, applying Maclaurin expansion to the loss function in XQL enhances stability against large errors. This approach involves adjusting the modeled value function between the value function under the behavior policy and the soft optimal value function, thus achieving a trade-off between stability and optimality depending on the order of expansion. It also enables adjustment of the error distribution assumption from a normal distribution to a Gumbel distribution. Our method significantly stabilizes learning in online RL tasks from DM Control, where XQL was previously unstable. Additionally, it improves performance in several offline RL tasks from D4RL.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_9dd9086f4369",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Stabilizing+Extreme+Q-learning+by+Maclaurin+Expansion",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Stabilizing+Extreme+Q-learning+by+Maclaurin+Expansion",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Stabilizing Extreme Q-learning by Maclaurin Expansion"
+        }
+      }
+    },
+    {
+      "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+      "authors": [
+        "Elena Sorina Lupu",
+        "Patrick Spieler",
+        "Khurram Javed",
+        "Kris De Asis",
+        "John D. Martin",
+        "Martha Steenstrup",
+        "Joseph Modayil"
+      ],
+      "year": 2026,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "2607.18488",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/2607.18488v1",
+      "pdf_url": "https://arxiv.org/pdf/2607.18488v1",
+      "abstract": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We propose a physical platform that is designed to simplify the transition. In this paper, we present the Open Ant: a physical variant of the commonly used Gymnasium Ant environment, along with a simulation. We demonstrate that competent walking policies can be learned from scratch in approximately one hour directly from the physical robot's experience for two substantially different RL algorithms: SARSA($λ$) and Soft Actor-Critic (SAC). Separately, we show policies that were learned in simulation transfer to reality. We also examine how well the platform supports a nimble experimental ecosystem. Specifically, we observe the speed with which new users from diverse backgrounds achieve their first success with the platform, and how easily the platform can be repaired and updated when hardware issues arise. Both the hardware design and software are available as open-source on GitHub for ease of customization. In summary, we advocate for the use of the Open Ant for RL researchers who frequently use simulated environments, so they can more easily include robot experiments in their evaluations.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_3f87ae54e691",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=The+Open+Ant%3A+A+Robot+Platform+for+Reinforcement+Learning+Research",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=The+Open+Ant%3A+A+Robot+Platform+for+Reinforcement+Learning+Research",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "The Open Ant: A Robot Platform for Reinforcement Learning Research"
+        }
+      }
+    },
+    {
+      "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+      "authors": [
+        "Abdul Wahab",
+        "Raksha Kumaraswamy",
+        "Martha White"
+      ],
+      "year": 2026,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "2602.12375",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/2602.12375v1",
+      "pdf_url": "https://arxiv.org/pdf/2602.12375v1",
+      "abstract": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propagating local uncertainties around rewards. However, this approach only increases the value bonus for an action retroactively, after seeing a higher reward bonus from that state and action. Such an approach does not encourage the agent to visit a state and action for the first time. In this work, we introduce an algorithm for exploration called Value Bonuses with Ensemble errors (VBE), that maintains an ensemble of random action-value functions (RQFs). VBE uses the errors in the estimation of these RQFs to design value bonuses that provide first-visit optimism and deep exploration. The key idea is to design the rewards for these RQFs in such a way that the value bonus can decrease to zero. We show that VBE outperforms Bootstrap DQN and two reward bonus approaches (RND and ACB) on several classic environments used to test exploration and provide demonstrative experiments that it can scale easily to more complex environments like Atari.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_5bb3f08c019d",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Value+Bonuses+using+Ensemble+Errors+for+Exploration+in+Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Value+Bonuses+using+Ensemble+Errors+for+Exploration+in+Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning"
+        }
+      }
+    },
+    {
+      "title": "World of Reinforcement Learning",
+      "authors": [
+        "Harini Anand"
+      ],
+      "year": 2022,
+      "venue": "",
+      "doi": "10.31224/2755",
+      "arxiv_id": "",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "https://doi.org/10.31224/2755",
+      "pdf_url": "",
+      "abstract": "",
+      "citation_count": 0,
+      "sources": [
+        "Crossref"
+      ],
+      "paper_id": "p_28b8491bd4e1",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=World+of+Reinforcement+Learning",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=World+of+Reinforcement+Learning",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "World of Reinforcement Learning"
+        }
+      }
+    }
+  ]
+}

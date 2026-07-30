@@ -1,0 +1,666 @@
+{
+  "batch_id": "20260730-115557-031abf",
+  "created_at": "2026-07-30T03:55:57+00:00",
+  "query": "retrieval augmented generation",
+  "from_year": 2023,
+  "to_year": null,
+  "venues": [
+    "AAAI",
+    "NeurIPS",
+    "ACL",
+    "CVPR",
+    "ICCV",
+    "ICML",
+    "ICLR"
+  ],
+  "sources": [
+    {
+      "source": "OpenAlex",
+      "records": [
+        {
+          "title": "Retrieval-Augmented Generation for Large Language Models: A Survey",
+          "authors": [],
+          "year": 2023,
+          "venue": "arXiv (Cornell University)",
+          "doi": "10.48550/arxiv.2312.10997",
+          "arxiv_id": "",
+          "openalex_id": "W4389984066",
+          "url": "http://arxiv.org/abs/2312.10997",
+          "pdf_url": "https://arxiv.org/pdf/2312.10997",
+          "abstract": "Large Language Models (LLMs) showcase impressive capabilities but encounter challenges like hallucination, outdated knowledge, and non-transparent, untraceable reasoning processes. Retrieval-Augmented Generation (RAG) has emerged as a promising solution by incorporating knowledge from external databases. This enhances the accuracy and credibility of the generation, particularly for knowledge-intensive tasks, and allows for continuous knowledge updates and integration of domain-specific information. RAG synergistically merges LLMs' intrinsic knowledge with the vast, dynamic repositories of external databases. This comprehensive review paper offers a detailed examination of the progression of RAG paradigms, encompassing the Naive RAG, the Advanced RAG, and the Modular RAG. It meticulously scrutinizes the tripartite foundation of RAG frameworks, which includes the retrieval, the generation and the augmentation techniques. The paper highlights the state-of-the-art technologies embedded in each of these critical components, providing a profound understanding of the advancements in RAG systems. Furthermore, this paper introduces up-to-date evaluation framework and benchmark. At the end, this article delineates the challenges currently faced and points out prospective avenues for research and development.",
+          "citation_count": 687,
+          "source": "OpenAlex"
+        },
+        {
+          "title": "Active Retrieval Augmented Generation",
+          "authors": [],
+          "year": 2023,
+          "venue": "",
+          "doi": "10.18653/v1/2023.emnlp-main.495",
+          "arxiv_id": "",
+          "openalex_id": "W4389519118",
+          "url": "https://doi.org/10.18653/v1/2023.emnlp-main.495",
+          "pdf_url": "https://aclanthology.org/2023.emnlp-main.495.pdf",
+          "abstract": "Zhengbao Jiang, Frank Xu, Luyu Gao, Zhiqing Sun, Qian Liu, Jane Dwivedi-Yu, Yiming Yang, Jamie Callan, Graham Neubig. Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing. 2023.",
+          "citation_count": 388,
+          "source": "OpenAlex"
+        },
+        {
+          "title": "Benchmarking Large Language Models in Retrieval-Augmented Generation",
+          "authors": [],
+          "year": 2024,
+          "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+          "doi": "10.1609/aaai.v38i16.29728",
+          "arxiv_id": "",
+          "openalex_id": "W4393147129",
+          "url": "https://doi.org/10.1609/aaai.v38i16.29728",
+          "pdf_url": "https://ojs.aaai.org/index.php/AAAI/article/download/29728/31250",
+          "abstract": "Retrieval-Augmented Generation (RAG) is a promising approach for mitigating the hallucination of large language models (LLMs). However, existing research lacks rigorous evaluation of the impact of retrieval-augmented generation on different large language models, which make it challenging to identify the potential bottlenecks in the capabilities of RAG for different LLMs. In this paper, we systematically investigate the impact of Retrieval-Augmented Generation on large language models. We analyze the performance of different large language models in 4 fundamental abilities required for RAG, including noise robustness, negative rejection, information integration, and counterfactual robustness. To this end, we establish Retrieval-Augmented Generation Benchmark (RGB), a new corpus for RAG evaluation in both English and Chinese. RGB divides the instances within the benchmark into 4 separate testbeds based on the aforementioned fundamental abilities required to resolve the case. Then we evaluate 6 representative LLMs on RGB to diagnose the challenges of current LLMs when applying RAG. Evaluation reveals that while LLMs exhibit a certain degree of noise robustness, they still struggle significantly in terms of negative rejection, information integration, and dealing with false information. The aforementioned assessment outcomes indicate that there is still a considerable journey ahead to effectively apply RAG to LLMs.",
+          "citation_count": 338,
+          "source": "OpenAlex"
+        },
+        {
+          "title": "RAGAs: Automated Evaluation of Retrieval Augmented Generation",
+          "authors": [],
+          "year": 2024,
+          "venue": "",
+          "doi": "10.18653/v1/2024.eacl-demo.16",
+          "arxiv_id": "",
+          "openalex_id": "W4411630045",
+          "url": "https://doi.org/10.18653/v1/2024.eacl-demo.16",
+          "pdf_url": "https://aclanthology.org/2024.eacl-demo.16.pdf",
+          "abstract": "Shahul Es, Jithin James, Luis Espinosa Anke, Steven Schockaert. Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations. 2024.",
+          "citation_count": 326,
+          "source": "OpenAlex"
+        }
+      ],
+      "error": null
+    },
+    {
+      "source": "Crossref",
+      "records": [
+        {
+          "title": "Retrieval‐Augmented Generation",
+          "authors": [],
+          "year": 2026,
+          "venue": "Advanced Retrieval‐Augmented Generation",
+          "doi": "10.1002/9781394374717.ch03",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.1002/9781394374717.ch03",
+          "pdf_url": "",
+          "abstract": "",
+          "citation_count": 0,
+          "source": "Crossref"
+        },
+        {
+          "title": "Graph‐based Retrieval‐augmented Generation",
+          "authors": [],
+          "year": 2026,
+          "venue": "Advanced Retrieval‐Augmented Generation",
+          "doi": "10.1002/9781394374717.ch07",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.1002/9781394374717.ch07",
+          "pdf_url": "",
+          "abstract": "",
+          "citation_count": 0,
+          "source": "Crossref"
+        },
+        {
+          "title": "Efficient Information Retrieval and Response Generation with Retrieval-Augmented Generation (RAG)",
+          "authors": [
+            "Wenyi Pi"
+          ],
+          "year": 2024,
+          "venue": "",
+          "doi": "10.59350/q2pq3-0fv85",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.59350/q2pq3-0fv85",
+          "pdf_url": "",
+          "abstract": " How to efficiently retrieve information for different applications  Author Wenyi Pi (ORCID: 0009-0002-2884-2771) This article aims to explore various ways in which Retrieval-Augmented Generation (RAG) can be utilised to retrieve information and generate responses effectively within the dialogue system. The rationale behind utilising RAG as well as potential ways in which it can be employed effectively will be covered.",
+          "citation_count": 0,
+          "source": "Crossref"
+        },
+        {
+          "title": "Efficient Information Retrieval and Response Generation with Retrieval-Augmented Generation (RAG)",
+          "authors": [
+            "Wenyi Pi"
+          ],
+          "year": 2024,
+          "venue": "",
+          "doi": "10.59350/r9dj1-zkx52",
+          "arxiv_id": "",
+          "openalex_id": "",
+          "url": "https://doi.org/10.59350/r9dj1-zkx52",
+          "pdf_url": "",
+          "abstract": " How to efficiently retrieve information for different applications  Author Wenyi Pi (ORCID: 0009-0002-2884-2771) This article aims to explore various ways in which Retrieval-Augmented Generation (RAG) can be utilised to retrieve information and generate responses effectively within the dialogue system. The rationale behind utilising RAG as well as potential ways in which it can be employed effectively will be covered.",
+          "citation_count": 1,
+          "source": "Crossref"
+        }
+      ],
+      "error": null
+    },
+    {
+      "source": "arXiv",
+      "records": [
+        {
+          "title": "AR-RAG: Autoregressive Retrieval Augmentation for Image Generation",
+          "authors": [
+            "Jingyuan Qi",
+            "Zhiyang Xu",
+            "Qifan Wang",
+            "Lifu Huang"
+          ],
+          "year": 2025,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "2506.06962",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/2506.06962v3",
+          "pdf_url": "https://arxiv.org/pdf/2506.06962v3",
+          "abstract": "We introduce Autoregressive Retrieval Augmentation (AR-RAG), a novel paradigm that enhances image generation by autoregressively incorporating knearest neighbor retrievals at the patch level. Unlike prior methods that perform a single, static retrieval before generation and condition the entire generation on fixed reference images, AR-RAG performs context-aware retrievals at each generation step, using prior-generated patches as queries to retrieve and incorporate the most relevant patch-level visual references, enabling the model to respond to evolving generation needs while avoiding limitations (e.g., over-copying, stylistic bias, etc.) prevalent in existing methods. To realize AR-RAG, we propose two parallel frameworks: (1) Distribution-Augmentation in Decoding (DAiD), a training-free plug-and-use decoding strategy that directly merges the distribution of model-predicted patches with the distribution of retrieved patches, and (2) Feature-Augmentation in Decoding (FAiD), a parameter-efficient fine-tuning method that progressively smooths the features of retrieved patches via multi-scale convolution operations and leverages them to augment the image generation process. We validate the effectiveness of AR-RAG on widely adopted benchmarks, including Midjourney-30K, GenEval and DPG-Bench, demonstrating significant performance gains over state-of-the-art image generation models.",
+          "citation_count": null,
+          "source": "arXiv"
+        },
+        {
+          "title": "Intelligent Interaction Strategies for Context-Aware Cognitive Augmentation",
+          "authors": [
+            " Xiangrong",
+            " Zhu",
+            "Yuan Xu",
+            "Tianjian Liu",
+            "Jingwei Sun",
+            "Yu Zhang",
+            "Xin Tong"
+          ],
+          "year": 2025,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "2504.13684",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/2504.13684v1",
+          "pdf_url": "https://arxiv.org/pdf/2504.13684v1",
+          "abstract": "Human cognition is constrained by processing limitations, leading to cognitive overload and inefficiencies in knowledge synthesis and decision-making. Large Language Models (LLMs) present an opportunity for cognitive augmentation, but their current reactive nature limits their real-world applicability. This position paper explores the potential of context-aware cognitive augmentation, where LLMs dynamically adapt to users' cognitive states and task environments to provide appropriate support. Through a think-aloud study in an exhibition setting, we examine how individuals interact with multi-modal information and identify key cognitive challenges in structuring, retrieving, and applying knowledge. Our findings highlight the need for AI-driven cognitive support systems that integrate real-time contextual awareness, personalized reasoning assistance, and socially adaptive interactions. We propose a framework for AI augmentation that seamlessly transitions between real-time cognitive support and post-experience knowledge organization, contributing to the design of more effective human-centered AI systems.",
+          "citation_count": null,
+          "source": "arXiv"
+        },
+        {
+          "title": "Factually: Exploring Wearable Fact-Checking for Augmented Truth Discernment",
+          "authors": [
+            "Chitralekha Gupta",
+            "Hanjun Wu",
+            "Praveen Sasikumar",
+            "Shreyas Sridhar",
+            "Priambudi Bagaskara",
+            "Suranga Nanayakkara"
+          ],
+          "year": 2025,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "2504.17204",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/2504.17204v1",
+          "pdf_url": "https://arxiv.org/pdf/2504.17204v1",
+          "abstract": "Wearable devices are transforming human capabilities by seamlessly augmenting cognitive functions. In this position paper, we propose a voice-based, interactive learning companion designed to amplify and extend cognitive abilities through informal learning. Our vision is threefold: (1) to enable users to discover new knowledge on-the-go through contextual interactive quizzes, fostering critical thinking and mindfulness, (2) to proactively detect misinformation, empowering users to critically assess information in real time, and (3) to provide spoken language correction and prompting hints for second language learning and effective communication. As an initial step toward this vision, we present Factually - a proactive, wearable fact-checking system integrated into devices like smartwatches or rings. Factually discreetly alerts users to potential falsehoods via vibrotactile feedback, helping them assess information critically. We demonstrate its utility through three illustrative scenarios, highlighting its potential to extend cognitive abilities for real-time misinformation detection. Early qualitative feedback suggests that Factually can enhance users' fact-checking capabilities, offering both practical and experiential benefits.",
+          "citation_count": null,
+          "source": "arXiv"
+        },
+        {
+          "title": "Designing AI Systems that Augment Human Performed vs. Demonstrated Critical Thinking",
+          "authors": [
+            "Katelyn Xiaoying Mei",
+            "Nic Weber"
+          ],
+          "year": 2025,
+          "venue": "arXiv",
+          "doi": "",
+          "arxiv_id": "2504.14689",
+          "openalex_id": "",
+          "url": "http://arxiv.org/abs/2504.14689v1",
+          "pdf_url": "https://arxiv.org/pdf/2504.14689v1",
+          "abstract": "The recent rapid advancement of LLM-based AI systems has accelerated our search and production of information. While the advantages brought by these systems seemingly improve the performance or efficiency of human activities, they do not necessarily enhance human capabilities. Recent research has started to examine the impact of generative AI on individuals' cognitive abilities, especially critical thinking. Based on definitions of critical thinking across psychology and education, this position paper proposes the distinction between demonstrated and performed critical thinking in the era of generative AI and discusses the implication of this distinction in research and development of AI systems that aim to augment human critical thinking.",
+          "citation_count": null,
+          "source": "arXiv"
+        }
+      ],
+      "error": null
+    },
+    {
+      "source": "Semantic Scholar",
+      "records": [],
+      "error": "unconfigured: SEMANTIC_SCHOLAR_API_KEY is not set"
+    },
+    {
+      "source": "DBLP",
+      "records": [],
+      "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1082)>"
+    }
+  ],
+  "candidates": [
+    {
+      "title": "Benchmarking Large Language Models in Retrieval-Augmented Generation",
+      "authors": [],
+      "year": 2024,
+      "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+      "doi": "10.1609/aaai.v38i16.29728",
+      "arxiv_id": "",
+      "openalex_id": "W4393147129",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1609/aaai.v38i16.29728",
+      "pdf_url": "https://ojs.aaai.org/index.php/AAAI/article/download/29728/31250",
+      "abstract": "Retrieval-Augmented Generation (RAG) is a promising approach for mitigating the hallucination of large language models (LLMs). However, existing research lacks rigorous evaluation of the impact of retrieval-augmented generation on different large language models, which make it challenging to identify the potential bottlenecks in the capabilities of RAG for different LLMs. In this paper, we systematically investigate the impact of Retrieval-Augmented Generation on large language models. We analyze the performance of different large language models in 4 fundamental abilities required for RAG, including noise robustness, negative rejection, information integration, and counterfactual robustness. To this end, we establish Retrieval-Augmented Generation Benchmark (RGB), a new corpus for RAG evaluation in both English and Chinese. RGB divides the instances within the benchmark into 4 separate testbeds based on the aforementioned fundamental abilities required to resolve the case. Then we evaluate 6 representative LLMs on RGB to diagnose the challenges of current LLMs when applying RAG. Evaluation reveals that while LLMs exhibit a certain degree of noise robustness, they still struggle significantly in terms of negative rejection, information integration, and dealing with false information. The aforementioned assessment outcomes indicate that there is still a considerable journey ahead to effectively apply RAG to LLMs.",
+      "citation_count": 338,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_c056219e24d1",
+      "venue_match": "AAAI",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Benchmarking+Large+Language+Models+in+Retrieval-Augmented+Generation",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Benchmarking+Large+Language+Models+in+Retrieval-Augmented+Generation",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "AAAI",
+          "label": "AAAI Proceedings",
+          "url": "https://ojs.aaai.org/index.php/AAAI",
+          "search_title": "Benchmarking Large Language Models in Retrieval-Augmented Generation"
+        }
+      }
+    },
+    {
+      "title": "Retrieval-Augmented Generation for Large Language Models: A Survey",
+      "authors": [],
+      "year": 2023,
+      "venue": "arXiv (Cornell University)",
+      "doi": "10.48550/arxiv.2312.10997",
+      "arxiv_id": "",
+      "openalex_id": "W4389984066",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/2312.10997",
+      "pdf_url": "https://arxiv.org/pdf/2312.10997",
+      "abstract": "Large Language Models (LLMs) showcase impressive capabilities but encounter challenges like hallucination, outdated knowledge, and non-transparent, untraceable reasoning processes. Retrieval-Augmented Generation (RAG) has emerged as a promising solution by incorporating knowledge from external databases. This enhances the accuracy and credibility of the generation, particularly for knowledge-intensive tasks, and allows for continuous knowledge updates and integration of domain-specific information. RAG synergistically merges LLMs' intrinsic knowledge with the vast, dynamic repositories of external databases. This comprehensive review paper offers a detailed examination of the progression of RAG paradigms, encompassing the Naive RAG, the Advanced RAG, and the Modular RAG. It meticulously scrutinizes the tripartite foundation of RAG frameworks, which includes the retrieval, the generation and the augmentation techniques. The paper highlights the state-of-the-art technologies embedded in each of these critical components, providing a profound understanding of the advancements in RAG systems. Furthermore, this paper introduces up-to-date evaluation framework and benchmark. At the end, this article delineates the challenges currently faced and points out prospective avenues for research and development.",
+      "citation_count": 687,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_5870f54b2896",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Retrieval-Augmented+Generation+for+Large+Language+Models%3A+A+Survey",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Retrieval-Augmented+Generation+for+Large+Language+Models%3A+A+Survey",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Retrieval-Augmented Generation for Large Language Models: A Survey"
+        }
+      }
+    },
+    {
+      "title": "Active Retrieval Augmented Generation",
+      "authors": [],
+      "year": 2023,
+      "venue": "",
+      "doi": "10.18653/v1/2023.emnlp-main.495",
+      "arxiv_id": "",
+      "openalex_id": "W4389519118",
+      "semantic_id": "",
+      "url": "https://doi.org/10.18653/v1/2023.emnlp-main.495",
+      "pdf_url": "https://aclanthology.org/2023.emnlp-main.495.pdf",
+      "abstract": "Zhengbao Jiang, Frank Xu, Luyu Gao, Zhiqing Sun, Qian Liu, Jane Dwivedi-Yu, Yiming Yang, Jamie Callan, Graham Neubig. Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing. 2023.",
+      "citation_count": 388,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_37653d65e203",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Active+Retrieval+Augmented+Generation",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Active+Retrieval+Augmented+Generation",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Active Retrieval Augmented Generation"
+        }
+      }
+    },
+    {
+      "title": "RAGAs: Automated Evaluation of Retrieval Augmented Generation",
+      "authors": [],
+      "year": 2024,
+      "venue": "",
+      "doi": "10.18653/v1/2024.eacl-demo.16",
+      "arxiv_id": "",
+      "openalex_id": "W4411630045",
+      "semantic_id": "",
+      "url": "https://doi.org/10.18653/v1/2024.eacl-demo.16",
+      "pdf_url": "https://aclanthology.org/2024.eacl-demo.16.pdf",
+      "abstract": "Shahul Es, Jithin James, Luis Espinosa Anke, Steven Schockaert. Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations. 2024.",
+      "citation_count": 326,
+      "sources": [
+        "OpenAlex"
+      ],
+      "paper_id": "p_375f5c9e9a3d",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=RAGAs%3A+Automated+Evaluation+of+Retrieval+Augmented+Generation",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=RAGAs%3A+Automated+Evaluation+of+Retrieval+Augmented+Generation",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "RAGAs: Automated Evaluation of Retrieval Augmented Generation"
+        }
+      }
+    },
+    {
+      "title": "Efficient Information Retrieval and Response Generation with Retrieval-Augmented Generation (RAG)",
+      "authors": [
+        "Wenyi Pi"
+      ],
+      "year": 2024,
+      "venue": "",
+      "doi": "10.59350/r9dj1-zkx52",
+      "arxiv_id": "",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "https://doi.org/10.59350/r9dj1-zkx52",
+      "pdf_url": "",
+      "abstract": " How to efficiently retrieve information for different applications  Author Wenyi Pi (ORCID: 0009-0002-2884-2771) This article aims to explore various ways in which Retrieval-Augmented Generation (RAG) can be utilised to retrieve information and generate responses effectively within the dialogue system. The rationale behind utilising RAG as well as potential ways in which it can be employed effectively will be covered.",
+      "citation_count": 1,
+      "sources": [
+        "Crossref"
+      ],
+      "paper_id": "p_a866764fa8c1",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Efficient+Information+Retrieval+and+Response+Generation+with+Retrieval-Augmented+Generation+%28RAG%29",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Efficient+Information+Retrieval+and+Response+Generation+with+Retrieval-Augmented+Generation+%28RAG%29",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Efficient Information Retrieval and Response Generation with Retrieval-Augmented Generation (RAG)"
+        }
+      }
+    },
+    {
+      "title": "AR-RAG: Autoregressive Retrieval Augmentation for Image Generation",
+      "authors": [
+        "Jingyuan Qi",
+        "Zhiyang Xu",
+        "Qifan Wang",
+        "Lifu Huang"
+      ],
+      "year": 2025,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "2506.06962",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/2506.06962v3",
+      "pdf_url": "https://arxiv.org/pdf/2506.06962v3",
+      "abstract": "We introduce Autoregressive Retrieval Augmentation (AR-RAG), a novel paradigm that enhances image generation by autoregressively incorporating knearest neighbor retrievals at the patch level. Unlike prior methods that perform a single, static retrieval before generation and condition the entire generation on fixed reference images, AR-RAG performs context-aware retrievals at each generation step, using prior-generated patches as queries to retrieve and incorporate the most relevant patch-level visual references, enabling the model to respond to evolving generation needs while avoiding limitations (e.g., over-copying, stylistic bias, etc.) prevalent in existing methods. To realize AR-RAG, we propose two parallel frameworks: (1) Distribution-Augmentation in Decoding (DAiD), a training-free plug-and-use decoding strategy that directly merges the distribution of model-predicted patches with the distribution of retrieved patches, and (2) Feature-Augmentation in Decoding (FAiD), a parameter-efficient fine-tuning method that progressively smooths the features of retrieved patches via multi-scale convolution operations and leverages them to augment the image generation process. We validate the effectiveness of AR-RAG on widely adopted benchmarks, including Midjourney-30K, GenEval and DPG-Bench, demonstrating significant performance gains over state-of-the-art image generation models.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_f3de0db73716",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=AR-RAG%3A+Autoregressive+Retrieval+Augmentation+for+Image+Generation",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=AR-RAG%3A+Autoregressive+Retrieval+Augmentation+for+Image+Generation",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "AR-RAG: Autoregressive Retrieval Augmentation for Image Generation"
+        }
+      }
+    },
+    {
+      "title": "Designing AI Systems that Augment Human Performed vs. Demonstrated Critical Thinking",
+      "authors": [
+        "Katelyn Xiaoying Mei",
+        "Nic Weber"
+      ],
+      "year": 2025,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "2504.14689",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/2504.14689v1",
+      "pdf_url": "https://arxiv.org/pdf/2504.14689v1",
+      "abstract": "The recent rapid advancement of LLM-based AI systems has accelerated our search and production of information. While the advantages brought by these systems seemingly improve the performance or efficiency of human activities, they do not necessarily enhance human capabilities. Recent research has started to examine the impact of generative AI on individuals' cognitive abilities, especially critical thinking. Based on definitions of critical thinking across psychology and education, this position paper proposes the distinction between demonstrated and performed critical thinking in the era of generative AI and discusses the implication of this distinction in research and development of AI systems that aim to augment human critical thinking.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_6dd337ecdef5",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Designing+AI+Systems+that+Augment+Human+Performed+vs.+Demonstrated+Critical+Thinking",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Designing+AI+Systems+that+Augment+Human+Performed+vs.+Demonstrated+Critical+Thinking",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Designing AI Systems that Augment Human Performed vs. Demonstrated Critical Thinking"
+        }
+      }
+    },
+    {
+      "title": "Efficient Information Retrieval and Response Generation with Retrieval-Augmented Generation (RAG)",
+      "authors": [
+        "Wenyi Pi"
+      ],
+      "year": 2024,
+      "venue": "",
+      "doi": "10.59350/q2pq3-0fv85",
+      "arxiv_id": "",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "https://doi.org/10.59350/q2pq3-0fv85",
+      "pdf_url": "",
+      "abstract": " How to efficiently retrieve information for different applications  Author Wenyi Pi (ORCID: 0009-0002-2884-2771) This article aims to explore various ways in which Retrieval-Augmented Generation (RAG) can be utilised to retrieve information and generate responses effectively within the dialogue system. The rationale behind utilising RAG as well as potential ways in which it can be employed effectively will be covered.",
+      "citation_count": 0,
+      "sources": [
+        "Crossref"
+      ],
+      "paper_id": "p_04006dc9453c",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Efficient+Information+Retrieval+and+Response+Generation+with+Retrieval-Augmented+Generation+%28RAG%29",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Efficient+Information+Retrieval+and+Response+Generation+with+Retrieval-Augmented+Generation+%28RAG%29",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Efficient Information Retrieval and Response Generation with Retrieval-Augmented Generation (RAG)"
+        }
+      }
+    },
+    {
+      "title": "Factually: Exploring Wearable Fact-Checking for Augmented Truth Discernment",
+      "authors": [
+        "Chitralekha Gupta",
+        "Hanjun Wu",
+        "Praveen Sasikumar",
+        "Shreyas Sridhar",
+        "Priambudi Bagaskara",
+        "Suranga Nanayakkara"
+      ],
+      "year": 2025,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "2504.17204",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/2504.17204v1",
+      "pdf_url": "https://arxiv.org/pdf/2504.17204v1",
+      "abstract": "Wearable devices are transforming human capabilities by seamlessly augmenting cognitive functions. In this position paper, we propose a voice-based, interactive learning companion designed to amplify and extend cognitive abilities through informal learning. Our vision is threefold: (1) to enable users to discover new knowledge on-the-go through contextual interactive quizzes, fostering critical thinking and mindfulness, (2) to proactively detect misinformation, empowering users to critically assess information in real time, and (3) to provide spoken language correction and prompting hints for second language learning and effective communication. As an initial step toward this vision, we present Factually - a proactive, wearable fact-checking system integrated into devices like smartwatches or rings. Factually discreetly alerts users to potential falsehoods via vibrotactile feedback, helping them assess information critically. We demonstrate its utility through three illustrative scenarios, highlighting its potential to extend cognitive abilities for real-time misinformation detection. Early qualitative feedback suggests that Factually can enhance users' fact-checking capabilities, offering both practical and experiential benefits.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_ea80379acc50",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Factually%3A+Exploring+Wearable+Fact-Checking+for+Augmented+Truth+Discernment",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Factually%3A+Exploring+Wearable+Fact-Checking+for+Augmented+Truth+Discernment",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Factually: Exploring Wearable Fact-Checking for Augmented Truth Discernment"
+        }
+      }
+    },
+    {
+      "title": "Graph‐based Retrieval‐augmented Generation",
+      "authors": [],
+      "year": 2026,
+      "venue": "Advanced Retrieval‐Augmented Generation",
+      "doi": "10.1002/9781394374717.ch07",
+      "arxiv_id": "",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1002/9781394374717.ch07",
+      "pdf_url": "",
+      "abstract": "",
+      "citation_count": 0,
+      "sources": [
+        "Crossref"
+      ],
+      "paper_id": "p_b4cbbf1ea049",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Graph%E2%80%90based+Retrieval%E2%80%90augmented+Generation",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Graph%E2%80%90based+Retrieval%E2%80%90augmented+Generation",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Graph‐based Retrieval‐augmented Generation"
+        }
+      }
+    },
+    {
+      "title": "Intelligent Interaction Strategies for Context-Aware Cognitive Augmentation",
+      "authors": [
+        " Xiangrong",
+        " Zhu",
+        "Yuan Xu",
+        "Tianjian Liu",
+        "Jingwei Sun",
+        "Yu Zhang",
+        "Xin Tong"
+      ],
+      "year": 2025,
+      "venue": "arXiv",
+      "doi": "",
+      "arxiv_id": "2504.13684",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "http://arxiv.org/abs/2504.13684v1",
+      "pdf_url": "https://arxiv.org/pdf/2504.13684v1",
+      "abstract": "Human cognition is constrained by processing limitations, leading to cognitive overload and inefficiencies in knowledge synthesis and decision-making. Large Language Models (LLMs) present an opportunity for cognitive augmentation, but their current reactive nature limits their real-world applicability. This position paper explores the potential of context-aware cognitive augmentation, where LLMs dynamically adapt to users' cognitive states and task environments to provide appropriate support. Through a think-aloud study in an exhibition setting, we examine how individuals interact with multi-modal information and identify key cognitive challenges in structuring, retrieving, and applying knowledge. Our findings highlight the need for AI-driven cognitive support systems that integrate real-time contextual awareness, personalized reasoning assistance, and socially adaptive interactions. We propose a framework for AI augmentation that seamlessly transitions between real-time cognitive support and post-experience knowledge organization, contributing to the design of more effective human-centered AI systems.",
+      "citation_count": null,
+      "sources": [
+        "arXiv"
+      ],
+      "paper_id": "p_e09df2f16071",
+      "venue_match": "",
+      "publication_status": "preprint",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Intelligent+Interaction+Strategies+for+Context-Aware+Cognitive+Augmentation",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Intelligent+Interaction+Strategies+for+Context-Aware+Cognitive+Augmentation",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Intelligent Interaction Strategies for Context-Aware Cognitive Augmentation"
+        }
+      }
+    },
+    {
+      "title": "Retrieval‐Augmented Generation",
+      "authors": [],
+      "year": 2026,
+      "venue": "Advanced Retrieval‐Augmented Generation",
+      "doi": "10.1002/9781394374717.ch03",
+      "arxiv_id": "",
+      "openalex_id": "",
+      "semantic_id": "",
+      "url": "https://doi.org/10.1002/9781394374717.ch03",
+      "pdf_url": "",
+      "abstract": "",
+      "citation_count": 0,
+      "sources": [
+        "Crossref"
+      ],
+      "paper_id": "p_ef6981e880ea",
+      "venue_match": "",
+      "publication_status": "manual_verification_needed",
+      "verification_paths": {
+        "manual_sources": {
+          "Google Scholar": "https://scholar.google.com/scholar?q=Retrieval%E2%80%90Augmented+Generation",
+          "Scopus": "https://www.scopus.com/results/results.uri?sort=plf-f&src=s&st1=Retrieval%E2%80%90Augmented+Generation",
+          "Web of Science": "https://www.webofscience.com/wos/woscc/basic-search"
+        },
+        "official": {
+          "venue": "unknown",
+          "label": "Official venue needs manual selection",
+          "url": "",
+          "search_title": "Retrieval‐Augmented Generation"
+        }
+      }
+    }
+  ]
+}
