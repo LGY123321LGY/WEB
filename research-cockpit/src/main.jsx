@@ -543,7 +543,6 @@ function CinematicWorkspaceBackground() {
         <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260306_115329_5e00c9c5-4d69-49b7-94c3-9c31c60bb644.mp4" type="video/mp4" />
       </video>
       <span className="workspace-cinema-overlay" />
-      <span className="workspace-cinema-vignette" />
     </div>
   )
 }
@@ -1311,7 +1310,11 @@ function LearningView({ tasks, toggleTask, setToast, learningPhases, studySessio
           <div className="lg-cal-grid">
             {weekDays.map((d) => (
               <div key={d.date} className={`lg-cal-cell ${d.today ? 'today' : ''}`}>
-                <span className="lg-cal-day">{d.date}{d.today ? ' · 今天' : ''}</span>
+                <span className="lg-cal-day">
+                  <span className="lg-cal-weekday">周{d.day}</span>
+                  <span className="lg-cal-date">{d.date}</span>
+                  {d.today && <span className="lg-cal-today">今天</span>}
+                </span>
                 <div className="lg-cal-blocks">
                   {d.blocks.map((b, i) => (
                     <span key={i} className={`lg-cal-block lg-block-${b.type}`}>{b.label}</span>
@@ -1342,12 +1345,12 @@ function LearningView({ tasks, toggleTask, setToast, learningPhases, studySessio
           <div className="lg-panel-body">
             <div className="lg-roadmap-track">
               {phases.map((p, i) => (
-                <div key={p.id} className={`lg-phase lg-phase-${p.status}`} onClick={() => { setDrawerPhase(p); setDrawerTab('tasks') }}>
+                <button type="button" key={p.id} className={`lg-phase lg-phase-${p.status}`} onClick={() => { setDrawerPhase(p); setDrawerTab('tasks') }}>
                   <span className="lg-phase-node">{String(i + 1).padStart(2, '0')}</span>
                   <span className="lg-phase-title">{p.title}</span>
                   <span className="lg-phase-meta">{p.period} · {p.progress}%</span>
                   <span className="lg-phase-bar"><i style={{ width: `${p.progress}%` }} /></span>
-                </div>
+                </button>
               ))}
             </div>
             <div className="lg-roadmap-detail">
@@ -1360,7 +1363,7 @@ function LearningView({ tasks, toggleTask, setToast, learningPhases, studySessio
           <div className="lg-panel-head">
             <ListFilter size={16} />
             <h2>本周任务</h2>
-            <span className="lg-panel-tag">DRAGGABLE</span>
+            <span className="lg-panel-tag">{tasks.length} TASKS</span>
           </div>
           <div className="lg-panel-body">
             <div className="lg-kanban">
