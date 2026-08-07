@@ -127,6 +127,26 @@ const artifacts = [
   { type: '文档', title: '相关工作比较矩阵', meta: '28 篇论文 · 7 个比较维度', icon: FileText, accent: 'gray' },
 ]
 
+const initialLearningPhases = [
+  { id: 1, title: '基础筑基', description: 'Agent 系统与评估方法', period: '2026.06 — 07', progress: 100, status: 'completed', sort_order: 1 },
+  { id: 2, title: '方法实现', description: 'R-CFFA 方法实现与基线对齐', period: '2026.07 — 09', progress: 42, status: 'active', sort_order: 2 },
+  { id: 3, title: '实验验证', description: '消融、泛化与误差分析', period: '2026.09 — 11', progress: 0, status: 'pending', sort_order: 3 },
+  { id: 4, title: '总结产出', description: '证据整理与完整初稿', period: '2026.11 — 12', progress: 0, status: 'pending', sort_order: 4 },
+]
+
+const initialStudySessions = [
+  { id: 1, started_at: '2026-08-05T14:00:00', ended_at: '2026-08-05T15:30:00', minutes: 90, notes: 'R-CFFA 特征聚合模块复现', phase_id: 2 },
+  { id: 2, started_at: '2026-08-04T10:00:00', ended_at: '2026-08-04T11:00:00', minutes: 60, notes: '消融实验变量整理', phase_id: 2 },
+  { id: 3, started_at: '2026-08-03T09:00:00', ended_at: '2026-08-03T10:30:00', minutes: 90, notes: 'R-CFFA 复现起步', phase_id: 2 },
+  { id: 4, started_at: '2026-08-03T14:00:00', ended_at: '2026-08-03T14:45:00', minutes: 45, notes: 'AgentBench 精读', phase_id: 1 },
+]
+
+const initialResearchNotes = [
+  { id: 1, title: 'W32 复盘', body: '完成：R-CFFA 模块 60%；AgentBench 精读完成；消融变量表整理。遇到：特征聚合层维度对齐偏差；多环境指标冲突。下一步：对齐评估协议；8/14 中期汇报。', tags: ['W32', '复盘'], created_at: '2026-08-05T18:00:00' },
+  { id: 2, title: 'R-CFFA 维度偏差', body: '第 3 层聚合与原论文维度差 16，怀疑是 padding 位置不同，明天验证。', tags: ['R-CFFA', 'debug'], created_at: '2026-08-05T14:22:00' },
+  { id: 3, title: 'AgentBench 指标冲突', body: '成功率与成本指标在多环境下冲突，需在汇报前澄清口径。', tags: ['AgentBench', '评估'], created_at: '2026-08-04T10:08:00' },
+]
+
 const lumoraVideos = [
   { label: 'Golden Hour', src: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260702_081127_0992a171-d3c6-4978-8213-0ec5df8b6d63.mp4' },
   { label: 'Still Water', src: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260702_092026_dd05b805-ea0f-40b2-8c52-332b88502592.mp4' },
@@ -211,6 +231,9 @@ function App() {
   const [tasks, setTasks] = usePersistentState('cockpit-tasks', initialTasks)
   const [papers, setPapers] = usePersistentState('cockpit-papers', initialPapers)
   const [experiments, setExperiments] = usePersistentState('cockpit-experiments', initialExperiments)
+  const [learningPhases, setLearningPhases] = usePersistentState('cockpit-learning-phases', initialLearningPhases)
+  const [studySessions, setStudySessions] = usePersistentState('cockpit-study-sessions', initialStudySessions)
+  const [researchNotes, setResearchNotes] = usePersistentState('cockpit-research-notes', initialResearchNotes)
   const [sidebarCollapsed, setSidebarCollapsed] = usePersistentState('cockpit-sidebar-collapsed', false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [quickAddOpen, setQuickAddOpen] = useState(false)
@@ -311,6 +334,9 @@ function App() {
         if (data.tasks.length) setTasks(data.tasks)
         if (data.papers.length) setPapers(data.papers)
         if (data.experiments.length) setExperiments(data.experiments)
+        if (data.learningPhases?.length) setLearningPhases(data.learningPhases)
+        if (data.studySessions?.length) setStudySessions(data.studySessions)
+        if (data.researchNotes?.length) setResearchNotes(data.researchNotes)
 
         const hasLocalData = tasks.length > 0 || papers.length > 0 || experiments.length > 0
         const hasCloudData = data.tasks.length > 0 || data.papers.length > 0 || data.experiments.length > 0
@@ -447,21 +473,22 @@ function App() {
     }
   }
 
-  const viewProps = { tasks, papers, experiments, toggleTask, setToast, changeView }
-  const isPortalView = activeView === 'home' || activeView === 'profile'
-  const needsAuth = !isPortalView && isSupabaseConfigured && !authLoading && !session
-  const needsApproval = !isPortalView && isSupabaseConfigured && !authLoading && session && memberProfile && !isApprovedMember
+  const viewProps = { tasks, papers, experiments, toggleTask, setToast, changeView, learningPhases, setLearningPhases, studySessions, setStudySessions, researchNotes, setResearchNotes, session, isApprovedMember }
+  const isPortalView = activeView === 'home'
+  const isProfileView = activeView === 'profile'
+  const isPublicView = isPortalView || isProfileView
+  const needsAuth = !isPublicView && isSupabaseConfigured && !authLoading && !session
+  const needsApproval = !isPublicView && isSupabaseConfigured && !authLoading && session && memberProfile && !isApprovedMember
 
   return (
-    <div className={`app-shell ${isPortalView ? 'portal-app' : ''} ${activeView === 'profile' ? 'profile-app' : ''} ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+    <div className={`app-shell ${isPortalView ? 'portal-app' : ''} ${isProfileView ? 'profile-only-app' : ''} ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
       {activeView === 'home' && <PortalHome changeView={changeView} setToast={setToast} />}
-      {activeView === 'profile' && <ProfilePage changeView={changeView} setToast={setToast} />}
 
       {!isPortalView && <>
         <CinematicWorkspaceBackground />
-        <Sidebar activeView={activeView} changeView={changeView} onSearch={() => setSearchOpen(true)} onHome={() => changeView('home')} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed((current) => !current)} isAdmin={isAdmin} />
+        {!isProfileView && <Sidebar activeView={activeView} changeView={changeView} onSearch={() => setSearchOpen(true)} onHome={() => changeView('home')} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed((current) => !current)} isAdmin={isAdmin} />}
 
-        <header className="mobile-header">
+        {!isProfileView && <header className="mobile-header">
           <button className="icon-button" onClick={() => setMobileMenuOpen(true)} aria-label="打开导航" title="打开导航">
             <Menu size={20} />
           </button>
@@ -469,14 +496,14 @@ function App() {
           <button className="icon-button" onClick={() => setSearchOpen(true)} aria-label="搜索" title="搜索">
             <Search size={19} />
           </button>
-        </header>
+        </header>}
 
         <main className="main-content">
-          <TopBar onSearch={() => setSearchOpen(true)} onAdd={() => setQuickAddOpen(true)} session={session} memberProfile={memberProfile} setToast={setToast} />
-          {authLoading && <AuthPanel mode="loading" />}
+          {!isProfileView && <TopBar onSearch={() => setSearchOpen(true)} onAdd={() => setQuickAddOpen(true)} session={session} memberProfile={memberProfile} setToast={setToast} />}
+          {!isPublicView && authLoading && <AuthPanel mode="loading" />}
           {needsAuth && <AuthPanel mode="signin" setToast={setToast} />}
           {needsApproval && <AuthPanel mode="pending" memberProfile={memberProfile} />}
-          {!authLoading && !needsAuth && !needsApproval && <>
+          {activeView === 'profile' ? <ProfilePage changeView={changeView} setToast={setToast} /> : !authLoading && !needsAuth && !needsApproval && <>
             {workspaceError && <WorkspaceNotice tone="danger" title="Cloud sync needs attention" description={workspaceError} />}
             {workspaceLoading && <WorkspaceNotice title="Syncing workspace" description="Loading your private Supabase workspace..." />}
             {localImportAvailable && <WorkspaceNotice title="Local data found" description="Your browser has local workspace data and Supabase is empty. Import it once to make it available after login." action={<button className="primary-button" onClick={importLocalDataToCloud}>Import to Supabase</button>} />}
@@ -489,11 +516,11 @@ function App() {
           </>}
         </main>
 
-        <MobileNav activeView={activeView} changeView={changeView} isAdmin={isAdmin} />
-        <button className="mobile-add-button" onClick={() => setQuickAddOpen(true)} aria-label="快速记录" title="快速记录">
+        {!isProfileView && <MobileNav activeView={activeView} changeView={changeView} isAdmin={isAdmin} />}
+        {!isProfileView && <button className="mobile-add-button" onClick={() => setQuickAddOpen(true)} aria-label="快速记录" title="快速记录">
           <Plus size={21} />
-        </button>
-        {mobileMenuOpen && <MobileMenu activeView={activeView} changeView={changeView} onClose={() => setMobileMenuOpen(false)} onHome={() => changeView('home')} />}
+        </button>}
+        {!isProfileView && mobileMenuOpen && <MobileMenu activeView={activeView} changeView={changeView} onClose={() => setMobileMenuOpen(false)} onHome={() => changeView('home')} />}
         {searchOpen && <SearchDialog tasks={tasks} papers={papers} experiments={experiments} onClose={() => setSearchOpen(false)} changeView={changeView} />}
         {quickAddOpen && <QuickAddDialog onClose={() => setQuickAddOpen(false)} onAdd={addItem} />}
       </>}
@@ -778,35 +805,43 @@ function ProfilePage({ changeView, setToast }) {
   }
 
   return (
-    <main className="profile-page">
-      <header className="profile-topbar">
-        <button className="profile-home-button" onClick={() => changeView('home')}><Home size={17} />返回首页</button>
-        <span>PROFILE / 01</span>
-      </header>
-      <section className="profile-intro">
-        <p className="profile-role">{profile.role}</p>
-        <h1>{profile.name}</h1>
-        <p>{profile.introduction}</p>
-      </section>
-      <div className="profile-grid">
-        <section className="profile-section profile-focus">
-          <span className="profile-index">01 / 研究方向</span>
-          <h2>正在持续构建的能力</h2>
-          <div className="profile-focus-list">{profile.focus.map((item, index) => <span key={item}><i>{String(index + 1).padStart(2, '0')}</i>{item}</span>)}</div>
+    <div className="view profile-workspace-view">
+      <PageHeading
+        eyebrow="PROFILE / RESEARCH SPACE"
+        title={profile.name}
+        description={profile.introduction}
+        action={<div className="profile-heading-actions"><button className="secondary-button" onClick={() => changeView('home')}><Home size={16} />返回首页</button><button className="primary-button" onClick={() => changeView('dashboard')}><LayoutDashboard size={16} />查看总览</button></div>}
+      />
+
+      <div className="profile-workspace-grid">
+        <section className="panel profile-focus-panel">
+          <SectionHeader title="研究方向" meta="FOCUS AREAS" icon={Target} />
+          <div className="profile-panel-content">
+            <p className="profile-role">{profile.role}</p>
+            <h2>正在持续构建的能力</h2>
+            <div className="profile-focus-list">{profile.focus.map((item, index) => <span key={item}><i>{String(index + 1).padStart(2, '0')}</i>{item}</span>)}</div>
+          </div>
         </section>
-        <section className="profile-section profile-contact">
-          <span className="profile-index">02 / 联系方式</span>
-          <div className="contact-line"><Mail size={18} /><span><small>EMAIL</small><strong>{profile.email}</strong></span><button className="icon-button" onClick={copyEmail} aria-label="复制邮箱" title="复制邮箱"><Copy size={16} /></button></div>
+
+        <section className="panel profile-contact-panel">
+          <SectionHeader title="联系方式" meta="CONTACT" icon={Mail} />
+          <div className="profile-panel-content profile-contact-content">
+            <span className="profile-field-label">EMAIL</span>
+            <strong>{profile.email}</strong>
+            <button className="icon-text-button" onClick={copyEmail}><Copy size={16} />复制邮箱</button>
+          </div>
         </section>
-        <section className={`profile-section profile-github ${profile.githubUrl ? '' : 'is-empty'}`}>
-          <span className="profile-index">03 / GITHUB 仓库</span>
-          <Github size={27} />
-          <h2>{profile.githubLabel}</h2>
-          {profile.githubUrl ? <a href={profile.githubUrl} target="_blank" rel="noreferrer">访问仓库 <ArrowUpRight size={16} /></a> : <span className="github-placeholder">仓库地址待设置</span>}
+
+        <section className="panel profile-repository-panel">
+          <SectionHeader title="GitHub 仓库" meta="PROJECTS" icon={Github} />
+          <div className="profile-panel-content profile-repository-content">
+            <Github size={30} aria-hidden="true" />
+            <div><span className="profile-field-label">REPOSITORY</span><h2>{profile.githubLabel}</h2></div>
+            {profile.githubUrl ? <a className="icon-text-button" href={profile.githubUrl} target="_blank" rel="noreferrer">访问仓库 <ArrowUpRight size={16} /></a> : <span className="profile-empty-state">仓库地址待设置</span>}
+          </div>
         </section>
       </div>
-      <footer className="profile-footer"><span>PERSONAL RESEARCH SPACE</span><button onClick={() => changeView('dashboard')}>进入学习结果 <ArrowRight size={16} /></button></footer>
-    </main>
+    </div>
   )
 }
 
@@ -1186,50 +1221,306 @@ function MiniResultChart() {
   )
 }
 
-function LearningView({ tasks, toggleTask, setToast }) {
-  const roadmap = [
-    { phase: '基础补齐', period: '07.01 — 07.14', title: 'Agent 系统与评估方法', progress: 100, status: '已完成' },
-    { phase: '核心复现', period: '07.15 — 07.28', title: 'R-CFFA 方法实现与基线对齐', progress: 46, status: '进行中' },
-    { phase: '实验验证', period: '07.29 — 08.18', title: '消融、泛化与误差分析', progress: 8, status: '下一阶段' },
-    { phase: '论文成稿', period: '08.19 — 09.08', title: '证据整理与完整初稿', progress: 0, status: '未开始' },
+function LearningView({ tasks, toggleTask, setToast, learningPhases, studySessions, researchNotes, setResearchNotes, session, isApprovedMember }) {
+  const [drawerPhase, setDrawerPhase] = useState(null)
+  const [drawerTab, setDrawerTab] = useState('tasks')
+  const [reflectionOpen, setReflectionOpen] = useState(false)
+  const [draggingId, setDraggingId] = useState(null)
+  const [dropTarget, setDropTarget] = useState(null)
+
+  const phases = learningPhases.length ? learningPhases : initialLearningPhases
+  const activePhase = phases.find((p) => p.status === 'active') || phases[1] || phases[0]
+
+  const weekMinutes = (studySessions.length ? studySessions : initialStudySessions)
+    .filter((s) => s.started_at?.startsWith('2026-08'))
+    .reduce((sum, s) => sum + (s.minutes || 0), 0)
+  const totalProgress = Math.round(phases.reduce((sum, p) => sum + (p.progress || 0), 0) / phases.length)
+
+  const doingTasks = tasks.filter((t) => !t.done && (t.tag === '代码' || t.tag === '实验'))
+  const queuedTasks = tasks.filter((t) => !t.done && !doingTasks.includes(t))
+  const doneTasks = tasks.filter((t) => t.done)
+
+  const handleDragStart = (id) => setDraggingId(id)
+  const handleDragEnd = () => { setDraggingId(null); setDropTarget(null) }
+  const handleDrop = (col) => {
+    if (!draggingId) return
+    const task = tasks.find((t) => t.id === draggingId)
+    if (!task) return
+    if (col === 'done' && !task.done) toggleTask(task.id)
+    if (col !== 'done' && task.done) toggleTask(task.id)
+    setDraggingId(null); setDropTarget(null)
+  }
+
+  const weekDays = [
+    { day: '一', date: '03', blocks: [{ label: "90' R-CFFA", type: 'orange' }, { label: "45' AgentBench", type: 'blue' }] },
+    { day: '二', date: '04', blocks: [{ label: "60' 消融整理", type: 'green' }] },
+    { day: '三', date: '05', blocks: [{ label: "90' R-CFFA 复现", type: 'orange' }, { label: "30' 阶段复盘", type: 'blue' }], today: true },
+    { day: '四', date: '06', blocks: [{ label: "45' 论文精读", type: 'blue' }] },
+    { day: '五', date: '07', blocks: [] },
+    { day: '六', date: '08', blocks: [] },
+    { day: '日', date: '09', blocks: [] },
   ]
+
+  const latestNote = (researchNotes.length ? researchNotes : initialResearchNotes)[0]
+
   return (
-    <div className="view">
-      <PageHeading eyebrow="LEARNING / 学习规划" title="从问题出发，而不是从清单出发。" description="把学习任务绑定到当前研究假设，避免阅读和实现彼此脱节。" action={<button className="secondary-button" onClick={() => setToast('复盘模板已准备')}>开始本周复盘<ArrowUpRight size={16} /></button>} />
-      <div className="metric-strip">
-        <div><small>本周深度工作</small><strong>18.5h</strong><span className="positive">较上周 +3.2h</span></div>
-        <div><small>路线总进度</small><strong>38%</strong><span>第 2 / 4 阶段</span></div>
-        <div><small>当前核心目标</small><strong className="textual">完成核心模块复现</strong><span>距离检查点还有 12 天</span></div>
+    <div className="view learning-view">
+      <div className="learning-page-head">
+        <div>
+          <h1 className="learning-title">Learning <span className="cn">规划</span></h1>
+          <p className="learning-sub">研究学习的协调中枢 · 周节奏 · 路线 · 复盘</p>
+        </div>
+        <div className="learning-head-actions">
+          <button className="lg-btn lg-btn-ghost" onClick={() => setDrawerPhase(activePhase)}>
+            <Map size={14} />当前阶段
+          </button>
+          <button className="lg-btn lg-btn-primary" onClick={() => setReflectionOpen(true)}>
+            <Sparkles size={14} />完成专注 · 写复盘
+          </button>
+        </div>
       </div>
-      <div className="learning-layout">
-        <section className="panel roadmap-panel">
-          <SectionHeader title="研究学习路线" meta="2026 夏季周期" icon={Map} />
-          <div className="roadmap-list">
-            {roadmap.map((item, index) => (
-              <div className={`roadmap-row ${item.status === '进行中' ? 'active' : ''}`} key={item.phase}>
-                <span className="roadmap-number">{String(index + 1).padStart(2, '0')}</span>
-                <span className="roadmap-line"><i style={{ height: `${item.progress}%` }} /></span>
-                <div className="roadmap-copy"><span>{item.phase} · {item.period}</span><strong>{item.title}</strong><div className="progress-track"><i style={{ width: `${item.progress}%` }} /></div></div>
-                <span className={`roadmap-status ${item.status === '进行中' ? 'active' : ''}`}>{item.status}</span>
+
+      <div className="learning-kpi-strip">
+        <div className="liquid-glass lg-kpi">
+          <span className="lg-kpi-label">本周专注</span>
+          <span className="lg-kpi-value">{(weekMinutes / 60).toFixed(1)}<span className="lg-kpi-unit">h</span></span>
+          <span className="lg-kpi-delta up">▲ 较上周 +{(weekMinutes / 60 * 0.17).toFixed(1)}h</span>
+          <svg className="lg-kpi-spark" width="56" height="20"><polyline fill="none" stroke="#789bc5" strokeWidth="1.5" points="0,14 8,10 16,12 24,6 32,8 40,4 48,7 56,2" /></svg>
+        </div>
+        <div className="liquid-glass lg-kpi">
+          <span className="lg-kpi-label">路线总进度</span>
+          <span className="lg-kpi-value">{totalProgress}<span className="lg-kpi-unit">%</span></span>
+          <span className="lg-kpi-delta up">▲ {phases.filter((p) => p.progress >= 100).length} / {phases.length} 阶段</span>
+          <svg className="lg-kpi-spark" width="56" height="20"><polyline fill="none" stroke="#6fae8e" strokeWidth="1.5" points="0,16 14,14 28,10 42,8 56,5" /></svg>
+        </div>
+        <div className="liquid-glass lg-kpi">
+          <span className="lg-kpi-label">距下一检查点</span>
+          <span className="lg-kpi-value">9<span className="lg-kpi-unit">天</span></span>
+          <span className="lg-kpi-delta">阶段 02 · 中期汇报</span>
+          <svg className="lg-kpi-spark" width="56" height="20"><circle cx="28" cy="10" r="6" fill="none" stroke="#789bc5" strokeWidth="1.5" /><line x1="28" y1="10" x2="28" y2="5" stroke="#789bc5" strokeWidth="1.5" /><line x1="28" y1="10" x2="32" y2="10" stroke="#789bc5" strokeWidth="1.5" /></svg>
+        </div>
+      </div>
+
+      <section className="liquid-glass lg-panel">
+        <div className="lg-panel-head">
+          <CalendarDays size={16} />
+          <h2>本周日历 · 时间块</h2>
+          <span className="lg-panel-tag">2026-W32</span>
+        </div>
+        <div className="lg-panel-body">
+          <div className="lg-cal-grid">
+            {weekDays.map((d) => (
+              <div key={d.date} className={`lg-cal-cell ${d.today ? 'today' : ''}`}>
+                <span className="lg-cal-day">{d.date}{d.today ? ' · 今天' : ''}</span>
+                <div className="lg-cal-blocks">
+                  {d.blocks.map((b, i) => (
+                    <span key={i} className={`lg-cal-block lg-block-${b.type}`}>{b.label}</span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
-        </section>
-        <aside className="learning-side">
-          <section className="panel">
-            <SectionHeader title="今日执行" meta={`${tasks.filter((task) => task.done).length}/${tasks.length}`} icon={CheckCircle2} />
-            <div className="compact-task-list">
-              {tasks.slice(0, 4).map((task) => (
-                <label key={task.id} className={task.done ? 'done' : ''}><input type="checkbox" checked={task.done} onChange={() => toggleTask(task.id)} /><span className="custom-check">{task.done && <Check size={12} />}</span><strong>{task.title}</strong></label>
+          <div className="lg-cal-trend">
+            <span>近 30 天专注趋势</span>
+            <svg className="lg-sparkline" viewBox="0 0 600 24" preserveAspectRatio="none">
+              <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#789bc5" stopOpacity=".35" /><stop offset="1" stopColor="#789bc5" stopOpacity="0" /></linearGradient></defs>
+              <path d="M0,18 L60,12 L120,14 L180,8 L240,10 L300,5 L360,7 L420,4 L480,8 L540,3 L600,5 L600,24 L0,24 Z" fill="url(#lg)" />
+              <path d="M0,18 L60,12 L120,14 L180,8 L240,10 L300,5 L360,7 L420,4 L480,8 L540,3 L600,5" fill="none" stroke="#789bc5" strokeWidth="1.4" />
+            </svg>
+            <span style={{ color: 'var(--sky, #789bc5)' }}>+{(weekMinutes / 60).toFixed(1)}h 本周</span>
+          </div>
+        </div>
+      </section>
+
+      <div className="lg-dual">
+        <section className="liquid-glass lg-panel">
+          <div className="lg-panel-head">
+            <Map size={16} />
+            <h2>研究学习路线</h2>
+            <span className="lg-panel-tag">4 PHASES</span>
+          </div>
+          <div className="lg-panel-body">
+            <div className="lg-roadmap-track">
+              {phases.map((p, i) => (
+                <div key={p.id} className={`lg-phase lg-phase-${p.status}`} onClick={() => { setDrawerPhase(p); setDrawerTab('tasks') }}>
+                  <span className="lg-phase-node">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="lg-phase-title">{p.title}</span>
+                  <span className="lg-phase-meta">{p.period} · {p.progress}%</span>
+                  <span className="lg-phase-bar"><i style={{ width: `${p.progress}%` }} /></span>
+                </div>
               ))}
             </div>
-          </section>
-          <section className="panel reflection-panel">
-            <SectionHeader title="上周复盘" meta="07.06 — 07.12" icon={Focus} />
-            <blockquote>“阅读覆盖面足够，但证据整理滞后。本周每完成一个实验，立即记录结论边界。”</blockquote>
-            <div className="reflection-tags"><span>保持：上午深度工作</span><span>调整：减少并行任务</span></div>
-          </section>
-        </aside>
+            <div className="lg-roadmap-detail">
+              <strong>当前 · 阶段 02 · {activePhase?.title}</strong> —— {activePhase?.description}。下一检查点：<strong>8/14 中期汇报</strong>。
+            </div>
+          </div>
+        </section>
+
+        <section className="liquid-glass lg-panel">
+          <div className="lg-panel-head">
+            <ListFilter size={16} />
+            <h2>本周任务</h2>
+            <span className="lg-panel-tag">DRAGGABLE</span>
+          </div>
+          <div className="lg-panel-body">
+            <div className="lg-kanban">
+              {[
+                { col: 'doing', label: '进行中', items: doingTasks },
+                { col: 'queued', label: '排队', items: queuedTasks },
+                { col: 'done', label: '已完成', items: doneTasks },
+              ].map((column) => (
+                <div
+                  key={column.col}
+                  className={`lg-kanban-col ${dropTarget === column.col ? 'drop-target' : ''}`}
+                  onDragOver={(e) => { e.preventDefault(); setDropTarget(column.col) }}
+                  onDragLeave={() => setDropTarget(null)}
+                  onDrop={(e) => { e.preventDefault(); handleDrop(column.col) }}
+                >
+                  <div className="lg-kanban-head">
+                    <span>{column.label}</span>
+                    <span className="lg-kanban-count">{column.items.length}</span>
+                  </div>
+                  {column.items.map((task) => (
+                    <div
+                      key={task.id}
+                      className={`lg-task ${draggingId === task.id ? 'dragging' : ''} lg-task-${column.col}`}
+                      draggable
+                      onDragStart={() => handleDragStart(task.id)}
+                      onDragEnd={handleDragEnd}
+                    >
+                      <span className="lg-task-title">{task.title}</span>
+                      <span className="lg-task-meta">
+                        <span className={`lg-task-tag lg-tag-${(task.tag || '').toLowerCase()}lg-tag`}>{task.tag}</span>
+                        <span>{task.meta?.split('·').pop()?.trim() || ''}</span>
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section className="liquid-glass lg-panel">
+        <div className="lg-panel-head">
+          <Sparkles size={16} />
+          <h2>每周复盘</h2>
+          <span className="lg-panel-tag">W32 · 2026</span>
+        </div>
+        <div className="lg-panel-body">
+          <div className="lg-reflection">
+            <div className="lg-r-col lg-r-week">
+              <span className="lg-r-label">本周</span>
+              <span className="lg-r-week-num">W32</span>
+              <span className="lg-r-week-range">2026.08.03 — 08.09</span>
+            </div>
+            <div className="lg-r-col">
+              <span className="lg-r-label">完成什么</span>
+              <span className="lg-r-body">复现 R-CFFA 模块 60%；AgentBench 实验设计精读完成；消融实验变量表整理。</span>
+            </div>
+            <div className="lg-r-col">
+              <span className="lg-r-label">遇到什么</span>
+              <span className="lg-r-body">特征聚合层与原论文维度对齐有偏差；多环境指标在 AgentBench 出现冲突，待澄清。</span>
+            </div>
+            <div className="lg-r-col">
+              <span className="lg-r-label">下一步</span>
+              <span className="lg-r-body">8/10-13 对齐评估协议；8/14 中期汇报；启动阶段 03 实验设计草稿。</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {drawerPhase && (
+        <>
+          <div className="lg-drawer-mask" onClick={() => setDrawerPhase(null)} />
+          <aside className="liquid-glass lg-drawer" role="dialog" aria-modal="true" aria-label="阶段详情">
+            <div className="lg-drawer-head">
+              <div>
+                <h3>{drawerPhase.title}</h3>
+                <span className="lg-phase-tag">PHASE {String(phases.indexOf(drawerPhase) + 1).padStart(2, '0')} · {drawerPhase.status === 'active' ? '进行中' : drawerPhase.status === 'completed' ? '已完成' : '未开始'}</span>
+              </div>
+              <button className="lg-drawer-close" onClick={() => setDrawerPhase(null)} aria-label="关闭"><X size={14} /></button>
+            </div>
+            <div className="lg-drawer-tabs">
+              {['tasks', 'notes', 'sessions'].map((tab) => (
+                <button key={tab} className={`lg-drawer-tab ${drawerTab === tab ? 'active' : ''}`} onClick={() => setDrawerTab(tab)}>
+                  {tab === 'tasks' ? '任务' : tab === 'notes' ? '笔记' : '专注记录'}
+                </button>
+              ))}
+            </div>
+            <div className="lg-drawer-body">
+              {drawerTab === 'tasks' && (
+                <div className="lg-drawer-section">
+                  <h4>关联任务</h4>
+                  {tasks.map((task) => (
+                    <div key={task.id} className={`lg-drawer-task ${task.done ? 'done' : ''}`}>
+                      <span className="lg-check">{task.done && <Check size={10} />}</span>
+                      <span>{task.title}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {drawerTab === 'notes' && (
+                <div className="lg-drawer-section">
+                  <h4>研究笔记</h4>
+                  {(researchNotes.length ? researchNotes : initialResearchNotes).map((note) => (
+                    <div key={note.id} className="lg-drawer-note">
+                      <div className="lg-note-meta">{note.created_at?.slice(0, 16).replace('T', ' · ')}</div>
+                      {note.body}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {drawerTab === 'sessions' && (
+                <div className="lg-drawer-section">
+                  <h4>本周专注</h4>
+                  {(studySessions.length ? studySessions : initialStudySessions).map((s) => (
+                    <div key={s.id} className="lg-drawer-note">
+                      <div className="lg-note-meta">{s.started_at?.slice(0, 10)} · {s.minutes} min</div>
+                      {s.notes}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </aside>
+        </>
+      )}
+
+      {reflectionOpen && (
+        <div className="lg-dialog-mask" onClick={() => setReflectionOpen(false)}>
+          <div className="liquid-glass lg-dialog" role="dialog" aria-modal="true" aria-label="专注后复盘" onClick={(e) => e.stopPropagation()}>
+            <h3>专注复盘</h3>
+            <p className="lg-dialog-sub">刚刚完成一段专注，记录这一程的收获与下一步。</p>
+            <ReflectionForm onSave={(data) => {
+              const newNote = { id: Date.now(), title: `W32 复盘 · ${new Date().toLocaleDateString('zh-CN')}`, body: `完成：${data.done}\n遇到：${data.issue}\n下一步：${data.next}`, tags: ['W32', '复盘'], created_at: new Date().toISOString() }
+              setResearchNotes((prev) => [newNote, ...prev])
+              setToast('复盘笔记已保存')
+              setReflectionOpen(false)
+            }} onClose={() => setReflectionOpen(false)} />
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function ReflectionForm({ onSave, onClose }) {
+  const [done, setDone] = useState('')
+  const [issue, setIssue] = useState('')
+  const [next, setNext] = useState('')
+  return (
+    <div className="lg-reflection-form">
+      <label>完成了什么</label>
+      <textarea value={done} onChange={(e) => setDone(e.target.value)} placeholder="例如：R-CFFA 第 3 层聚合维度对齐，padding 改为 same。" />
+      <label>遇到什么</label>
+      <textarea value={issue} onChange={(e) => setIssue(e.target.value)} placeholder="例如：原论文公式 (3) 的 σ 范围未指明，需查附录。" />
+      <label>下一步</label>
+      <textarea value={next} onChange={(e) => setNext(e.target.value)} placeholder="例如：明天对齐评估协议并写消融表草稿。" />
+      <div className="lg-dialog-actions">
+        <button className="lg-btn lg-btn-ghost" onClick={onClose}>稍后</button>
+        <button className="lg-btn lg-btn-primary" onClick={() => onSave({ done, issue, next })}>保存为复盘笔记</button>
       </div>
     </div>
   )
