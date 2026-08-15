@@ -24,6 +24,11 @@ const WORKSPACE_TABLES = {
       tags: Array.isArray(item.tags) ? item.tags : [],
       note: item.note || null,
       url: item.url || null,
+      pdf_path: item.pdf_path || null,
+      pdf_url: item.pdf_url || null,
+      file_name: item.file_name || null,
+      file_size: Number.isFinite(Number(item.file_size)) ? Number(item.file_size) : null,
+      mime_type: item.mime_type || null,
     }),
   },
   experiments: {
@@ -135,6 +140,18 @@ export async function updateWorkspaceItem(supabase, key, id, patch) {
   const { data, error } = await supabase
     .from(config.table)
     .update(patch)
+    .eq('id', id)
+    .select(config.select)
+    .single()
+  if (error) throw error
+  return config.fromDb?.(data) || data
+}
+
+export async function deleteWorkspaceItem(supabase, key, id) {
+  const config = WORKSPACE_TABLES[key]
+  const { data, error } = await supabase
+    .from(config.table)
+    .delete()
     .eq('id', id)
     .select(config.select)
     .single()

@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Veldara makes immersive 3D experiences feel approachable." />
+  <title>Veldara / 3D story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #f5f7fb;
+      --muted: rgba(229, 235, 246, .68);
+      --line: rgba(236, 242, 255, .24);
+      --blue: #72a7e8;
+      --deep: #05080d;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { background: var(--deep); scroll-behavior: smooth; }
+    body { margin: 0; min-width: 320px; overflow-x: hidden; color: var(--ink); background: var(--deep); font-family: "DM Sans", sans-serif; }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 5px; }
+
+    .scene { position: fixed; inset: 0; z-index: -2; overflow: hidden; background: #070b11; }
+    .scene video { position: absolute; inset: -8%; width: 116%; height: 116%; object-fit: cover; filter: saturate(.72) contrast(1.08); opacity: .78; }
+    .scene::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3, 5, 10, .25), rgba(3, 5, 10, .1) 35%, rgba(3, 5, 10, .86) 100%); }
+    #dust { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; opacity: .72; }
+
+    .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 4; display: flex; align-items: center; justify-content: space-between; padding: 24px clamp(20px, 4vw, 64px); }
+    .brand { font-family: "Space Grotesk", sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; }
+    .nav { display: flex; align-items: center; gap: clamp(16px, 3vw, 42px); }
+    .nav a, .social a { color: var(--muted); font-size: .78rem; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; transition: color .25s ease; }
+    .nav a:hover, .social a:hover { color: var(--ink); }
+    .social { display: flex; gap: 14px; }
+    .social a { display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 50%; }
+    .social svg { width: 13px; height: 13px; fill: currentColor; }
+    .motion-toggle { display: inline-flex; align-items: center; gap: 8px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); background: rgba(4, 7, 13, .3); font: inherit; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: border-color .25s ease, color .25s ease, background .25s ease; }
+    .motion-toggle::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 3px rgba(114, 167, 232, .14); }
+    .motion-toggle[aria-pressed="true"] { border-color: var(--blue); color: var(--ink); background: rgba(114, 167, 232, .13); }
+
+    main { position: relative; z-index: 1; }
+    .hero { min-height: 100svh; display: grid; align-items: end; padding: 120px clamp(20px, 7vw, 116px) 44px; transition: opacity .3s linear; }
+    .hero-content { max-width: 860px; }
+    .kicker { margin: 0 0 18px; color: var(--muted); font-family: "Space Grotesk", sans-serif; font-size: .72rem; letter-spacing: .24em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 790px; margin-bottom: 28px; font-family: "Space Grotesk", sans-serif; font-size: clamp(2.75rem, 8vw, 7.7rem); font-weight: 500; letter-spacing: -.07em; line-height: .96; }
+    .beam { position: relative; display: inline-block; white-space: nowrap; }
+    .beam::after { content: ""; position: absolute; left: 0; right: 0; bottom: .03em; height: .1em; z-index: -1; border-radius: 3px; background: var(--blue); box-shadow: 0 0 28px rgba(114, 167, 232, .78); transform: skew(-18deg); }
+    .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .install { display: inline-flex; align-items: center; gap: 9px; padding: 13px 17px; border: 1px solid var(--line); border-radius: 7px; color: var(--muted); background: rgba(4, 7, 13, .42); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .82rem; }
+    .install b { color: var(--blue); font-weight: 500; }
+    .cta { display: inline-flex; align-items: center; gap: 14px; padding: 14px 19px; border: 1px solid var(--blue); border-radius: 7px; color: #06101d; background: var(--blue); font-size: .83rem; font-weight: 700; text-decoration: none; transition: transform .25s ease, background .25s ease; }
+    .cta:hover { background: #a9ccf3; transform: translateY(-2px); }
+    .scroll-cue { display: flex; justify-content: center; padding-top: 64px; color: var(--muted); }
+    .scroll-cue svg { width: 22px; animation: drift 1.8s ease-in-out infinite; }
+    @keyframes drift { 0%, 100% { transform: translateY(0); opacity: .52; } 50% { transform: translateY(9px); opacity: 1; } }
+
+    .story-space { height: 130svh; }
+    .feature-zone { position: relative; min-height: 210svh; }
+    .feature-panel { position: sticky; top: 0; min-height: 100svh; display: grid; align-items: end; padding: 0 clamp(20px, 7vw, 116px) 84px; }
+    .features { --reveal: 0%; width: min(1100px, 100%); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 5vw, 76px); opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; mask-image: linear-gradient(to right, #000 var(--reveal), transparent calc(var(--reveal) + 18%)); -webkit-mask-image: linear-gradient(to right, #000 var(--reveal), transparent calc(var(--reveal) + 18%)); }
+    .feature-zone.is-visible .features { opacity: 1; transform: translateY(0); }
+    .feature { border-top: 1px solid var(--line); padding-top: 18px; }
+    .feature small { display: block; margin-bottom: 25px; color: var(--blue); font-family: "Space Grotesk", sans-serif; font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; }
+    .feature h2 { margin-bottom: 13px; font-family: "Space Grotesk", sans-serif; font-size: clamp(1.35rem, 2.4vw, 2rem); letter-spacing: -.04em; }
+    .feature p { max-width: 30ch; margin-bottom: 0; color: var(--muted); font-size: .9rem; line-height: 1.65; }
+
+    .ending { min-height: 100svh; display: grid; place-items: center; padding: 100px 20px; text-align: center; }
+    .ending p { margin-bottom: 14px; color: var(--muted); font-size: .85rem; letter-spacing: .2em; text-transform: uppercase; }
+    .ending h2 { margin: 0; font-family: "Space Grotesk", sans-serif; font-size: clamp(3.4rem, 12vw, 11rem); font-weight: 500; letter-spacing: -.09em; line-height: .85; }
+    .ending span { color: var(--blue); }
+
+    @media (max-width: 760px) {
+      .topbar { padding: 18px 18px; }
+      .nav { display: none; }
+      .hero { padding: 110px 20px 32px; }
+      h1 { font-size: clamp(2.8rem, 15vw, 5rem); }
+      .hero-actions { align-items: stretch; flex-direction: column; }
+      .install, .cta { justify-content: center; width: 100%; }
+      .story-space { height: 70svh; }
+      .feature-zone { min-height: 240svh; }
+      .feature-panel { padding: 0 20px 42px; }
+      .features { grid-template-columns: 1fr; gap: 24px; mask-image: linear-gradient(to bottom, #000 var(--reveal), transparent calc(var(--reveal) + 18%)); -webkit-mask-image: linear-gradient(to bottom, #000 var(--reveal), transparent calc(var(--reveal) + 18%)); }
+      .feature { padding-top: 14px; }
+      .feature small { margin-bottom: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene" aria-hidden="true">
+    <video id="hero-video" muted playsinline preload="auto" src="/video/3d-story.mp4"></video>
+  </div>
+  <canvas id="dust" aria-hidden="true"></canvas>
+
+  <header class="topbar">
+    <a class="brand" href="#top">Veldara</a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#features">Guides</a>
+      <a href="#ending">Journal</a>
+    </nav>
+    <div class="social" aria-label="Social links">
+      <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="false">Motion off</button>
+      <a href="https://github.com" aria-label="GitHub" target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24"><path d="M12 .7a11.3 11.3 0 0 0-3.58 22c.57.1.78-.25.78-.55v-2.1c-3.18.7-3.85-1.35-3.85-1.35-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.7 1.25 3.36.95.1-.74.4-1.25.73-1.54-2.54-.29-5.2-1.27-5.2-5.65 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.45.11-3.03 0 0 .96-.31 3.13 1.17a10.8 10.8 0 0 1 5.7 0c2.17-1.48 3.13-1.17 3.13-1.17.62 1.58.23 2.74.11 3.03.73.8 1.18 1.82 1.18 3.07 0 4.39-2.67 5.35-5.22 5.64.41.35.78 1.06.78 2.14v3.17c0 .3.21.65.79.54A11.3 11.3 0 0 0 12 .7Z" /></svg></a>
+      <a href="https://x.com" aria-label="X" target="_blank" rel="noreferrer">X</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="hero">
+      <div class="hero-content">
+        <p class="kicker">A calmer way to build dimensional interfaces</p>
+        <h1>Craft immersive <span class="beam">3D worlds</span> for the web.</h1>
+        <div class="hero-actions">
+          <code class="install"><b>&gt;</b> npm i @veldara/core</code>
+          <a class="cta" href="#features">Explore the system <span aria-hidden="true">&#8594;</span></a>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#features" aria-label="Scroll to explore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m5 9 7 7 7-7" /></svg></a>
+    </section>
+
+    <div class="story-space" aria-hidden="true"></div>
+
+    <section class="feature-zone" id="features" aria-label="Veldara capabilities">
+      <div class="feature-panel">
+        <div class="features">
+          <article class="feature"><small>Material / 01</small><h2>Start with texture.</h2><p>Compose a tactile surface from simple primitives, then let depth, light, and motion do the storytelling.</p></article>
+          <article class="feature"><small>Motion / 02</small><h2>Make space feel alive.</h2><p>Scroll, gesture, and pointer signals become part of a quiet choreography that never gets in the way.</p></article>
+          <article class="feature"><small>Connection / 03</small><h2>Keep the stack open.</h2><p>Bring physics, XR, animation, and model loading together with tools that stay understandable as projects grow.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ending" id="ending"><div><p>Presenting</p><h2>Veldara <span>8</span></h2></div></section>
+  </main>
+
+  <script>
+    const hero = document.querySelector('#hero');
+    const heroVideo = document.querySelector('#hero-video');
+    const featureZone = document.querySelector('.feature-zone');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const motionToggle = document.querySelector('#motion-toggle');
+    const dust = document.querySelector('#dust');
+    const dustCtx = dust.getContext('2d');
+    let particles = [];
+    let videoFramePending = false;
+    let scrollFramePending = false;
+    let motionEnabled = !reduceMotion;
+    let dustLoopActive = false;
+
+    function resizeDust() {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      dust.width = Math.round(window.innerWidth * ratio);
+      dust.height = Math.round(window.innerHeight * ratio);
+      dust.style.width = window.innerWidth + 'px';
+      dust.style.height = window.innerHeight + 'px';
+      dustCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      particles = Array.from({ length: Math.min(140, Math.round(window.innerWidth * window.innerHeight / 11000)) }, () => ({
+        x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
+        vx: (Math.random() - .5) * .12, vy: (Math.random() - .5) * .12,
+        r: Math.random() * 1.3 + .25, a: Math.random() * .42 + .1
+      }));
+    }
+    function drawDustFrame() {
+      dustCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      for (const p of particles) {
+        p.x = (p.x + p.vx + window.innerWidth) % window.innerWidth;
+        p.y = (p.y + p.vy + window.innerHeight) % window.innerHeight;
+        dustCtx.beginPath(); dustCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2); dustCtx.fillStyle = `rgba(217,232,255,${p.a})`; dustCtx.fill();
+      }
+    }
+    function animateDust() {
+      if (!motionEnabled || dustLoopActive) return;
+      dustLoopActive = true;
+      const tick = () => {
+        if (!motionEnabled) { dustLoopActive = false; return; }
+        drawDustFrame();
+        requestAnimationFrame(tick);
+      };
+      tick();
+    }
+    function clamp(value, min = 0, max = 1) { return Math.min(max, Math.max(min, value)); }
+    function updateVideo() {
+      videoFramePending = false;
+      if (!motionEnabled || !Number.isFinite(heroVideo.duration) || heroVideo.duration <= 0) return;
+      const start = window.innerHeight * .45;
+      const end = Math.max(start + 1, document.documentElement.scrollHeight - window.innerHeight);
+      const progress = clamp((window.scrollY - start) / (end - start));
+      const targetTime = progress * Math.max(0, heroVideo.duration - .05);
+      if (Math.abs(heroVideo.currentTime - targetTime) > .02) heroVideo.currentTime = targetTime;
+    }
+    function onScroll() {
+      if (scrollFramePending) return;
+      scrollFramePending = true;
+      requestAnimationFrame(() => {
+        scrollFramePending = false;
+        if (motionEnabled) hero.style.opacity = String(Math.max(0, 1 - window.scrollY / (window.innerHeight * .3)));
+        const bounds = featureZone.getBoundingClientRect();
+        const active = bounds.top < window.innerHeight * .8 && bounds.bottom > window.innerHeight * .2;
+        const zoneProgress = clamp((window.innerHeight * .55 - bounds.top) / Math.max(1, bounds.height - window.innerHeight * .45));
+        featureZone.classList.toggle('is-visible', active);
+        featureZone.querySelector('.features').style.setProperty('--reveal', `${Math.round(zoneProgress * 130)}%`);
+        if (!videoFramePending) { videoFramePending = true; requestAnimationFrame(updateVideo); }
+      });
+    }
+    heroVideo.addEventListener('loadedmetadata', () => { heroVideo.pause(); updateVideo(); });
+    heroVideo.addEventListener('loadeddata', () => { heroVideo.pause(); updateVideo(); });
+    motionToggle.setAttribute('aria-pressed', String(motionEnabled));
+    motionToggle.textContent = motionEnabled ? 'Motion on' : 'Motion off';
+    motionToggle.addEventListener('click', () => {
+      motionEnabled = !motionEnabled;
+      motionToggle.setAttribute('aria-pressed', String(motionEnabled));
+      motionToggle.textContent = motionEnabled ? 'Motion on' : 'Motion off';
+      if (motionEnabled) { animateDust(); onScroll(); } else { heroVideo.pause(); drawDustFrame(); }
+    });
+    resizeDust();
+    if (motionEnabled) animateDust(); else drawDustFrame();
+    onScroll();
+    window.addEventListener('resize', resizeDust, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+  </script>
+</body>
+</html>

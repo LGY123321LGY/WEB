@@ -15,6 +15,7 @@ import {
   Command,
   Copy,
   ExternalLink,
+  FileUp,
   FileChartColumn,
   FileText,
   FlaskConical,
@@ -39,11 +40,21 @@ import {
   SkipBack,
   SkipForward,
   Sparkles,
+  Tag,
   Target,
+  Trash2,
   X,
 } from 'lucide-react'
 import { isSupabaseConfigured, supabase } from './lib/supabase'
 import {
+  createPaperSignedUrl,
+  deletePaperPdf,
+  uploadPaperPdf,
+  validatePaperPdf,
+} from './lib/paperFiles'
+import { launchZotero, waitForZoteroTarget } from './lib/zotero'
+import {
+  deleteWorkspaceItem,
   importLocalWorkspaceData,
   insertWorkspaceItem,
   loadAdminData,
@@ -234,6 +245,7 @@ function App() {
   const [learningPhases, setLearningPhases] = usePersistentState('cockpit-learning-phases', initialLearningPhases)
   const [studySessions, setStudySessions] = usePersistentState('cockpit-study-sessions', initialStudySessions)
   const [researchNotes, setResearchNotes] = usePersistentState('cockpit-research-notes', initialResearchNotes)
+  const [profileData, setProfileData] = usePersistentState('cockpit-profile', profile)
   const [sidebarCollapsed, setSidebarCollapsed] = usePersistentState('cockpit-sidebar-collapsed', false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [quickAddOpen, setQuickAddOpen] = useState(false)
@@ -473,7 +485,7 @@ function App() {
     }
   }
 
-  const viewProps = { tasks, papers, experiments, toggleTask, setToast, changeView, learningPhases, setLearningPhases, studySessions, setStudySessions, researchNotes, setResearchNotes, session, isApprovedMember }
+  const viewProps = { tasks, papers, setPapers, experiments, toggleTask, setToast, changeView, learningPhases, setLearningPhases, studySessions, setStudySessions, researchNotes, setResearchNotes, session, isApprovedMember }
   const isPortalView = activeView === 'home'
   const isProfileView = activeView === 'profile'
   const isPublicView = isPortalView || isProfileView
@@ -485,7 +497,7 @@ function App() {
       {activeView === 'home' && <PortalHome changeView={changeView} setToast={setToast} />}
 
       {!isPortalView && <>
-        <CinematicWorkspaceBackground />
+        {isProfileView ? <ProfileStoryBackground /> : <CinematicWorkspaceBackground />}
         {!isProfileView && <Sidebar activeView={activeView} changeView={changeView} onSearch={() => setSearchOpen(true)} onHome={() => changeView('home')} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed((current) => !current)} isAdmin={isAdmin} />}
 
         {!isProfileView && <header className="mobile-header">
@@ -503,7 +515,7 @@ function App() {
           {!isPublicView && authLoading && <AuthPanel mode="loading" />}
           {needsAuth && <AuthPanel mode="signin" setToast={setToast} />}
           {needsApproval && <AuthPanel mode="pending" memberProfile={memberProfile} />}
-          {activeView === 'profile' ? <ProfilePage changeView={changeView} setToast={setToast} /> : !authLoading && !needsAuth && !needsApproval && <>
+          {activeView === 'profile' ? <ProfilePage profileData={profileData} setProfileData={setProfileData} changeView={changeView} setToast={setToast} /> : !authLoading && !needsAuth && !needsApproval && <>
             {workspaceError && <WorkspaceNotice tone="danger" title="Cloud sync needs attention" description={workspaceError} />}
             {workspaceLoading && <WorkspaceNotice title="Syncing workspace" description="Loading your private Supabase workspace..." />}
             {localImportAvailable && <WorkspaceNotice title="Local data found" description="Your browser has local workspace data and Supabase is empty. Import it once to make it available after login." action={<button className="primary-button" onClick={importLocalDataToCloud}>Import to Supabase</button>} />}
@@ -543,6 +555,98 @@ function CinematicWorkspaceBackground() {
         <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260306_115329_5e00c9c5-4d69-49b7-94c3-9c31c60bb644.mp4" type="video/mp4" />
       </video>
       <span className="workspace-cinema-overlay" />
+    </div>
+  )
+}
+
+function ProfileStoryBackground() {
+  const videoRef = useRef(null)
+  const particlesRef = useRef(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    const canvas = particlesRef.current
+    const context = canvas?.getContext('2d')
+    if (!video || !canvas || !context) return undefined
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let particles = []
+    let animationFrame = 0
+    let scrollFrame = 0
+
+    const resize = () => {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2)
+      canvas.width = Math.round(window.innerWidth * ratio)
+      canvas.height = Math.round(window.innerHeight * ratio)
+      canvas.style.width = `${window.innerWidth}px`
+      canvas.style.height = `${window.innerHeight}px`
+      context.setTransform(ratio, 0, 0, ratio, 0, 0)
+      particles = Array.from({ length: Math.min(130, Math.round((window.innerWidth * window.innerHeight) / 12000)) }, () => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 0.16,
+        vy: (Math.random() - 0.5) * 0.16,
+        radius: Math.random() * 1.2 + 0.35,
+        alpha: Math.random() * 0.48 + 0.12,
+      }))
+    }
+
+    const drawParticles = () => {
+      context.clearRect(0, 0, window.innerWidth, window.innerHeight)
+      particles.forEach((particle) => {
+        if (!reduceMotion) {
+          particle.x = (particle.x + particle.vx + window.innerWidth) % window.innerWidth
+          particle.y = (particle.y + particle.vy + window.innerHeight) % window.innerHeight
+        }
+        context.beginPath()
+        context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
+        context.fillStyle = `rgba(222, 235, 255, ${particle.alpha})`
+        context.fill()
+      })
+      if (!reduceMotion) animationFrame = window.requestAnimationFrame(drawParticles)
+    }
+
+    const syncVideoToScroll = () => {
+      scrollFrame = 0
+      if (!Number.isFinite(video.duration) || video.duration <= 0) return
+      const range = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+      const progress = Math.min(1, Math.max(0, window.scrollY / range))
+      const targetTime = progress * Math.max(0, video.duration - 0.05)
+      if (Math.abs(video.currentTime - targetTime) > 0.018) video.currentTime = targetTime
+    }
+
+    const onScroll = () => {
+      // Apply one immediate seek so scroll-scrubbing still works when the tab is throttled.
+      syncVideoToScroll()
+      if (!scrollFrame) scrollFrame = window.requestAnimationFrame(syncVideoToScroll)
+    }
+    const onVideoReady = () => {
+      video.pause()
+      syncVideoToScroll()
+    }
+
+    resize()
+    drawParticles()
+    video.addEventListener('loadedmetadata', onVideoReady)
+    video.addEventListener('loadeddata', onVideoReady)
+    window.addEventListener('resize', resize, { passive: true })
+    window.addEventListener('scroll', onScroll, { passive: true })
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame)
+      window.cancelAnimationFrame(scrollFrame)
+      video.removeEventListener('loadedmetadata', onVideoReady)
+      video.removeEventListener('loadeddata', onVideoReady)
+      window.removeEventListener('resize', resize)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [])
+
+  return (
+    <div className="profile-story-background" aria-hidden="true">
+      <video ref={videoRef} muted playsInline preload="auto" src="/video/3d-story.mp4" />
+      <canvas ref={particlesRef} />
+      <span className="profile-story-vignette" />
     </div>
   )
 }
@@ -793,13 +897,24 @@ function PortalHome({ changeView, setToast }) {
   )
 }
 
-function ProfilePage({ changeView, setToast }) {
+function ProfilePage({ profileData, setProfileData, changeView, setToast }) {
+  const updateProfile = (field, value) => {
+    setProfileData((current) => ({ ...current, [field]: value }))
+  }
+
+  const updateFocus = (index, value) => {
+    setProfileData((current) => ({
+      ...current,
+      focus: current.focus.map((item, itemIndex) => itemIndex === index ? value : item),
+    }))
+  }
+
   const copyEmail = async () => {
     try {
-      await navigator.clipboard.writeText(profile.email)
+      await navigator.clipboard.writeText(profileData.email)
       setToast('邮箱已复制到剪贴板')
     } catch {
-      setToast(`邮箱：${profile.email}`)
+      setToast(`邮箱：${profileData.email}`)
     }
   }
 
@@ -807,8 +922,8 @@ function ProfilePage({ changeView, setToast }) {
     <div className="view profile-workspace-view">
       <PageHeading
         eyebrow="PROFILE / RESEARCH SPACE"
-        title={profile.name}
-        description={profile.introduction}
+         title={<input className="profile-editable-input profile-title-input" value={profileData.name} onChange={(event) => updateProfile('name', event.target.value)} aria-label="姓名" />}
+         description={<textarea className="profile-editable-input profile-introduction-input" value={profileData.introduction} onChange={(event) => updateProfile('introduction', event.target.value)} aria-label="个人简介" rows={2} />}
         action={<div className="profile-heading-actions"><button className="secondary-button" onClick={() => changeView('home')}><Home size={16} />返回首页</button><button className="primary-button" onClick={() => changeView('dashboard')}><LayoutDashboard size={16} />查看总览</button></div>}
       />
 
@@ -816,9 +931,9 @@ function ProfilePage({ changeView, setToast }) {
         <section className="panel profile-focus-panel">
           <SectionHeader title="研究方向" meta="FOCUS AREAS" icon={Target} />
           <div className="profile-panel-content">
-            <p className="profile-role">{profile.role}</p>
+            <input className="profile-editable-input profile-role-input" value={profileData.role} onChange={(event) => updateProfile('role', event.target.value)} aria-label="研究身份" />
+            <div className="profile-focus-list profile-editable-focus-list">{profileData.focus.map((item, index) => <span key={`${index}-${item}`}><i>{String(index + 1).padStart(2, '0')}</i><input className="profile-editable-input profile-focus-input" value={item} onChange={(event) => updateFocus(index, event.target.value)} aria-label={`研究方向 ${index + 1}`} /></span>)}</div>
             <h2>正在持续构建的能力</h2>
-            <div className="profile-focus-list">{profile.focus.map((item, index) => <span key={item}><i>{String(index + 1).padStart(2, '0')}</i>{item}</span>)}</div>
           </div>
         </section>
 
@@ -826,7 +941,7 @@ function ProfilePage({ changeView, setToast }) {
           <SectionHeader title="联系方式" meta="CONTACT" icon={Mail} />
           <div className="profile-panel-content profile-contact-content">
             <span className="profile-field-label">EMAIL</span>
-            <strong>{profile.email}</strong>
+            <input className="profile-editable-input profile-email-input" value={profileData.email} onChange={(event) => updateProfile('email', event.target.value)} aria-label="邮箱" type="email" />
             <button className="icon-text-button" onClick={copyEmail}><Copy size={16} />复制邮箱</button>
           </div>
         </section>
@@ -835,8 +950,8 @@ function ProfilePage({ changeView, setToast }) {
           <SectionHeader title="GitHub 仓库" meta="PROJECTS" icon={Github} />
           <div className="profile-panel-content profile-repository-content">
             <Github size={30} aria-hidden="true" />
-            <div><span className="profile-field-label">REPOSITORY</span><h2>{profile.githubLabel}</h2></div>
-            {profile.githubUrl ? <a className="icon-text-button" href={profile.githubUrl} target="_blank" rel="noreferrer">访问仓库 <ArrowUpRight size={16} /></a> : <span className="profile-empty-state">仓库地址待设置</span>}
+            <div className="profile-repository-fields"><span className="profile-field-label">REPOSITORY</span><input className="profile-editable-input profile-repository-input" value={profileData.githubLabel} onChange={(event) => updateProfile('githubLabel', event.target.value)} aria-label="仓库名称" /><input className="profile-editable-input profile-repository-url-input" value={profileData.githubUrl} onChange={(event) => updateProfile('githubUrl', event.target.value)} aria-label="仓库链接" placeholder="https://github.com/..." /></div>
+            {profileData.githubUrl && <a className="icon-text-button profile-editable-repository-link" href={profileData.githubUrl} target="_blank" rel="noreferrer">访问仓库 <ArrowUpRight size={16} /></a>}
           </div>
         </section>
       </div>
@@ -1079,7 +1194,7 @@ function PageHeading({ eyebrow, title, description, action }) {
       <div>
         <span className="eyebrow">{eyebrow}</span>
         <h1>{title}</h1>
-        <p>{description}</p>
+        {description && <p>{description}</p>}
       </div>
       {action}
     </div>
@@ -1529,27 +1644,393 @@ function ReflectionForm({ onSave, onClose }) {
   )
 }
 
-function PapersView({ papers, setToast }) {
+function PapersView({ papers, setPapers, setToast, session, isApprovedMember }) {
   const [filter, setFilter] = useState('全部')
   const [selectedId, setSelectedId] = useState(papers[0]?.id)
+  const [editingNote, setEditingNote] = useState(false)
+  const [noteDraft, setNoteDraft] = useState(papers[0]?.note || '')
+  const [uploadOpen, setUploadOpen] = useState(false)
+  const [uploadItems, setUploadItems] = useState([])
+  const [uploading, setUploading] = useState(false)
+  const [deleteOpen, setDeleteOpen] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [tagDialogOpen, setTagDialogOpen] = useState(false)
+  const [tagDraft, setTagDraft] = useState('')
+  const [tagError, setTagError] = useState('')
+  const [openingOriginal, setOpeningOriginal] = useState(false)
+  const detailRef = useRef(null)
+  const fileInputRef = useRef(null)
+  const uploadDialogRef = useRef(null)
+  const deleteDialogRef = useRef(null)
+  const tagDialogRef = useRef(null)
+  const tagInputRef = useRef(null)
+  const activeUploadRef = useRef(null)
+  const openOriginalAbortRef = useRef(null)
+  const cancelUploadRef = useRef(false)
   const filters = ['全部', '待读', '在读', '精读', '已归档']
   const filtered = filter === '全部' ? papers : papers.filter((paper) => paper.status === filter)
-  const selected = papers.find((paper) => paper.id === selectedId) || filtered[0] || papers[0]
+  const selected = filtered.find((paper) => paper.id === selectedId) || filtered[0] || null
+  const canImportPdf = Boolean(isSupabaseConfigured && session?.user && isApprovedMember)
+  const importDisabledReason = !isSupabaseConfigured
+    ? '需要先配置 Supabase 才能导入 PDF'
+    : !session?.user
+      ? '登录后才能导入 PDF'
+      : !isApprovedMember
+        ? '账号通过审核后才能导入 PDF'
+        : ''
+  const totalUploadBytes = uploadItems.reduce((sum, item) => sum + (item.validationError ? 0 : item.file.size), 0)
+  const uploadedBytes = uploadItems.reduce((sum, item) => sum + (item.validationError ? 0 : Math.min(item.uploadedBytes || 0, item.file.size)), 0)
+  const overallUploadProgress = totalUploadBytes ? Math.round((uploadedBytes / totalUploadBytes) * 100) : 0
+
+  useEffect(() => {
+    if (!selected) return
+    setSelectedId(selected.id)
+    setNoteDraft(selected.note || '')
+    setEditingNote(false)
+  }, [selected?.id])
+
+  useEffect(() => {
+    openOriginalAbortRef.current?.abort()
+    openOriginalAbortRef.current = null
+    setOpeningOriginal(false)
+  }, [selected?.id])
+
+  useEffect(() => () => openOriginalAbortRef.current?.abort(), [])
+
+  useEffect(() => {
+    if (!uploadOpen) return undefined
+    uploadDialogRef.current?.focus()
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape' && !uploading) setUploadOpen(false)
+      keepFocusInDialog(event, uploadDialogRef.current)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [uploadOpen, uploading])
+
+  useEffect(() => {
+    if (!deleteOpen) return undefined
+    deleteDialogRef.current?.focus()
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape' && !deleting) setDeleteOpen(false)
+      keepFocusInDialog(event, deleteDialogRef.current)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [deleteOpen, deleting])
+
+  useEffect(() => {
+    if (!tagDialogOpen) return undefined
+    tagInputRef.current?.focus()
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setTagDialogOpen(false)
+      keepFocusInDialog(event, tagDialogRef.current)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [tagDialogOpen])
+
+  const updateLocalPaper = (paperId, patch) => {
+    setPapers((current) => current.map((paper) => (paper.id === paperId ? { ...paper, ...patch } : paper)))
+  }
+
+  const syncPaper = async (paperId, patch, successMessage = '') => {
+    if (supabase && session?.user && isApprovedMember) {
+      try {
+        await updateWorkspaceItem(supabase, 'papers', paperId, patch)
+      } catch (error) {
+        setToast(error.message || '论文信息同步失败，请稍后重试')
+        return false
+      }
+    }
+    if (successMessage) setToast(successMessage)
+    return true
+  }
+
+  const selectPaper = (paperId) => {
+    setSelectedId(paperId)
+    if (window.innerWidth <= 900) {
+      window.requestAnimationFrame(() => detailRef.current?.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'start',
+      }))
+    }
+  }
+
+  const updateProgress = (paperId, value) => {
+    updateLocalPaper(paperId, { progress: Number(value) })
+  }
+
+  const saveNote = async () => {
+    if (!selected) return
+    const nextNote = noteDraft.trim()
+    updateLocalPaper(selected.id, { note: nextNote })
+    setEditingNote(false)
+    await syncPaper(selected.id, { note: nextNote }, '阅读笔记已保存')
+  }
+
+  const openTagDialog = () => {
+    if (!selected) return
+    setTagDraft('')
+    setTagError('')
+    setTagDialogOpen(true)
+  }
+
+  const addTag = async (event) => {
+    event.preventDefault()
+    if (!selected) return
+    const nextTag = tagDraft.trim()
+    const currentTags = Array.isArray(selected.tags) ? selected.tags : []
+    if (!nextTag) {
+      setTagError('请输入标签名称')
+      return
+    }
+    if (currentTags.some((tag) => tag.toLocaleLowerCase() === nextTag.toLocaleLowerCase())) {
+      setTagError('这个标签已经存在')
+      return
+    }
+    const nextTags = [...currentTags, nextTag]
+    updateLocalPaper(selected.id, { tags: nextTags })
+    setTagDialogOpen(false)
+    await syncPaper(selected.id, { tags: nextTags }, '标签已添加')
+  }
+
+  const openWebOriginal = async (paper) => {
+    let fallbackUrl = paper?.pdf_url || paper?.url || null
+    if (paper?.pdf_path) {
+      try {
+        fallbackUrl = await createPaperSignedUrl(paper.pdf_path)
+      } catch (error) {
+        setToast(error.message || '无法生成 PDF 阅读链接')
+        return false
+      }
+    }
+    if (!fallbackUrl) {
+      setToast('Zotero 中未找到这篇论文，且没有可用的网页原文')
+      return false
+    }
+    const readingTab = window.open(fallbackUrl, '_blank', 'noopener,noreferrer')
+    if (!readingTab) window.location.assign(fallbackUrl)
+    return true
+  }
+
+  const openOriginal = async () => {
+    if (!selected || openingOriginal) return
+    openOriginalAbortRef.current?.abort()
+    const controller = new AbortController()
+    openOriginalAbortRef.current = controller
+    setOpeningOriginal(true)
+    try {
+      const target = await waitForZoteroTarget(selected.title, { signal: controller.signal })
+      if (controller.signal.aborted) return
+      if (!target) {
+        await openWebOriginal(selected)
+        return
+      }
+      launchZotero(target.uri)
+      if (target.kind === 'item') setToast('已在 Zotero 定位条目，但该条目没有 PDF 附件')
+    } catch (error) {
+      if (error?.name !== 'AbortError') await openWebOriginal(selected)
+    } finally {
+      if (openOriginalAbortRef.current === controller) {
+        openOriginalAbortRef.current = null
+        setOpeningOriginal(false)
+      }
+    }
+  }
+
+  const updateUploadItem = (itemId, patch) => {
+    setUploadItems((current) => current.map((item) => (item.id === itemId ? { ...item, ...patch } : item)))
+  }
+
+  const choosePdfFiles = (event) => {
+    const files = Array.from(event.target.files || [])
+    event.target.value = ''
+    if (!files.length) return
+    setUploadItems(files.map((file, index) => ({
+      id: `${Date.now()}-${index}-${file.name}`,
+      file,
+      title: file.name.replace(/\.pdf$/i, ''),
+      venue: '',
+      validationError: validatePaperPdf(file),
+      status: validatePaperPdf(file) ? 'invalid' : 'pending',
+      uploadedBytes: 0,
+      error: '',
+    })))
+    cancelUploadRef.current = false
+    setUploadOpen(true)
+  }
+
+  const runUploadQueue = async (onlyIds = null) => {
+    if (!canImportPdf || uploading) return
+    const queue = uploadItems.filter((item) => (
+      !item.validationError
+      && (!onlyIds || onlyIds.includes(item.id))
+      && ['pending', 'error', 'cancelled'].includes(item.status)
+      && item.title.trim()
+    ))
+    if (!queue.length) {
+      setToast('没有可上传的 PDF，请检查标题和文件状态')
+      return
+    }
+
+    cancelUploadRef.current = false
+    setUploading(true)
+    let successCount = 0
+    let failedCount = 0
+
+    for (const item of queue) {
+      if (cancelUploadRef.current) {
+        updateUploadItem(item.id, { status: 'cancelled', error: '上传已取消' })
+        continue
+      }
+      updateUploadItem(item.id, { status: 'uploading', uploadedBytes: 0, error: '' })
+      let uploadedPath = null
+      try {
+        const upload = await uploadPaperPdf({
+          file: item.file,
+          userId: session.user.id,
+          onProgress: (currentBytes) => updateUploadItem(item.id, { uploadedBytes: currentBytes }),
+        })
+        activeUploadRef.current = upload
+        const uploaded = await upload.promise
+        activeUploadRef.current = null
+        uploadedPath = uploaded.path
+
+        const saved = await insertWorkspaceItem(supabase, session.user.id, 'papers', {
+          title: item.title.trim(),
+          venue: item.venue.trim() || null,
+          status: '待读',
+          progress: 0,
+          tags: ['PDF'],
+          note: '尚未添加阅读笔记。',
+          pdf_path: uploaded.path,
+          pdf_url: null,
+          file_name: uploaded.fileName,
+          file_size: uploaded.fileSize,
+          mime_type: uploaded.mimeType,
+        })
+        setPapers((current) => [...current, saved])
+        updateUploadItem(item.id, { status: 'success', uploadedBytes: item.file.size, paperId: saved.id })
+        successCount += 1
+      } catch (error) {
+        activeUploadRef.current = null
+        if (uploadedPath) {
+          try {
+            await deletePaperPdf(uploadedPath)
+          } catch {
+            // The database error remains primary; the orphaned path is included for cleanup.
+          }
+        }
+        const cancelled = error?.name === 'AbortError' || cancelUploadRef.current
+        updateUploadItem(item.id, {
+          status: cancelled ? 'cancelled' : 'error',
+          error: cancelled ? '上传已取消' : (error.message || `导入失败；如对象已上传，请清理 ${uploadedPath}`),
+        })
+        if (!cancelled) failedCount += 1
+      }
+    }
+
+    setUploading(false)
+    activeUploadRef.current = null
+    if (cancelUploadRef.current) {
+      setToast(`上传已停止，已成功导入 ${successCount} 篇`)
+    } else {
+      setToast(`导入完成：成功 ${successCount} 篇，失败 ${failedCount} 篇`)
+    }
+  }
+
+  const cancelUpload = async () => {
+    cancelUploadRef.current = true
+    try {
+      await activeUploadRef.current?.abort()
+    } catch {
+      // The upload promise reports the cancellation state to the queue.
+    }
+  }
+
+  const deleteSelectedPaper = async () => {
+    if (!selected || deleting) return
+    setDeleting(true)
+    try {
+      const isCloudRecord = typeof selected.id === 'string' && /^[0-9a-f]{8}-[0-9a-f-]{27}$/i.test(selected.id)
+      if (isCloudRecord && (!supabase || !session?.user || !isApprovedMember)) {
+        throw new Error('请使用已批准的登录账号删除云端论文')
+      }
+      if (selected.pdf_path) {
+        try {
+          await deletePaperPdf(selected.pdf_path)
+        } catch (error) {
+          const missing = error?.status === 404 || /not found|does not exist/i.test(error?.message || '')
+          if (!missing) throw error
+        }
+      }
+      if (isCloudRecord && supabase && session?.user && isApprovedMember) {
+        await deleteWorkspaceItem(supabase, 'papers', selected.id)
+      }
+      const selectedIndex = filtered.findIndex((paper) => paper.id === selected.id)
+      const nextPaper = filtered[selectedIndex + 1] || filtered[selectedIndex - 1] || null
+      setPapers((current) => current.filter((paper) => paper.id !== selected.id))
+      setSelectedId(nextPaper?.id)
+      setDeleteOpen(false)
+      setToast(selected.pdf_path ? '论文及其 PDF 已删除' : '论文已删除')
+    } catch (error) {
+      setToast(error.message || '删除失败，论文记录已保留')
+    } finally {
+      setDeleting(false)
+    }
+  }
+
+  const exportCitation = async () => {
+    if (!selected) return
+    const citation = `${selected.title}. ${selected.venue}.`
+    try {
+      await navigator.clipboard.writeText(citation)
+      setToast('引用信息已复制')
+    } catch {
+      setToast('无法访问剪贴板，请检查浏览器权限')
+    }
+  }
+
+  const saveAll = async () => {
+    if (!selected) return
+    const patch = { progress: selected.progress, tags: selected.tags, note: editingNote ? noteDraft.trim() : selected.note }
+    updateLocalPaper(selected.id, patch)
+    setEditingNote(false)
+    await syncPaper(selected.id, patch, '论文阅读进度已保存')
+  }
+
   return (
-    <div className="view">
-      <PageHeading eyebrow="LIBRARY / 论文阅读" title="读过不算结束，能连接到问题才算。" description="按研究价值推进阅读，将批注、比较和假设放在同一条证据链中。" action={<button className="secondary-button" onClick={() => setToast('引用信息已导出')}>导出引用<FileText size={16} /></button>} />
+    <div className="view papers-view">
+      <PageHeading eyebrow="LIBRARY / PAPERS" title="任何事都是循序渐进的、遵循规律" />
       <div className="paper-toolbar">
-        <div className="segmented-control" aria-label="论文状态筛选">
-          {filters.map((item) => <button key={item} className={filter === item ? 'active' : ''} onClick={() => setFilter(item)}>{item}<span>{item === '全部' ? papers.length : papers.filter((paper) => paper.status === item).length}</span></button>)}
+        <div className="segmented-control" role="group" aria-label="论文状态筛选">
+          {filters.map((item) => <button key={item} className={filter === item ? 'active' : ''} aria-pressed={filter === item} onClick={() => setFilter(item)}>{item}<span>{item === '全部' ? papers.length : papers.filter((paper) => paper.status === item).length}</span></button>)}
         </div>
-        <button className="icon-text-button"><ListFilter size={16} />筛选</button>
+        <div className="paper-toolbar-actions">
+          <input ref={fileInputRef} className="visually-hidden" type="file" accept="application/pdf,.pdf" multiple onChange={choosePdfFiles} />
+          <button
+            className="primary-button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={!canImportPdf}
+            title={importDisabledReason || '批量导入 PDF'}
+          ><FileUp size={16} />导入 PDF</button>
+          {importDisabledReason && <span className="paper-import-hint" role="status">{importDisabledReason}</span>}
+          <button className="icon-text-button" onClick={() => setFilter('全部')}><ListFilter size={16} />重置筛选</button>
+          <button className="secondary-button" onClick={exportCitation}><Copy size={16} />导出引用</button>
+        </div>
       </div>
       <div className="library-layout">
         <section className="paper-library" aria-label="论文列表">
+          <div className="paper-panel-head">
+            <span><BookOpen size={16} /><strong>论文库</strong></span>
+            <span>READING LIST</span>
+          </div>
           <div className="library-header"><span>论文 / 来源</span><span>阅读进度</span><span>状态</span></div>
           {filtered.map((paper) => (
-            <button key={paper.id} className={`library-row ${selected?.id === paper.id ? 'selected' : ''}`} onClick={() => setSelectedId(paper.id)}>
-              <div className="library-title"><span className="document-icon"><FileText size={17} /></span><span><strong>{paper.title}</strong><small>{paper.venue} · {paper.tags.join(' / ')}</small></span></div>
+            <button key={paper.id} className={`library-row ${selected?.id === paper.id ? 'selected' : ''}`} aria-pressed={selected?.id === paper.id} onClick={() => selectPaper(paper.id)}>
+              <span className="document-icon"><FileText size={17} /></span>
+              <span className="library-copy"><strong>{paper.title}</strong><small>{paper.venue} · {(paper.tags || []).join(' / ')}</small></span>
               <div className="library-progress"><div className="progress-track"><i style={{ width: `${paper.progress}%` }} /></div><span>{paper.progress}%</span></div>
               <span className={`paper-status status-${paper.status}`}>{paper.status}</span>
             </button>
@@ -1557,20 +2038,172 @@ function PapersView({ papers, setToast }) {
           {!filtered.length && <div className="empty-state">当前状态下没有论文。</div>}
         </section>
         {selected && (
-          <aside className="paper-detail">
-            <div className="detail-top"><span className={`paper-status status-${selected.status}`}>{selected.status}</span><button className="icon-button subtle" aria-label="打开原文" title="打开原文"><ExternalLink size={17} /></button></div>
-            <h2>{selected.title}</h2>
-            <p className="venue-line">{selected.venue}</p>
-            <div className="detail-progress"><span><strong>{selected.progress}%</strong> 阅读进度</span><div className="progress-track"><i style={{ width: `${selected.progress}%` }} /></div></div>
-            <div className="detail-section"><span className="eyebrow">研究关联</span><h3>它回答了什么？</h3><p>如何用统一任务环境衡量智能体的规划、工具使用和长程决策能力。</p></div>
-            <div className="detail-section note-section"><span className="eyebrow">最新笔记</span><p>{selected.note}</p></div>
-            <div className="detail-tags">{selected.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-            <button className="primary-button full-button" onClick={() => setToast('阅读笔记已打开')}>继续阅读<ChevronRight size={16} /></button>
+          <aside className="paper-detail" ref={detailRef} aria-label="论文详情">
+            <div className="detail-top">
+              <span className={`paper-status status-${selected.status}`}>{selected.status}</span>
+              <button className="text-button" onClick={openOriginal} disabled={openingOriginal}>{openingOriginal ? '正在连接 Zotero' : '在 Zotero 打开'}<ExternalLink size={15} /></button>
+            </div>
+            <div className="paper-detail-content">
+              <h2>{selected.title}</h2>
+              <p className="venue-line">{selected.venue}</p>
+              <div className="detail-progress">
+                <label htmlFor={`paper-progress-${selected.id}`}><span>阅读进度</span><strong>{selected.progress}%</strong></label>
+                <input
+                  id={`paper-progress-${selected.id}`}
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={selected.progress}
+                  style={{ '--paper-progress': `${selected.progress}%` }}
+                  aria-label={`${selected.title} 阅读进度`}
+                  onChange={(event) => updateProgress(selected.id, event.target.value)}
+                  onBlur={(event) => syncPaper(selected.id, { progress: Number(event.currentTarget.value) })}
+                />
+              </div>
+              <div className="paper-detail-section">
+                <div className="paper-detail-label"><span>研究标签</span><button type="button" onClick={openTagDialog}><Plus size={13} />标签</button></div>
+                <div className="detail-tags">{(selected.tags || []).map((tag) => <span key={tag}>{tag}</span>)}</div>
+              </div>
+              <div className="paper-detail-section paper-note-section">
+                <div className="paper-detail-label"><span>最新笔记</span>{!editingNote && <button type="button" onClick={() => setEditingNote(true)}>点击编辑</button>}</div>
+                {editingNote ? (
+                  <textarea
+                    autoFocus
+                    value={noteDraft}
+                    aria-label="编辑阅读笔记"
+                    onChange={(event) => setNoteDraft(event.target.value)}
+                    onBlur={saveNote}
+                  />
+                ) : (
+                  <button type="button" className="paper-note-preview" onClick={() => setEditingNote(true)}>{selected.note || '尚未添加阅读笔记。'}</button>
+                )}
+              </div>
+            </div>
+            <div className="paper-detail-actions">
+              <button className="secondary-button" onClick={openOriginal} disabled={openingOriginal}><ExternalLink size={15} />{openingOriginal ? '正在连接 Zotero' : '在 Zotero 打开'}</button>
+              <button className="primary-button" onClick={saveAll}><Check size={15} />保存</button>
+              <button className="secondary-button" onClick={exportCitation}><Copy size={15} />导出引用</button>
+              <button className="secondary-button paper-delete-button" onClick={() => setDeleteOpen(true)}><Trash2 size={15} />删除</button>
+            </div>
           </aside>
         )}
       </div>
+      {uploadOpen && (
+        <div className="paper-dialog-mask" onMouseDown={() => !uploading && setUploadOpen(false)}>
+          <section
+            ref={uploadDialogRef}
+            className="paper-upload-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="paper-upload-title"
+            tabIndex={-1}
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <div className="paper-dialog-heading">
+              <div><span className="eyebrow">PRIVATE PDF LIBRARY</span><h2 id="paper-upload-title">批量导入 PDF</h2></div>
+              <button className="icon-button" onClick={() => setUploadOpen(false)} disabled={uploading} aria-label="关闭导入窗口" title="关闭"><X size={19} /></button>
+            </div>
+            <div className="paper-upload-summary" aria-live="polite">
+              <span>{uploadItems.length} 个文件</span>
+              <strong>{overallUploadProgress}%</strong>
+              <div className="paper-upload-track"><i style={{ width: `${overallUploadProgress}%` }} /></div>
+              <small>{formatFileSize(uploadedBytes)} / {formatFileSize(totalUploadBytes)}</small>
+            </div>
+            <div className="paper-upload-list">
+              {uploadItems.map((item) => (
+                <article className={`paper-upload-item is-${item.status}`} key={item.id}>
+                  <div className="paper-upload-file">
+                    <FileText size={18} />
+                    <span><strong>{item.file.name}</strong><small>{formatFileSize(item.file.size)}</small></span>
+                    <span className="paper-upload-status">{uploadStatusLabel(item.status)}</span>
+                  </div>
+                  <div className="paper-upload-fields">
+                    <label><span>标题</span><input value={item.title} disabled={uploading || item.status === 'success'} aria-invalid={!item.title.trim()} onChange={(event) => updateUploadItem(item.id, { title: event.target.value })} /></label>
+                    <label><span>来源（选填）</span><input value={item.venue} disabled={uploading || item.status === 'success'} placeholder="期刊、会议或机构" onChange={(event) => updateUploadItem(item.id, { venue: event.target.value })} /></label>
+                  </div>
+                  {(item.status === 'uploading' || item.status === 'success') && <div className="paper-item-progress" role="progressbar" aria-label={`${item.file.name} 上传进度`} aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.round((item.uploadedBytes / item.file.size) * 100)}><i style={{ width: `${Math.round((item.uploadedBytes / item.file.size) * 100)}%` }} /></div>}
+                  {(item.validationError || item.error) && <p className="paper-upload-error">{item.validationError || item.error}</p>}
+                  {item.status === 'error' && !uploading && <button className="text-button" onClick={() => runUploadQueue([item.id])}>重试此文件</button>}
+                </article>
+              ))}
+            </div>
+            <div className="paper-dialog-actions">
+              {uploading
+                ? <button className="secondary-button" onClick={cancelUpload}>停止上传</button>
+                : <button className="secondary-button" onClick={() => setUploadOpen(false)}>关闭</button>}
+              {!uploading && uploadItems.some((item) => item.status === 'error') && <button className="secondary-button" onClick={() => runUploadQueue(uploadItems.filter((item) => item.status === 'error').map((item) => item.id))}>重试失败项</button>}
+              <button className="primary-button" disabled={!canImportPdf || uploading || !uploadItems.some((item) => ['pending', 'error', 'cancelled'].includes(item.status) && !item.validationError && item.title.trim())} onClick={() => runUploadQueue()}><FileUp size={16} />{uploading ? '正在导入' : '开始导入'}</button>
+            </div>
+          </section>
+        </div>
+      )}
+      {tagDialogOpen && selected && (
+        <div className="paper-dialog-mask" onMouseDown={() => setTagDialogOpen(false)}>
+          <form
+            ref={tagDialogRef}
+            className="paper-tag-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="paper-tag-title"
+            tabIndex={-1}
+            onSubmit={addTag}
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <div className="paper-dialog-heading">
+              <div><span className="eyebrow">TAXONOMY / ADD LABEL</span><h2 id="paper-tag-title">添加研究标签</h2></div>
+              <button type="button" className="icon-button" onClick={() => setTagDialogOpen(false)} aria-label="关闭标签弹窗" title="关闭"><X size={19} /></button>
+            </div>
+            <div className="paper-tag-content">
+              <div className="paper-tag-context"><Tag size={17} /><span><small>添加到</small><strong>{selected.title}</strong></span></div>
+              {!!selected.tags?.length && <div className="paper-tag-existing" aria-label="已有标签">{selected.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}
+              <label className="paper-tag-field" htmlFor="paper-tag-input">
+                <span><strong>标签名称</strong><small>{tagDraft.length} / 24</small></span>
+                <div className={tagError ? 'has-error' : ''}><span aria-hidden="true">#</span><input ref={tagInputRef} id="paper-tag-input" autoFocus maxLength={24} value={tagDraft} aria-invalid={Boolean(tagError)} aria-describedby={tagError ? 'paper-tag-error' : undefined} placeholder="例如：多模态推理" onChange={(event) => { setTagDraft(event.target.value); setTagError('') }} /></div>
+              </label>
+              {tagError && <p className="paper-tag-error" id="paper-tag-error" role="alert">{tagError}</p>}
+            </div>
+            <div className="paper-dialog-actions"><button type="button" className="secondary-button" onClick={() => setTagDialogOpen(false)}>取消</button><button type="submit" className="primary-button" disabled={!tagDraft.trim()}><Plus size={16} />添加标签</button></div>
+          </form>
+        </div>
+      )}
+      {deleteOpen && selected && (
+        <div className="paper-dialog-mask" onMouseDown={() => !deleting && setDeleteOpen(false)}>
+          <section ref={deleteDialogRef} className="paper-confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="paper-delete-title" aria-describedby="paper-delete-description" tabIndex={-1} onMouseDown={(event) => event.stopPropagation()}>
+            <div className="paper-dialog-heading"><div><span className="eyebrow">DELETE PAPER</span><h2 id="paper-delete-title">删除这篇论文？</h2></div><button className="icon-button" onClick={() => setDeleteOpen(false)} disabled={deleting} aria-label="关闭删除确认" title="关闭"><X size={19} /></button></div>
+            <p id="paper-delete-description">“{selected.title}”的记录{selected.pdf_path ? '和私有 PDF 文件' : ''}将被永久删除。</p>
+            <div className="paper-dialog-actions"><button className="secondary-button" onClick={() => setDeleteOpen(false)} disabled={deleting}>取消</button><button className="primary-button paper-danger-button" onClick={deleteSelectedPaper} disabled={deleting}><Trash2 size={16} />{deleting ? '正在删除' : '确认删除'}</button></div>
+          </section>
+        </div>
+      )}
     </div>
   )
+}
+
+function formatFileSize(bytes) {
+  if (!Number.isFinite(bytes) || bytes <= 0) return '0 B'
+  const units = ['B', 'KB', 'MB', 'GB']
+  const unitIndex = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1)
+  const value = bytes / (1024 ** unitIndex)
+  return `${value >= 10 || unitIndex === 0 ? value.toFixed(0) : value.toFixed(1)} ${units[unitIndex]}`
+}
+
+function uploadStatusLabel(status) {
+  return ({ pending: '等待上传', uploading: '上传中', success: '已导入', error: '失败', cancelled: '已取消', invalid: '无法上传' })[status] || status
+}
+
+function keepFocusInDialog(event, dialog) {
+  if (event.key !== 'Tab' || !dialog) return
+  const focusable = Array.from(dialog.querySelectorAll('button:not(:disabled), input:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])'))
+  if (!focusable.length) return
+  const first = focusable[0]
+  const last = focusable[focusable.length - 1]
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault()
+    last.focus()
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault()
+    first.focus()
+  }
 }
 
 function ExperimentsView({ experiments, setToast }) {

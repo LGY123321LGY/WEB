@@ -3033,3 +3033,757 @@ kbd {
   .learning-view *::before,
   .learning-view *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
+
+/* ============ Immersive Papers Workbench ============ */
+.app-shell:not(.portal-app) .papers-view {
+  --papers-night: #071425;
+  --papers-sky: #789bc5;
+  --papers-sky-hover: #8badcf;
+  --papers-muted: rgba(255,255,255,0.62);
+  --papers-faint: rgba(255,255,255,0.45);
+  --papers-line: rgba(255,255,255,0.12);
+  --papers-line-soft: rgba(255,255,255,0.18);
+}
+
+.app-shell:not(.portal-app) .papers-view .page-heading {
+  min-height: 0;
+  gap: 16px;
+  padding: 14px 4px 10px;
+}
+.app-shell:not(.portal-app) .papers-view .page-heading h1 {
+  margin-top: 4px;
+  margin-bottom: 0;
+  line-height: 1.02;
+}
+
+.app-shell:not(.portal-app) .papers-view .paper-toolbar {
+  min-height: 58px;
+  padding-block: 10px;
+}
+
+.app-shell:not(.portal-app) .papers-view .paper-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-shell:not(.portal-app) .papers-view .library-layout {
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.6fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.app-shell:not(.portal-app) .papers-view .paper-library,
+.app-shell:not(.portal-app) .papers-view .paper-detail {
+  color: #fff;
+  background: rgba(6,18,35,0.15);
+  border: 1px solid var(--papers-line);
+  border-radius: 8px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.app-shell:not(.portal-app) .papers-view .paper-panel-head {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--papers-line);
+}
+
+.app-shell:not(.portal-app) .papers-view .paper-panel-head > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.app-shell:not(.portal-app) .papers-view .paper-panel-head svg { color: var(--papers-sky); }
+.app-shell:not(.portal-app) .papers-view .paper-panel-head strong {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.app-shell:not(.portal-app) .papers-view .paper-panel-head > span:last-child,
+.app-shell:not(.portal-app) .papers-view .library-header {
+  color: var(--papers-faint);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.app-shell:not(.portal-app) .papers-view .library-header {
+  grid-template-columns: minmax(0, 1fr) 90px 80px;
+  height: 38px;
+  padding: 0 16px 0 68px;
+  background: rgba(5,15,31,0.18);
+  border-color: var(--papers-line);
+}
+
+.app-shell:not(.portal-app) .papers-view .library-row {
+  grid-template-columns: 40px minmax(0, 1fr) 90px 80px;
+  gap: 12px;
+  min-height: 78px;
+  padding: 10px 16px;
+  color: #fff;
+  border: 1px solid transparent;
+  border-bottom-color: var(--papers-line);
+  box-shadow: none;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.app-shell:not(.portal-app) .papers-view .library-row:last-child { border-bottom-color: transparent; }
+.app-shell:not(.portal-app) .papers-view .library-row:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: var(--papers-line);
+}
+.app-shell:not(.portal-app) .papers-view .library-row.selected {
+  background: rgba(120,155,197,0.12);
+  border-color: rgba(120,155,197,0.35);
+  box-shadow: inset 3px 0 var(--papers-sky);
+}
+
+.app-shell:not(.portal-app) .papers-view .document-icon {
+  width: 36px;
+  height: 44px;
+  color: var(--papers-sky);
+  background: rgba(120,155,197,0.12);
+  border: 1px solid rgba(120,155,197,0.2);
+  border-radius: 6px;
+}
+
+.app-shell:not(.portal-app) .papers-view .library-copy { min-width: 0; }
+.app-shell:not(.portal-app) .papers-view .library-copy strong {
+  display: block;
+  overflow: hidden;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.app-shell:not(.portal-app) .papers-view .library-copy small {
+  display: block;
+  overflow: hidden;
+  margin-top: 5px;
+  color: var(--papers-muted);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-shell:not(.portal-app) .papers-view .library-progress {
+  grid-template-columns: 1fr 34px;
+  gap: 8px;
+}
+.app-shell:not(.portal-app) .papers-view .library-progress span {
+  color: var(--papers-muted);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+}
+
+.app-shell:not(.portal-app) .papers-view .paper-status {
+  justify-content: center;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 10px;
+}
+.app-shell:not(.portal-app) .papers-view .status-精读 { color: #f3b996; background: rgba(200,107,50,0.18); }
+.app-shell:not(.portal-app) .papers-view .status-在读 { color: #9bc4d3; background: rgba(63,107,122,0.18); }
+.app-shell:not(.portal-app) .papers-view .status-待读 { color: var(--papers-muted); background: rgba(255,255,255,0.08); }
+.app-shell:not(.portal-app) .papers-view .status-已归档 { color: var(--papers-faint); background: rgba(255,255,255,0.06); }
+
+.app-shell:not(.portal-app) .papers-view .empty-state {
+  margin: 16px;
+  color: var(--papers-muted);
+  border-color: var(--papers-line-soft);
+}
+
+.app-shell:not(.portal-app) .papers-view .paper-detail {
+  position: sticky;
+  top: 84px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.app-shell:not(.portal-app) .papers-view .detail-top {
+  min-height: 52px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--papers-line);
+}
+
+.app-shell:not(.portal-app) .papers-view .detail-top .text-button {
+  gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .8px;
+}
+
+.app-shell:not(.portal-app) .papers-view .paper-detail-content { padding: 20px; }
+.app-shell:not(.portal-app) .papers-view .paper-detail h2 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.42;
+}
+.app-shell:not(.portal-app) .papers-view .venue-line {
+  color: var(--papers-muted);
+  font-size: 12px;
+}
+
+.app-shell:not(.portal-app) .papers-view .detail-progress {
+  margin: 20px 0 0;
+  padding: 18px 0;
+  border-top: 1px solid var(--papers-line);
+  border-bottom: 1px solid var(--papers-line);
+}
+.app-shell:not(.portal-app) .papers-view .detail-progress label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: var(--papers-muted);
+  font-size: 11px;
+}
+.app-shell:not(.portal-app) .papers-view .detail-progress strong {
+  color: var(--papers-sky);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px;
+  font-weight: 500;
+}
+.app-shell:not(.portal-app) .papers-view .detail-progress input[type='range'] {
+  width: 100%;
+  height: 5px;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: linear-gradient(to right, var(--papers-sky) var(--paper-progress), rgba(255,255,255,0.17) var(--paper-progress));
+  border-radius: 999px;
+  cursor: pointer;
+}
+.app-shell:not(.portal-app) .papers-view .detail-progress input[type='range']::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 2px solid var(--papers-sky);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(3,10,23,0.22);
+}
+.app-shell:not(.portal-app) .papers-view .detail-progress input[type='range']::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  background: #fff;
+  border: 2px solid var(--papers-sky);
+  border-radius: 50%;
+}
+
+.app-shell:not(.portal-app) .papers-view .paper-detail-section {
+  padding-top: 18px;
+}
+.app-shell:not(.portal-app) .papers-view .paper-detail-label {
+  display: flex;
+  min-height: 26px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--papers-muted);
+  font-size: 10px;
+}
+.app-shell:not(.portal-app) .papers-view .paper-detail-label > span {
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: .8px;
+}
+.app-shell:not(.portal-app) .papers-view .paper-detail-label button {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  color: var(--papers-muted);
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.app-shell:not(.portal-app) .papers-view .paper-detail-label button:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+.app-shell:not(.portal-app) .papers-view .detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 0;
+}
+.app-shell:not(.portal-app) .papers-view .detail-tags span {
+  padding: 5px 8px;
+  color: #b8d8fb;
+  background: rgba(120,155,197,0.18);
+  border-radius: 999px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+}
+.app-shell:not(.portal-app) .papers-view .detail-tags span:nth-child(even) { color: #f3b996; background: rgba(200,107,50,0.16); }
+
+.app-shell:not(.portal-app) .papers-view .paper-note-section {
+  margin-top: 18px;
+  border-top: 1px solid var(--papers-line);
+}
+.app-shell:not(.portal-app) .papers-view .paper-note-preview {
+  width: 100%;
+  min-height: 88px;
+  margin-top: 8px;
+  padding: 0;
+  color: rgba(255,255,255,0.78);
+  background: transparent;
+  border: 0;
+  cursor: text;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.75;
+  text-align: left;
+}
+.app-shell:not(.portal-app) .papers-view .paper-note-section textarea {
+  width: 100%;
+  min-height: 112px;
+  margin-top: 8px;
+  padding: 11px 12px;
+  color: #fff;
+  background: rgba(5,15,31,0.28);
+  border: 1px solid var(--papers-line-soft);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 1.75;
+  resize: vertical;
+}
+
+.app-shell:not(.portal-app) .papers-view .paper-detail-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 14px 20px 18px;
+  border-top: 1px solid var(--papers-line);
+}
+.app-shell:not(.portal-app) .papers-view .paper-detail-actions button { justify-content: center; min-width: 0; padding-inline: 10px; }
+.app-shell:not(.portal-app) .papers-view .paper-delete-button { color: #ffc6bc; border-color: rgba(255, 151, 132, 0.28); }
+.app-shell:not(.portal-app) .papers-view .paper-import-hint { max-width: 180px; color: rgba(255,255,255,0.56); font-size: 10px; line-height: 1.35; }
+
+.papers-view .visually-hidden {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.paper-dialog-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(2, 8, 19, 0.62);
+  backdrop-filter: blur(12px);
+}
+.app-shell:not(.portal-app):has(.paper-dialog-mask) .main-content { z-index: 110; }
+.paper-upload-dialog,
+.paper-tag-dialog,
+.paper-confirm-dialog {
+  width: min(760px, 100%);
+  max-height: min(82vh, 820px);
+  overflow: hidden;
+  color: #fff;
+  background: rgba(9, 20, 38, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.19);
+  border-radius: 8px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px) saturate(132%);
+  animation: paper-dialog-enter 180ms ease-out;
+}
+.paper-tag-dialog { width: min(480px, 100%); }
+.paper-confirm-dialog { width: min(460px, 100%); padding: 22px; }
+.paper-confirm-dialog > p { margin: 18px 0 0; color: rgba(255, 255, 255, 0.68); font-size: 13px; line-height: 1.7; overflow-wrap: anywhere; }
+.paper-dialog-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.paper-confirm-dialog .paper-dialog-heading { padding: 0 0 15px; }
+.paper-dialog-heading .eyebrow { color: rgba(194, 222, 235, 0.68); }
+.paper-dialog-heading h2 { margin: 4px 0 0; color: #fff; font-family: 'Instrument Serif', 'Noto Serif SC', serif; font-size: 27px; font-style: italic; font-weight: 400; line-height: 1.08; }
+.paper-upload-summary {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 8px 14px;
+  padding: 14px 22px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 11px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.paper-upload-summary > strong { justify-self: end; color: #fff; font-size: 13px; }
+.paper-upload-summary > small { justify-self: end; color: rgba(255, 255, 255, 0.5); }
+.paper-upload-track,
+.paper-item-progress { height: 3px; overflow: hidden; background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
+.paper-upload-track i,
+.paper-item-progress i { display: block; height: 100%; background: linear-gradient(90deg, #67b7d1, #ed9a68); transition: width 160ms ease; }
+.paper-upload-list { max-height: min(48vh, 480px); overflow: auto; padding: 4px 22px; }
+.paper-upload-item { position: relative; padding: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+.paper-upload-item:last-child { border-bottom: 0; }
+.paper-upload-file { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 9px; }
+.paper-upload-file > svg { color: #79bdd1; }
+.paper-upload-file > span:nth-child(2) { min-width: 0; }
+.paper-upload-file strong,
+.paper-upload-file small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.paper-upload-file strong { color: rgba(255, 255, 255, 0.9); font-size: 12px; font-weight: 600; }
+.paper-upload-file small { margin-top: 3px; color: rgba(255, 255, 255, 0.48); font-size: 10px; }
+.paper-upload-status { padding: 4px 7px; color: rgba(255, 255, 255, 0.67); background: rgba(255, 255, 255, 0.07); border-radius: 4px; font-size: 10px; }
+.paper-upload-item.is-success .paper-upload-status { color: #a9d9c2; background: rgba(71, 147, 108, 0.18); }
+.paper-upload-item.is-error .paper-upload-status,
+.paper-upload-item.is-invalid .paper-upload-status { color: #ffc0b4; background: rgba(196, 75, 57, 0.18); }
+.paper-upload-fields { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(150px, 0.75fr); gap: 10px; margin: 11px 0 0 33px; }
+.paper-upload-fields label span { display: block; margin-bottom: 5px; color: rgba(255, 255, 255, 0.5); font-size: 10px; }
+.paper-upload-fields input {
+  width: 100%;
+  height: 36px;
+  min-width: 0;
+  padding: 0 10px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 5px;
+  font: inherit;
+  font-size: 12px;
+}
+.paper-upload-fields input::placeholder { color: rgba(255, 255, 255, 0.34); }
+.paper-upload-fields input:disabled { opacity: 0.58; }
+.paper-upload-fields input[aria-invalid='true'] { border-color: rgba(255, 137, 116, 0.72); }
+.paper-item-progress { margin: 10px 0 0 33px; }
+.paper-upload-error { margin: 8px 0 0 33px; color: #ffc0b4; font-size: 11px; line-height: 1.45; overflow-wrap: anywhere; }
+.paper-upload-item > .text-button { margin: 7px 0 0 33px; color: #b6dfed; }
+.paper-tag-content { padding: 18px 22px 20px; }
+.paper-tag-context {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.paper-tag-context > svg { flex: 0 0 auto; color: #79bdd1; }
+.paper-tag-context > span { min-width: 0; }
+.paper-tag-context small,
+.paper-tag-context strong { display: block; }
+.paper-tag-context small { margin-bottom: 3px; color: rgba(255, 255, 255, 0.46); font-size: 10px; }
+.paper-tag-context strong { overflow: hidden; color: rgba(255, 255, 255, 0.86); font-size: 12px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.paper-tag-existing { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 14px; }
+.paper-tag-existing span { padding: 4px 8px; color: #b7dce8; background: rgba(77, 139, 160, 0.16); border: 1px solid rgba(133, 199, 219, 0.14); border-radius: 4px; font-size: 10px; }
+.paper-tag-existing span:nth-child(even) { color: #f3b996; background: rgba(200, 107, 50, 0.14); border-color: rgba(231, 149, 99, 0.14); }
+.paper-tag-field { display: block; margin-top: 16px; }
+.paper-tag-field > span { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 7px; }
+.paper-tag-field > span strong { color: rgba(255, 255, 255, 0.68); font-size: 11px; font-weight: 500; }
+.paper-tag-field > span small { color: rgba(255, 255, 255, 0.4); font-size: 10px; }
+.paper-tag-field > div {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  height: 44px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+.paper-tag-field > div:focus-within { background: rgba(255, 255, 255, 0.075); border-color: rgba(139, 201, 220, 0.72); }
+.paper-tag-field > div.has-error { border-color: rgba(255, 137, 116, 0.72); }
+.paper-tag-field > div > span { color: #79bdd1; font-family: var(--mono); font-size: 15px; text-align: center; }
+.paper-tag-field input { width: 100%; height: 100%; min-width: 0; padding: 0 12px 0 0; color: #fff; background: transparent; border: 0; outline: 0; font: inherit; font-size: 13px; }
+.paper-tag-field input::placeholder { color: rgba(255, 255, 255, 0.32); }
+.paper-tag-error { margin: 8px 0 0; color: #ffc0b4; font-size: 11px; }
+.paper-dialog-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 16px 22px 20px; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+.paper-confirm-dialog .paper-dialog-actions { padding: 20px 0 0; border-top: 0; }
+.paper-danger-button { color: #fff !important; background: rgba(151, 47, 37, 0.74) !important; border-color: rgba(255, 171, 156, 0.34) !important; }
+.paper-upload-dialog:focus-visible,
+.paper-tag-dialog:focus-visible,
+.paper-confirm-dialog:focus-visible,
+.paper-upload-dialog button:focus-visible,
+.paper-upload-dialog input:focus-visible,
+.paper-tag-dialog button:focus-visible,
+.paper-tag-dialog input:focus-visible,
+.paper-confirm-dialog button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+@keyframes paper-dialog-enter {
+  from { opacity: 0; transform: translateY(8px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.app-shell:not(.portal-app) .papers-view .library-row:focus-visible,
+.app-shell:not(.portal-app) .papers-view .paper-note-preview:focus-visible,
+.app-shell:not(.portal-app) .papers-view .paper-detail-label button:focus-visible,
+.app-shell:not(.portal-app) .papers-view .detail-progress input:focus-visible,
+.app-shell:not(.portal-app) .papers-view .paper-note-section textarea:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .app-shell:not(.portal-app) .papers-view .library-layout { grid-template-columns: 1fr; }
+  .app-shell:not(.portal-app) .papers-view .paper-detail { position: relative; top: auto; scroll-margin-top: 78px; }
+}
+
+@media (max-width: 720px) {
+  .app-shell:not(.portal-app) .papers-view .page-heading { padding: 10px 4px 8px; }
+  .app-shell:not(.portal-app) .papers-view .paper-toolbar { align-items: stretch; }
+  .app-shell:not(.portal-app) .papers-view .segmented-control { width: 100%; }
+  .app-shell:not(.portal-app) .papers-view .paper-toolbar-actions { width: 100%; }
+  .app-shell:not(.portal-app) .papers-view .paper-toolbar-actions { flex-wrap: wrap; }
+  .app-shell:not(.portal-app) .papers-view .paper-toolbar-actions button { flex: 1; justify-content: center; }
+  .app-shell:not(.portal-app) .papers-view .paper-import-hint { order: 5; flex: 1 0 100%; max-width: none; }
+  .app-shell:not(.portal-app) .papers-view .library-header { display: none; }
+  .app-shell:not(.portal-app) .papers-view .library-row {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 6px 12px;
+    padding: 12px;
+  }
+  .app-shell:not(.portal-app) .papers-view .document-icon { grid-row: 1 / 4; grid-column: 1; align-self: start; }
+  .app-shell:not(.portal-app) .papers-view .library-copy { grid-row: 1; grid-column: 2; }
+  .app-shell:not(.portal-app) .papers-view .library-progress { grid-row: 2; grid-column: 2; width: min(100%, 210px); margin: 2px 0 0; }
+  .app-shell:not(.portal-app) .papers-view .library-row > .paper-status { grid-row: 3; grid-column: 2; }
+  .app-shell:not(.portal-app) .papers-view .paper-detail-content { padding: 18px 16px; }
+  .app-shell:not(.portal-app) .papers-view .detail-top { padding-inline: 16px; }
+  .app-shell:not(.portal-app) .papers-view .paper-detail-actions { grid-template-columns: 1fr; padding-inline: 16px; }
+  .app-shell:not(.portal-app) .papers-view .paper-detail-actions button { width: 100%; }
+}
+
+@media (max-width: 720px) {
+  .paper-dialog-mask { padding: 12px; }
+  .paper-upload-dialog { max-height: 90vh; }
+  .paper-dialog-heading { padding: 16px; }
+  .paper-upload-summary { padding: 12px 16px; }
+  .paper-upload-list { max-height: 55vh; padding-inline: 16px; }
+  .paper-upload-fields { grid-template-columns: 1fr; }
+  .paper-dialog-actions { padding: 14px 16px 16px; flex-wrap: wrap; }
+}
+
+@media (max-width: 420px) {
+  .paper-dialog-mask { place-items: end center; padding: 8px; }
+  .paper-upload-dialog { width: 100%; max-height: calc(100dvh - 16px); }
+  .paper-tag-dialog { width: 100%; }
+  .paper-dialog-heading h2 { font-size: 24px; }
+  .paper-upload-file { grid-template-columns: 22px minmax(0, 1fr); }
+  .paper-upload-status { grid-column: 2; justify-self: start; }
+  .paper-upload-fields,
+  .paper-item-progress,
+  .paper-upload-error,
+  .paper-upload-item > .text-button { margin-left: 31px; }
+  .paper-dialog-actions > button { flex: 1 1 120px; justify-content: center; }
+  .paper-confirm-dialog { padding: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell:not(.portal-app) .papers-view *,
+  .app-shell:not(.portal-app) .papers-view *::before,
+  .app-shell:not(.portal-app) .papers-view *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+  .paper-upload-dialog,
+  .paper-tag-dialog,
+  .paper-confirm-dialog { animation: none; }
+  .paper-upload-track i,
+  .paper-item-progress i { transition: none; }
+}
+
+/* Profile-only 3D story: scroll-scrubbed local video with a restrained particle field. */
+.app-shell.profile-only-app {
+  min-height: 100svh;
+  overflow-x: clip;
+  color: #f5f7fb;
+  background: #05080d;
+}
+
+.profile-story-background {
+  position: fixed;
+  z-index: -2;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #05080d;
+}
+
+.profile-story-background video {
+  position: absolute;
+  inset: -2%;
+  width: 104%;
+  height: 104%;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0.96;
+  filter: saturate(0.78) contrast(1.08);
+  animation: profile-story-video-in 900ms ease-out both;
+}
+
+.profile-story-background canvas {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.72;
+}
+
+.profile-story-vignette {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(3, 5, 10, 0.08), rgba(3, 5, 10, 0.04) 38%, rgba(3, 5, 10, 0.78) 100%);
+}
+
+.profile-only-app .main-content {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+}
+
+.profile-only-app .profile-workspace-view {
+  min-height: max(142svh, 1080px);
+  padding-top: clamp(280px, 46vh, 520px);
+  padding-bottom: clamp(96px, 16vh, 220px);
+}
+
+.profile-only-app .page-heading {
+  border-bottom-color: rgba(235, 242, 255, 0.22);
+  animation: profile-story-rise 760ms cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.profile-only-app .page-heading h1 {
+  color: #f7f9fd;
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.3);
+}
+
+.profile-only-app .page-heading p,
+.profile-only-app .eyebrow { color: rgba(232, 238, 248, 0.7); }
+
+.profile-only-app .profile-workspace-grid .panel {
+  background: rgba(5, 9, 16, 0.36);
+  border-color: rgba(234, 241, 252, 0.21);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(18px) saturate(118%);
+  -webkit-backdrop-filter: blur(18px) saturate(118%);
+  animation: profile-story-rise 820ms cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.profile-only-app .profile-focus-panel { animation-delay: 100ms; }
+.profile-only-app .profile-contact-panel { animation-delay: 180ms; }
+.profile-only-app .profile-repository-panel { animation-delay: 260ms; }
+
+.profile-only-app .profile-workspace-grid .section-header,
+.profile-only-app .profile-focus-list span { border-color: rgba(232, 239, 250, 0.16); }
+
+.profile-only-app .profile-heading-actions .secondary-button,
+.profile-only-app .profile-heading-actions .primary-button,
+.profile-only-app .profile-workspace-grid .icon-text-button {
+  color: #f7f9fd;
+  background: rgba(5, 9, 16, 0.34);
+  border-color: rgba(234, 241, 252, 0.26);
+  border-radius: 7px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.profile-only-app .profile-heading-actions .secondary-button:hover,
+.profile-only-app .profile-heading-actions .primary-button:hover,
+.profile-only-app .profile-workspace-grid .icon-text-button:hover {
+  color: #07101d;
+  background: #8bb8ed;
+  border-color: #8bb8ed;
+}
+
+@keyframes profile-story-video-in {
+  from { opacity: 0; transform: scale(1.025); }
+  to { opacity: 0.96; transform: scale(1); }
+}
+
+@keyframes profile-story-rise {
+  from { opacity: 0; filter: blur(8px); transform: translateY(24px); }
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+
+@media (max-width: 720px) {
+  .profile-story-background video { inset: 0; width: 100%; height: 100%; }
+  .profile-only-app .profile-workspace-view {
+    min-height: max(126svh, 900px);
+    padding-top: clamp(190px, 32vh, 300px);
+    padding-bottom: 84px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-story-background video,
+  .profile-only-app .page-heading,
+  .profile-only-app .profile-workspace-grid .panel { animation: none; }
+}
+
+/* Profile copy is editable in place while retaining the story's quiet glass surface. */
+.profile-editable-input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 2px 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  outline: none;
+  font: inherit;
+  resize: vertical;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.profile-editable-input:hover { border-bottom-color: rgba(234, 241, 252, 0.2); }
+.profile-editable-input:focus {
+  border-bottom-color: rgba(139, 184, 237, 0.9);
+  background: rgba(139, 184, 237, 0.06);
+}
+.profile-editable-input::placeholder { color: rgba(232, 238, 248, 0.38); }
+.profile-title-input { max-width: 520px; }
+.profile-introduction-input { max-width: 690px; min-height: 38px; line-height: 1.7; }
+.profile-role-input { margin: 0; color: rgba(255, 255, 255, 0.66); font-family: 'Barlow', 'Noto Sans SC', sans-serif; font-size: 12px; }
+.profile-focus-input { color: rgba(255, 255, 255, 0.82); }
+.profile-email-input { max-width: 100%; margin-top: 8px; color: #fff; font-family: var(--mono); font-size: 14px; font-weight: 500; }
+.profile-repository-fields { min-width: 0; flex: 1; }
+.profile-repository-input { margin-top: 7px; color: #fff; font-family: var(--mono); font-size: 15px; }
+.profile-repository-url-input { margin-top: 8px; color: rgba(232, 238, 248, 0.62); font-family: var(--mono); font-size: 11px; }
+.profile-editable-repository-link { flex-shrink: 0; margin-left: auto; color: #fff; text-decoration: none; }
+.profile-only-app .page-heading p:has(.profile-introduction-input) { margin: 0; }
+.profile-only-app .profile-role:not(.profile-role-input),
+.profile-only-app .profile-focus-list:not(.profile-editable-focus-list),
+.profile-only-app .profile-repository-content > .profile-empty-state { display: none; }
+
+@media (max-width: 720px) {
+  .profile-title-input { max-width: 100%; }
+  .profile-repository-fields { width: 100%; flex-basis: 100%; }
+  .profile-editable-repository-link { margin-left: 47px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-editable-input { transition: none; }
+}
